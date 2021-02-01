@@ -7,7 +7,7 @@ const ProgramSelect = ({
   value,
   onChange,
 }: {
-  institutionId: string;
+  institutionId?: string;
   value?: string;
   onChange?: Function;
 }) => {

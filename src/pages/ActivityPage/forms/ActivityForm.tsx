@@ -2,6 +2,8 @@ import { Button, Col, Form, Input, Row, Select } from "antd";
 import React, { useState } from "react";
 import ActivityImpactSelect from "../../LoginPage/components/ActivityImpactSelect";
 import InstitutionsSelect from "../components/InstitutionSelect";
+import MunicipiosSelect from "../components/MunicipioSelect";
+import ParroquiaSelect from "../components/ParroquiaSelect";
 import ProgramSelect from "../components/ProgramSelect";
 import ProjectSelect from "../components/ProjectSelect";
 
@@ -11,7 +13,10 @@ const ActivityForm = () => {
   };
 
   const [program, setProgram] = useState<string | undefined>();
-  const [parentInstitution, setParentInstitution] = useState<string | undefined>();
+  const [municipio, setMunicipio] = useState<string | undefined>();
+  const [parentInstitution, setParentInstitution] = useState<
+    string | undefined
+  >();
 
   return (
     <Form layout="vertical" onFinish={handleSubmit}>
@@ -22,7 +27,10 @@ const ActivityForm = () => {
             name="parent_institution"
             label="Secretaria Ejecutiva"
             rules={[
-              { required: true, message: "Debes seleccionar secretaria ejecutiva." },
+              {
+                required: true,
+                message: "Debes seleccionar secretaria ejecutiva.",
+              },
             ]}
           >
             <InstitutionsSelect onlyParent onChange={setParentInstitution} />
@@ -34,10 +42,17 @@ const ActivityForm = () => {
             name="institutionId"
             label="Institucion"
             rules={[
-              { required: true, message: "Debes seleccionar secretaria ejecutiva." },
+              {
+                required: true,
+                message: "Debes seleccionar secretaria ejecutiva.",
+              },
             ]}
           >
-            <InstitutionsSelect disabled={!parentInstitution} parentId={parentInstitution} onChange={setParentInstitution} />
+            <InstitutionsSelect
+              disabled={!parentInstitution}
+              parentId={parentInstitution}
+              onChange={setParentInstitution}
+            />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -49,7 +64,10 @@ const ActivityForm = () => {
               { required: true, message: "Debes indicar nombre del programa." },
             ]}
           >
-            <ProgramSelect onChange={setProgram} institutionId={"a51f463a-2293-465a-bbc5-a157436abc28"} />
+            <ProgramSelect
+              onChange={setProgram}
+              institutionId={"a51f463a-2293-465a-bbc5-a157436abc28"}
+            />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -70,7 +88,10 @@ const ActivityForm = () => {
             name="name"
             label="Actividad"
             rules={[
-              { required: true, message: "Debes indicar nombre de la actividad" },
+              {
+                required: true,
+                message: "Debes indicar nombre de la actividad",
+              },
             ]}
           >
             <Input />
@@ -116,7 +137,7 @@ const ActivityForm = () => {
               },
             ]}
           >
-            <Input />
+            <MunicipiosSelect  onChange={setMunicipio}/>
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -131,7 +152,7 @@ const ActivityForm = () => {
               },
             ]}
           >
-            <Input />
+             <ParroquiaSelect disabled={!municipio} municipio_id={municipio}/>
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -215,7 +236,10 @@ const ActivityForm = () => {
             name="gestion_impact"
             label="Impacto de gestion"
             rules={[
-              { required: true, message: "Debes indicar el impacto de la gestion" },
+              {
+                required: true,
+                message: "Debes indicar el impacto de la gestion",
+              },
             ]}
           >
             <ActivityImpactSelect />
@@ -225,12 +249,11 @@ const ActivityForm = () => {
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Registrar
-        </Button>
+            </Button>
           </Form.Item>
         </Col>
       </Row>
     </Form>
-
   );
 };
 export default ActivityForm;

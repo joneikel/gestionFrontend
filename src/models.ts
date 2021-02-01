@@ -25,3 +25,12 @@ export type Project = {
     description: string;
     program: Program
 }
+
+export type Municipio = {
+    id: string;
+    name: string;
+}
+export type Parroquia = {
+    id: string;
+    name: string;
+}

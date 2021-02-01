@@ -1,9 +1,12 @@
+import { Card } from 'antd';
 import React from 'react';
 import ActivityForm from './forms/ActivityForm';
 
 const ActivityPage = () => {
     return (
-        <ActivityForm />
+        <Card title="Nueva actividad">
+            <ActivityForm />
+        </Card>
     )
 }
 

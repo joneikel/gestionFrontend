@@ -20,7 +20,6 @@ const ActivityForm = () => {
 
   return (
     <>
-    <h1>Nueva Actividad</h1><br/>
     <Form layout="vertical" onFinish={handleSubmit}>
       <Row gutter={10}>
         <Col span={12}>

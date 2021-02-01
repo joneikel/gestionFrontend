@@ -68,7 +68,6 @@ const ActivityForm = () => {
           >
             <ProgramSelect
               onChange={setProgram}
-              institutionId={"a51f463a-2293-465a-bbc5-a157436abc28"}
             />
           </Form.Item>
         </Col>

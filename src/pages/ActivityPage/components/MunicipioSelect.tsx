@@ -17,9 +17,9 @@ const MunicipiosSelect = ({
 
   return (
     <Select onChange={handleChange} loading={loadingMunicipios}>
-      {municipios.map((program) => (
-        <Select.Option value={program.id} key={program.id}>
-          {program.name}
+      {municipios.map((municipio) => (
+        <Select.Option value={municipio.id} key={municipio.id}>
+          {municipio.name}
         </Select.Option>
       ))}
     </Select>

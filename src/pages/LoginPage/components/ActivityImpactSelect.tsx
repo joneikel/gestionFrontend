@@ -28,9 +28,9 @@ const ActivityImpactSelect = ({
   };
 
   return (
-    <Select>
+    <Select onChange={handleChange}>
       {options.map(({ value, label }) => (
-        <Select.Option onChange={handleChange} key={value} value={value}>
+        <Select.Option key={value} value={value}>
           {label}
         </Select.Option>
       ))}

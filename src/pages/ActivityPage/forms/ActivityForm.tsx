@@ -14,6 +14,8 @@ const ActivityForm = () => {
   const [parentInstitution, setParentInstitution] = useState<string | undefined>();
 
   return (
+    <>
+    <h1>Nueva Actividad</h1><br/>
     <Form layout="vertical" onFinish={handleSubmit}>
       <Row gutter={10}>
         <Col span={12}>
@@ -230,7 +232,7 @@ const ActivityForm = () => {
         </Col>
       </Row>
     </Form>
-
+  </>
   );
 };
 export default ActivityForm;

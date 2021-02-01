@@ -4,7 +4,7 @@ import ActivityPage from "../ActivityPage";
 
 const LoginPage = () => {
   return (
-    <Card style={{ width: "35vw" }}>
+    <Card title="Formulario de actividad" style={{ width: "85vw" }}>
       <ActivityPage></ActivityPage>
     </Card>
   );

@@ -2,10 +2,13 @@ import { Button, Col, Form, Input, message, Row } from "antd";
 import React, { useState } from "react";
 import ProgramSelect from "../../ActivityPage/components/ProgramSelect";
 import { useAxios } from "../../../hooks/useAxios";
+import { useHistory } from "react-router-dom";
 
 const ProjectForm = () => {
 
     const axios = useAxios();
+    const history = useHistory();
+
     const [loading,setLoading] = useState<boolean>(false);
 
     const handleSubmit = async (values: any) => {
@@ -13,7 +16,8 @@ const ProjectForm = () => {
         setLoading(true);
         try {
             const response =  await axios.post('project',values);
-            message.success("Proyecto creado.")
+            message.success("Proyecto creado.");
+            history.push('/nueva-actividad');
             return response;
         } catch (error) {
             message.error("No se pudo crear el proyecto.");

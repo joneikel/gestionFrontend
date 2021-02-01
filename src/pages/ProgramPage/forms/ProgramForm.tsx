@@ -2,10 +2,14 @@ import { Button, Col, Form, Input, message, Row } from "antd";
 import React, { useState } from "react";
 import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
 import { useAxios } from "../../../hooks/useAxios";
+import { useHistory } from "react-router-dom";
 
 const ProgramForm = () => {
 
     const axios = useAxios();
+    const history = useHistory();
+
+    const [parentInstitution, setParentInstitution] = useState<string | undefined>();
     const [loading,setLoading] = useState<boolean>(false);
 
     const handleSubmit = async (values: any) => {
@@ -13,19 +17,18 @@ const ProgramForm = () => {
     setLoading(true);
     try {
         const response = await axios.post('program', values);
-        message.success("Programa creado.")
+        message.success("Programa creado.");
+        history.push('/nueva-actividad');
         return response;
     } catch (error) {
         message.error("No Se puedo crear el programa,");
     }  finally {
         setLoading(false);
-    }
-    
-    };
+    }};
 
 
     
-    const [parentInstitution, setParentInstitution] = useState<string | undefined>();
+    
     return (
         <>
         <h1>Nuevo Programa</h1><br/>

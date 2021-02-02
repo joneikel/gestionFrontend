@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ProgramSelect from "../../ActivityPage/components/ProgramSelect";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
+import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
 
 const ProjectForm = () => {
 
@@ -10,14 +11,26 @@ const ProjectForm = () => {
     const history = useHistory();
 
     const [loading,setLoading] = useState<boolean>(false);
+    const [parentInstitution, setParentInstitution] = useState<
+    string | undefined
+    >();
+    const [institution,setInstitution] = useState<
+    string | undefined
+    >();
+    
 
     const handleSubmit = async (values: any) => {
+
+        delete values.parentInstitution;
+        delete values.institutionId;
+
         console.log(values);
+
         setLoading(true);
         try {
             const response =  await axios.post('project',values);
             message.success("Proyecto creado.");
-            history.push('/nueva-actividad');
+            history.push('/nuevo-proyecto');
             return response;
         } catch (error) {
             message.error("No se pudo crear el proyecto.");
@@ -33,6 +46,43 @@ const ProjectForm = () => {
         <h1>Nuevo Proyecto</h1><br/>
         <Form layout="vertical" onFinish={handleSubmit}>
             <Row gutter={10}>
+                
+                <Col span={12}>
+                    <Form.Item
+                    hasFeedback
+                    name="parentInstitution"
+                    label="Secretaria Ejecutiva"
+                    rules={[
+                        {
+                        required: true,
+                        message: "Debes seleccionar secretaria ejecutiva.",
+                        },
+                    ]}
+                    >
+                    <InstitutionsSelect onlyParent onChange={setParentInstitution} />
+                </Form.Item>
+                </Col>
+
+                <Col span={12}>
+                    <Form.Item
+                    hasFeedback
+                    name="institutionId"
+                    label="Institucion"
+                    rules={[
+                        {
+                        required: true,
+                        message: "Debes seleccionar secretaria ejecutiva.",
+                        },
+                    ]}
+                    >
+                    <InstitutionsSelect
+                        disabled={!parentInstitution}
+                        parentId={parentInstitution}
+                        onChange={setInstitution}
+                    />
+                    </Form.Item>
+                </Col>
+                
                 <Col span={12}>
                     <Form.Item
                         hasFeedback
@@ -43,6 +93,8 @@ const ProjectForm = () => {
                         ]}
                     >
                         <ProgramSelect
+                        disabled={!institution}
+                        institutionId={institution}
                         onChange={setProgram}
                         />
                     </Form.Item>

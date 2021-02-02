@@ -1,43 +1,78 @@
 import React, { ReactNode } from 'react';
-import {CalendarOutlined} from "@ant-design/icons";
+import {
+  CalendarOutlined,
+  BankOutlined,
+  FolderOutlined,
+  AudioOutlined,
+  PlusCircleOutlined
+} from "@ant-design/icons";
 
 export const routes: SidebarItem[] = [
-    {
-        label: "Actividad",
-        icon: <CalendarOutlined />,
-        link: "/nueva-actividad",
-        children: [],
+      {
+        label: "Secretarías",
+        icon: <BankOutlined />,
+        link: "#",
+        children: [
+          /* {
+            label: "Listar",
+            icon: <CalendarOutlined />,
+            link: "/listar-secretarías",
+            children: [],
+          }, */{
+            label: "Nueva",
+            icon: <PlusCircleOutlined />,
+            link: "/nueva-secretaría",
+            children: [],
+          },{
+            label: "Nueva Secretaría Ejecutiva",
+            icon: <PlusCircleOutlined />,
+            link: "/nueva-secretaría-ejecutiva",
+            children: [],
+          },
+        ],
       },{
         label: "Programas",
         icon: <CalendarOutlined />,
         link: "#",
         children: [
-          {
+          /* {
             label: "Listar",
             icon: <CalendarOutlined />,
             link: "/listar-programas",
             children: [],
-          }, {
+          }, */ {
             label: "Nuevo",
-            icon: <CalendarOutlined />,
+            icon: <PlusCircleOutlined />,
             link: "/nuevo-programa",
             children: [],
           }
         ],
       },{
         label: "Proyectos",
-        icon: <CalendarOutlined />,
+        icon: <FolderOutlined />,
         link: "#",
         children: [
-          {
+          /* {
             label: "Listar",
             icon: <CalendarOutlined />,
             link: "/listar-proyectos",
             children: [],
-          },{
+          }, */{
             label: "Nuevo",
-            icon: <CalendarOutlined />,
+            icon: <PlusCircleOutlined />,
             link: "/nuevo-proyecto",
+            children: [],
+          }
+        ],
+      },{
+        label: "Actividades",
+        icon: <AudioOutlined />,
+        link: "#",
+        children: [
+          {
+            label: "Nueva",
+            icon: <PlusCircleOutlined />,
+            link: "/nueva-actividad",
             children: [],
           }
         ],

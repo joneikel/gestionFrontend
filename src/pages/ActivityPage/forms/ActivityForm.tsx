@@ -7,23 +7,32 @@ import ParroquiaSelect from "../components/ParroquiaSelect";
 import ProgramSelect from "../components/ProgramSelect";
 import ProjectSelect from "../components/ProjectSelect";
 import { useAxios } from "../../../hooks/useAxios";
+import { useHistory } from "react-router-dom";
 
 const ActivityForm = () => { 
   const axios = useAxios();
+  const history = useHistory();
+
   const [program, setProgram] = useState<string | undefined>();
   const [municipio, setMunicipio] = useState<string | undefined>();
   const [parentInstitution, setParentInstitution] = useState<
   string | undefined
   >();
+  const [loading,setLoading] = useState<boolean>(false);
   
 
   const handleSubmit = async (values:any) => {
     console.log(values);
+    setLoading(true);
     try {
-       await axios.post('/activity', values);
+      const response = await axios.post('/activity', values);
       message.success("Actividad creada exitosamente");
+      history.push('/nueva-actividad');
+      return response;
     } catch (error) {
       message.error("No se ha podido crear la actividad");
+    } finally {
+      setLoading(false);
     }
     
   };
@@ -34,7 +43,7 @@ const ActivityForm = () => {
           <Col span={12}>
             <Form.Item
               hasFeedback
-              name="parent_institution"
+              name="parentInstitution"
               label="Secretaria Ejecutiva"
               rules={[
                 {
@@ -79,7 +88,6 @@ const ActivityForm = () => {
             >
               <ProgramSelect
                 onChange={setProgram}
-                institutionId={"a51f463a-2293-465a-bbc5-a157436abc28"}
               />
             </Form.Item>
           </Col>
@@ -186,7 +194,7 @@ const ActivityForm = () => {
           <Col span={12}>
             <Form.Item
               hasFeedback
-              name="init_date"
+              name="initDate"
               label="Fecha de inicio"
               rules={[
                 {
@@ -201,7 +209,7 @@ const ActivityForm = () => {
           <Col span={12}>
             <Form.Item
               hasFeedback
-              name="end_date"
+              name="endDate"
               label="Fecha de Culminacion"
               rules={[
                 {
@@ -216,7 +224,7 @@ const ActivityForm = () => {
           <Col span={8}>
             <Form.Item
               hasFeedback
-              name="estimated_population"
+              name="estimatedPopulation"
               label="Poblacion Estimada"
               rules={[
                 {
@@ -231,7 +239,7 @@ const ActivityForm = () => {
           <Col span={8}>
             <Form.Item
               hasFeedback
-              name="benefited_population"
+              name="benefitedPopulation"
               label="Poblacion Beneficiada"
               rules={[
                 {
@@ -246,7 +254,7 @@ const ActivityForm = () => {
           <Col span={8}>
             <Form.Item
               hasFeedback
-              name="gestion_impact"
+              name="gestionImpact"
               label="Impacto de gestion"
               rules={[
                 {
@@ -260,7 +268,7 @@ const ActivityForm = () => {
           </Col>
           <Col span={24}>
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" loading={loading} >
                 Registrar
               </Button>
             </Form.Item>

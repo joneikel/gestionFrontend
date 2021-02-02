@@ -6,10 +6,12 @@ const ProgramSelect = ({
   institutionId,
   value,
   onChange,
+  disabled
 }: {
   institutionId?: string;
   value?: string;
   onChange?: Function;
+  disabled?: boolean
 }) => {
   const [programs, loadingPrograms] = usePrograms(institutionId);
 
@@ -18,7 +20,7 @@ const ProgramSelect = ({
   };
 
   return (
-    <Select onChange={handleChange} loading={loadingPrograms}>
+    <Select onChange={handleChange} loading={loadingPrograms} disabled={disabled} >
       {programs.map((program) => (
         <Select.Option value={program.id} key={program.id}>
           {program.name}

@@ -4,7 +4,7 @@ import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect"
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
 
-const ProgramForm = () => {
+const InstitutionForm = () => {
 
     const axios = useAxios();
     const history = useHistory();
@@ -16,12 +16,12 @@ const ProgramForm = () => {
         console.log(values);
     setLoading(true);
     try {
-        const response = await axios.post('program', values);
-        message.success("Programa creado.");
-        history.push('/nuevo-programa');
+        const response = await axios.post('institution', values);
+        message.success("Institución creada.");
+        history.push('/nueva-actividad');
         return response;
     } catch (error) {
-        message.error("No Se puedo crear el programa,");
+        message.error("No Se puedo crear el la institución.");
     }  finally {
         setLoading(false);
     }};
@@ -31,14 +31,14 @@ const ProgramForm = () => {
     
     return (
         <>
-        <h1>Nuevo Programa</h1><br/>
+        <h1>Nueva Secretaría</h1><br/>
         <Form layout="vertical" onFinish={handleSubmit}>
             <Row gutter={10}>
                 <Col span={12}>
                     <Form.Item
                         hasFeedback
-                        name="parent_institution"
-                        label="Secretaria Ejecutiva"
+                        name="parentId"
+                        label="Secretaria Ejecutiva a la que pertence"
                         rules={[
                         {
                             required: true,
@@ -48,53 +48,19 @@ const ProgramForm = () => {
                         <InstitutionsSelect onlyParent onChange={setParentInstitution} />
                     </Form.Item>
                 </Col>
-                
-                <Col span={12}>
-                    <Form.Item
-                    hasFeedback
-                    name="institution"
-                    label="Institucion"
-                    rules={[
-                    {
-                        required: true,
-                        message: "Debes seleccionar una secretaría.",
-                    },
-                    ]}
-                    >
-                    <InstitutionsSelect
-                    disabled={!parentInstitution}
-                    parentId={parentInstitution}
-                    onChange={setParentInstitution}
-                    />
-                    </Form.Item>
-                </Col>
                
                 <Col span={12}>
                     <Form.Item
                         hasFeedback
                         name="name"
-                        label="Nombre del Programa"
+                        label="Nombre de la institución"
                         rules={[
                         {
                             required: true,
-                            message: "Debes indicar nombre del programa",
+                            message: "Debes indicar el nombre de la institución.",
                         },
                         ]}>
                         <Input />
-                    </Form.Item>
-                </Col>
-                <Col span={24}>
-                    <Form.Item
-                        hasFeedback
-                        name="description"
-                        label="Descripción del programa"
-                        rules={[
-                        {
-                            required: true,
-                            message: "Escribe una breve descripción del programa.",
-                        },
-                        ]}>
-                        <Input.TextArea rows={3} />
                     </Form.Item>
                 </Col>
 
@@ -112,4 +78,4 @@ const ProgramForm = () => {
     );
 }
 
-export default ProgramForm;
+export default InstitutionForm;

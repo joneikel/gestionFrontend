@@ -17,7 +17,7 @@ const ExecutiveInstitutionForm = () => {
         values = {...values, }
         const response = await axios.post('institution', values);
         message.success("Secreataría ejecutiva creada.");
-        history.push('/nueva-actividad');
+        history.push('/nueva-secretaría-ejecutiva');
         return response;
     } catch (error) {
         message.error("No Se puedo crear la secretaría ejecutiva.");

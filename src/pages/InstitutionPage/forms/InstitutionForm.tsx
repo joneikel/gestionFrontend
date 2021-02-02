@@ -18,7 +18,7 @@ const InstitutionForm = () => {
     try {
         const response = await axios.post('institution', values);
         message.success("Institución creada.");
-        history.push('/nueva-actividad');
+        history.push('/nueva-secretaría');
         return response;
     } catch (error) {
         message.error("No Se puedo crear el la institución.");

@@ -19,14 +19,14 @@ export const routes: SidebarItem[] = [
             link: "/listar-secretarías",
             children: [],
           }, */{
+            label: "Nueva Ejecutiva",
+            icon: <PlusCircleOutlined />,
+            link: "/nueva-secretaría-ejecutiva",
+            children: [],
+          },{
             label: "Nueva",
             icon: <PlusCircleOutlined />,
             link: "/nueva-secretaría",
-            children: [],
-          },{
-            label: "Nueva Secretaría Ejecutiva",
-            icon: <PlusCircleOutlined />,
-            link: "/nueva-secretaría-ejecutiva",
             children: [],
           },
         ],

@@ -1,5 +1,4 @@
 import './App.less';
-import LoginPage from './pages/LoginPage';
 import MainApp from "../src/containers/MainApp";
 
 function App() {

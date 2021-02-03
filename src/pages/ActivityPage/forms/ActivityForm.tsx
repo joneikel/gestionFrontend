@@ -46,7 +46,6 @@ const ActivityForm = () => {
     const { images } = values;
     delete values["images"];
     Object.keys(values).forEach(key => {
-      console.log(values[key]);
       data.set(key, values[key]);
     });
     images?.forEach((image: any) => {

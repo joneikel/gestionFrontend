@@ -47,3 +47,19 @@ export type Budget = {
     dolarvalue?: number;
     petro?: number
 }
+
+export type BudgetSource = {
+    id: string;
+    name: string;
+}
+
+export type InvestmentArea = {
+    id: string;
+    name: string;
+}
+
+export type MeasurementUnit = {
+    id: string;
+    name: string;
+    shortName: string
+}

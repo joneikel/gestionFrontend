@@ -9,6 +9,7 @@ const ProjectStatusSelect = ({
     onChange?:Function,
     disabled?:boolean
 }) => {
+  
   const [projectStatus, loadingProjectStatus] = useProjectStatus();
 
   const handleChange = (v: string) => {
@@ -21,6 +22,7 @@ const ProjectStatusSelect = ({
         <Select.Option value={status.id} key={status.id}>
           {status.name}
         </Select.Option>
+        
       ))}
     </Select>
   );

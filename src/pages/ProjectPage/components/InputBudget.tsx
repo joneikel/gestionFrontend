@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Space, Select, Input } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Budget } from "../../../models";
+import BudgetSourceSelector from "./BudgetSourceSelector";
 
 const InputBudget = ({
 
@@ -11,7 +12,7 @@ const InputBudget = ({
   const [budget, setBudget] = useState<Budget | undefined> ();
 
   return (
-    <Form.List name="budget">
+    <Form.List name="budgets">
       {(fields, { add, remove }) => (
         <>
           {fields.map((field) => (
@@ -33,14 +34,11 @@ const InputBudget = ({
               <Form.Item
                 hasFeedback
                 {...field}
-                name={[field.name, "budgeSourceId"]}
-                fieldKey={[field.fieldKey, "budgeSourceId"]}
+                name={[field.name, "budgetSource"]}
+                fieldKey={[field.fieldKey, "budgetSource"]}
                 rules={[{ required: true, message: "Seleccione el tipo de presupuesto" }]}
               >
-                <Select style={{width: '10vw'}}>
-                    <Select.Option value={1} > Tipo 1</Select.Option>
-                    <Select.Option value={2} > Tipo 2</Select.Option>
-                </Select>
+                <BudgetSourceSelector/>
               </Form.Item>
               <MinusCircleOutlined onClick={() => remove(field.name)} />
             

@@ -1,7 +1,7 @@
 import axios from 'axios';
-
+/*http://api-actividades.guarico.gob.ve*/
 export function useAxios() {
     return axios.create({
-        baseURL: "http://api-actividades.guarico.gob.ve"
+        baseURL: "http://localhost:3003/api/"
     })
 }

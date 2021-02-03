@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { Municipio, Parroquia, Project } from '../models';
+import { Municipio, Parroquia } from '../models';
 import { useAxios } from './useAxios';
 
 export function useParroaquias(municipioId?: string) : [Municipio[], boolean] {

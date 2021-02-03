@@ -34,3 +34,16 @@ export type Parroquia = {
     id: string;
     name: string;
 }
+
+export type ProjectStatus = {
+    id: string;
+    name: string
+}
+
+export type Budget = {
+    id?: string;
+    name?: string;
+    value: number;
+    dolarvalue?: number;
+    petro?: number
+}

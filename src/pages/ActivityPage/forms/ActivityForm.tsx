@@ -206,6 +206,7 @@ const ActivityForm = () => {
               <Input type="date" />
             </Form.Item>
           </Col>
+          
           <Col span={12}>
             <Form.Item
               hasFeedback
@@ -221,6 +222,7 @@ const ActivityForm = () => {
               <Input type="date" />
             </Form.Item>
           </Col>
+
           <Col span={8}>
             <Form.Item
               hasFeedback

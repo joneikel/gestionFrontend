@@ -1,9 +1,11 @@
-import { Button, Col, Form, Input, message, Row } from "antd";
+import { Button, Col, Form, Input, message, Row, Select } from "antd";
 import React, { useState } from "react";
 import ProgramSelect from "../../ActivityPage/components/ProgramSelect";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
 import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
+import ProjectStatusSelect from "../components/ProjectStatusSelect";
+import InputBudget from "../components/InputBudget";
 
 const ProjectForm = () => {
 
@@ -26,7 +28,7 @@ const ProjectForm = () => {
 
         console.log(values);
 
-        setLoading(true);
+        /* setLoading(true);
         try {
             const response =  await axios.post('project',values);
             message.success("Proyecto creado.");
@@ -36,7 +38,7 @@ const ProjectForm = () => {
             message.error("No se pudo crear el proyecto.");
         } finally {
             setLoading(false);
-        }
+        } */
       };
     
     const [Program, setProgram] = useState<string | undefined>();
@@ -114,6 +116,7 @@ const ProjectForm = () => {
                         <Input />
                     </Form.Item>
                 </Col>
+
                 <Col span={24}>
                     <Form.Item
                         hasFeedback
@@ -129,6 +132,88 @@ const ProjectForm = () => {
                     </Form.Item>
                 </Col>
 
+                    <Col span={12}>
+                        <Form.Item
+                            hasFeedback
+                            name="projectStatus"
+                            label="Status de ejecución"
+                            rules={[
+                            {
+                                required: true,
+                                message: "Debe seleccionar el status de ejecución",
+                            },
+                            ]}>
+                            <ProjectStatusSelect onChange={ () => console.log("estatus Cambió")} />
+                        </Form.Item>
+                    
+                    
+                    </Col>
+
+                    <Col span={12}>
+                        <Form.Item
+                            hasFeedback
+                            name="isPlanified"
+                            label="¿Planificado?"
+                            rules={[
+                            {
+                                required: true,
+                                message: "Debe seleccionar el status de ejecución",
+                            },
+                            ]}>
+                            <Select>
+                                <Select.Option value={1} > Si </Select.Option>
+                                <Select.Option value={0} > No </Select.Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+
+                    <Col span={24}>
+                        <Form.Item
+                        hasFeedback
+                        name="budget"
+                        label="Presupuesto"
+                        rules={[
+                            {
+                            required: true,
+                            message: "Debes indicar indicar el presupuesto asignado a este Proyecto",
+                            },
+                        ]}
+                        >
+                            <InputBudget />
+                        </Form.Item>
+                    </Col>
+
+                    <Col span={12}>
+                        <Form.Item
+                        hasFeedback
+                        name="initDate"
+                        label="Fecha de inicio"
+                        rules={[
+                            {
+                            required: true,
+                            message: "Debes indicar fecha de inicio de la actividad",
+                            },
+                        ]}
+                        >
+                            <Input type="date" />
+                        </Form.Item>
+                    </Col>
+
+                    <Col span={12}>
+                        <Form.Item
+                        hasFeedback
+                        name="endDate"
+                        label="Fecha de Culminacion"
+                        rules={[
+                            {
+                            required: true,
+                            message: "Debes indicar fecha de culminacion de la actividad",
+                            },
+                        ]}>
+                            <Input type="date" />
+                        </Form.Item>
+                    </Col>
+
                 <Col span={24}>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" loading={loading} >
@@ -136,7 +221,6 @@ const ProjectForm = () => {
                         </Button>
                     </Form.Item>
                 </Col>
-
             </Row>
         </Form>
         </>

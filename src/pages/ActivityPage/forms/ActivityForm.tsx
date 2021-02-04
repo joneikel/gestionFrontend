@@ -1,6 +1,5 @@
 import { Button, Col, Form, Input, Row, Select, message, Progress } from "antd";
 import React, { useState } from "react";
-import ActivityImpactSelect from "../../LoginPage/components/ActivityImpactSelect";
 import InstitutionsSelect from "../components/InstitutionSelect";
 import MunicipiosSelect from "../components/MunicipioSelect";
 import ParroquiaSelect from "../components/ParroquiaSelect";
@@ -197,7 +196,7 @@ const ActivityForm = () => {
           <Form.Item
             hasFeedback
             name="address"
-            label="Dirección"
+            label="Sector"
             rules={[
               {
                 required: true,

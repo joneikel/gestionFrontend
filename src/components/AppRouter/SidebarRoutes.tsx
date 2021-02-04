@@ -1,24 +1,23 @@
 import React, { ReactNode } from 'react';
 import {
   CalendarOutlined,
-  BankOutlined,
   FolderOutlined,
   AudioOutlined,
   PlusCircleOutlined
 } from "@ant-design/icons";
 
 export const routes: SidebarItem[] = [
-      {
+      /* {
         label: "Secretarías",
         icon: <BankOutlined />,
         link: "#",
         children: [
-          /* {
+          {
             label: "Listar",
             icon: <CalendarOutlined />,
             link: "/listar-secretarías",
             children: [],
-          }, */{
+          }, {
             label: "Nueva Ejecutiva",
             icon: <PlusCircleOutlined />,
             link: "/nueva-secretaría-ejecutiva",
@@ -30,7 +29,7 @@ export const routes: SidebarItem[] = [
             children: [],
           },
         ],
-      },{
+      },*/{
         label: "Programas",
         icon: <CalendarOutlined />,
         link: "#",

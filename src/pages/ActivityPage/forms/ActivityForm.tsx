@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row, Select, message } from "antd";
+import { Button, Col, Form, Input, Row, Select, message, Progress } from "antd";
 import React, { useState } from "react";
 import ActivityImpactSelect from "../../LoginPage/components/ActivityImpactSelect";
 import InstitutionsSelect from "../components/InstitutionSelect";
@@ -291,6 +291,7 @@ const ActivityForm = () => {
               Registrar
               </Button>
           </Form.Item>
+          { loading && <Progress percent={99.9} type='line' status='active' />}
         </Col>
       </Row>
     </Form>

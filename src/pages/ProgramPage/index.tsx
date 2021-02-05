@@ -1,3 +1,4 @@
+import { Card } from "antd";
 import { AxiosInstance } from "axios";
 import React, { useEffect, useState } from "react";
 import MainTable from "../../components/tables/MainTable";
@@ -33,12 +34,14 @@ const ProgramPage = () => {
   ];
 
   return (
-    <MainTable
-      loading={loading}
-      columns={columns}
-      dataSource={programs}
-      onSearch={(v: any) => console.log(v)}
-    />
+    <Card>
+      <MainTable
+        loading={loading}
+        columns={columns}
+        dataSource={programs}
+        onSearch={(v: any) => console.log(v)}
+      />
+    </Card>
   );
 };
 

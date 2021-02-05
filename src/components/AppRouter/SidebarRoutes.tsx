@@ -69,6 +69,11 @@ export const routes: SidebarItem[] = [
         link: "#",
         children: [
           {
+            label: "listar",
+            icon: <PlusCircleOutlined />,
+            link: "/listar-actividades",
+            children: [],
+          },{
             label: "Nueva",
             icon: <PlusCircleOutlined />,
             link: "/nueva-actividad",

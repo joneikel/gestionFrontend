@@ -2,6 +2,9 @@ import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import EcLoading from "./EcLoading";
 
+const ActivityForm = React.lazy(
+  () => import("../../pages/ActivityPage/forms/ActivityForm")
+);
 const ActivityPage = React.lazy(() => import("../../pages/ActivityPage"));
 
 const ProgramForm = React.lazy(
@@ -12,6 +15,9 @@ const ProgramPage = React.lazy(() => import("../../pages/ProgramPage"));
 const ProjectPage = React.lazy(() => import("../../pages/ProjectPage"));
 const ProjectForm = React.lazy(
   () => import("../../pages/ProjectPage/forms/ProjectForm")
+);
+const ProjectDetails = React.lazy(
+  () => import("../../pages/ProjectPage/components/ProjectDetails")
 );
 
 const InstitutionPage = React.lazy(() => import("../../pages/InstitutionPage"));
@@ -32,8 +38,20 @@ const AppRouter = () => {
       <Switch>
         <Route
           exact
-          path="/nueva-actividad"
+          path="/nueva-unidad-medida"
+          component={() => <MeasurementForm />}
+        />
+
+        <Route
+          exact
+          path="/listar-actividades"
           component={() => <ActivityPage />}
+        />
+
+        <Route
+          exact
+          path="/nueva-actividad"
+          component={() => <ActivityForm />}
         />
 
         <Route
@@ -54,6 +72,12 @@ const AppRouter = () => {
 
         <Route
           exact
+          path="/detalles-de-proyecto"
+          component={() => <ProjectDetails />}
+        />
+
+        <Route
+          exact
           path="/listar-secretarías"
           component={() => <InstitutionPage />}
         />
@@ -68,12 +92,6 @@ const AppRouter = () => {
           exact
           path="/nueva-secretaría-ejecutiva"
           component={() => <ExecutiveInstitutionForm />}
-        />
-
-        <Route
-          exact
-          path="/nueva-unidad-medida"
-          component={() => <MeasurementForm />}
         />
 
         {/* <Route exact path="/no-autorizado" component={() => <Unauthorized />} />

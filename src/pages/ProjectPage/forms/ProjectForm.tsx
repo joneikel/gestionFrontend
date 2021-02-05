@@ -154,7 +154,7 @@ const ProjectForm = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: "Debe seleccionar el status de ejecución",
+                                    message: "Debe seleccionar si este proyecto fue planificado",
                                 },
                             ]}>
                             <Select>

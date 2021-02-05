@@ -23,7 +23,15 @@ export type Project = {
     id: string;
     name: string;
     description: string;
-    program: Program
+    program: Program;
+    investmentAreas:  InvestmentArea[];
+    measurement: MeasurementUnit;
+    budgets: Budget[];
+    status: ProjectStatus;
+    measurementValue: number;
+    isPlanified: number;
+    initDate: Date;
+    endDate: Date;
 }
 
 export type Municipio = {
@@ -37,7 +45,8 @@ export type Parroquia = {
 
 export type ProjectStatus = {
     id: string;
-    name: string
+    name: string;
+    isFinal: boolean;
 }
 
 export type Budget = {
@@ -62,4 +71,11 @@ export type MeasurementUnit = {
     id: string;
     name: string;
     shortName: string
+}
+
+export type Column = {
+    title: string,
+    dataIndex: string,
+    key: string,
+    render: JSX.Element,
 }

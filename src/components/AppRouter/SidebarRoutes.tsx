@@ -51,12 +51,12 @@ export const routes: SidebarItem[] = [
         icon: <FolderOutlined />,
         link: "#",
         children: [
-          /* {
+          {
             label: "Listar",
             icon: <CalendarOutlined />,
             link: "/listar-proyectos",
             children: [],
-          }, */{
+          },{
             label: "Nuevo",
             icon: <PlusCircleOutlined />,
             link: "/nuevo-proyecto",

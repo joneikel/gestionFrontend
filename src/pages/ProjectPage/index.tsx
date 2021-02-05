@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 
 const ProjectPage = () => {
 
-    const axios = useAxios()
+    const axios = useAxios();
     const history = useHistory();
 
     const [loading, setLoading] = useState(false);
@@ -77,7 +77,6 @@ const ProjectPage = () => {
 async function getProjects(axios: AxiosInstance): Promise<Project[]> {
     const response = await axios.get('/project');
     return response.data;
-
 }
 
 export default ProjectPage;

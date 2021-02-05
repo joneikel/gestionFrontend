@@ -34,12 +34,12 @@ export const routes: SidebarItem[] = [
         icon: <CalendarOutlined />,
         link: "#",
         children: [
-          /* {
+           {
             label: "Listar",
             icon: <CalendarOutlined />,
             link: "/listar-programas",
             children: [],
-          }, */ {
+          },  {
             label: "Nuevo",
             icon: <PlusCircleOutlined />,
             link: "/nuevo-programa",

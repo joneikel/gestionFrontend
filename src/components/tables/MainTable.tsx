@@ -17,6 +17,7 @@ const MainTable = ({
     
     return (
         <Table
+        bordered
         loading={loading}
         columns={columns}
         dataSource={dataSource}

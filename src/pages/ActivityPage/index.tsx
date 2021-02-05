@@ -1,4 +1,4 @@
-import { Button, Tag } from 'antd';
+import {  Card, Tag } from 'antd';
 import { AxiosInstance } from 'axios';
 import React, { useEffect, useState } from 'react';
 import MainTable from '../../components/tables/MainTable';
@@ -11,7 +11,7 @@ const ActivityPage = ({projectId}:{projectId?:string}) => {
 
     const [loading, setLoading] = useState(false);
     const [activities,setActivities] = useState< Activity[] | undefined>();
-
+    
     useEffect(()=>{
         setLoading(true);
         getActivities(axios)
@@ -56,7 +56,14 @@ const ActivityPage = ({projectId}:{projectId?:string}) => {
     ];
 
     return (
-         <MainTable loading={loading} columns={columns} dataSource={ projectId? activities?.filter( x => x.project.id === projectId ) : activities} onSearch={ (v:any) => console.log(v)} />
+        <Card>
+            <MainTable 
+                loading={loading} 
+                columns={columns} 
+                dataSource={ projectId? activities?.filter( x => x.project.id === projectId ) : activities} 
+                onSearch={ (v:any) => console.log(v)}
+            />
+        </Card>
         )
 }   
 

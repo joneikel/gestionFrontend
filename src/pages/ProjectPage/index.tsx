@@ -1,4 +1,4 @@
-import { Button, Tag } from 'antd';
+import { Button, Card, Tag } from 'antd';
 import { AxiosInstance } from 'axios';
 import React, { useEffect, useState } from 'react';
 import MainTable from '../../components/tables/MainTable';
@@ -70,7 +70,9 @@ const ProjectPage = () => {
     ];
 
     return (
-        <MainTable loading={loading} columns={columns} dataSource={projects} onSearch={(v: any) => console.log(v)} />
+        <Card>
+            <MainTable loading={loading} columns={columns} dataSource={projects} onSearch={(v: any) => console.log(v)} />
+        </Card>
     )
 }
 

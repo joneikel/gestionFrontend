@@ -8,6 +8,7 @@ import ProjectStatusSelect from "../components/ProjectStatusSelect";
 import InputBudget from "../components/InputBudget";
 import InvestmentAreaSelect from "../components/InvesmentAreaSelect";
 import MeasurementUnitSelect from "../components/MeasurementUnitSelect";
+import { findAllByTestId } from "@testing-library/react";
 
 const ProjectForm = () => {
 
@@ -252,8 +253,7 @@ const ProjectForm = () => {
                             label="Fecha de Culminacion"
                             rules={[
                                 {
-                                    required: true,
-                                    message: "Debes indicar fecha de culminacion de la actividad",
+                                    required: false,
                                 },
                             ]}>
                             <Input type="date" />

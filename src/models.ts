@@ -1,3 +1,4 @@
+
 export type Sector = {
     id: string;
     name: string;
@@ -78,4 +79,23 @@ export type Column = {
     dataIndex: string,
     key: string,
     render: JSX.Element,
+}
+
+export type Activity= {
+    id: string;
+    name: string;
+    project: Project;
+    description: string;
+    municipio: Municipio;
+    parroquia: Parroquia;
+    gobernador: boolean;
+    conclusion: string;
+    address: string;
+    initDate: Date;
+    endDate: Date;
+    estimatedPopulation: number;
+    bedefitedPopulation: number;
+    latitude?: number;
+    longitude?: number;
+    images: string[];
 }

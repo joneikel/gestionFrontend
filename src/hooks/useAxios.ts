@@ -3,6 +3,6 @@ import axios from 'axios';
 //http://192.168.10.4:3300
 export function useAxios() {
     return axios.create({
-        baseURL: "http://localhost:3003"
+        baseURL: "http://190.205.43.251:3300"
     })
 }

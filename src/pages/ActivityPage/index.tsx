@@ -108,7 +108,7 @@ const ActivityPage = ({ projectId }: { projectId?: string }) => {
                     </Form.Item>
               </Col> */}
 
-              <Col span={4}>
+              <Col span={7}>
                 <Form.Item name="municipio">
                   <MunicipiosSelect onChange={(v: any) => {
                     setMunicipio(v);
@@ -118,7 +118,7 @@ const ActivityPage = ({ projectId }: { projectId?: string }) => {
                 </Form.Item>
               </Col>
 
-              <Col span={4}>
+              <Col span={7}>
                 <Form.Item name="parroquia">
                   <ParroquiaSelect municipio_id={municipio} onChange={(v: any) => {
                     let ActvitiesToShow = activities?.filter(x => x.parroquia.id === v);
@@ -127,7 +127,7 @@ const ActivityPage = ({ projectId }: { projectId?: string }) => {
                 </Form.Item>
               </Col>
 
-              <Col span={4}>
+              <Col span={7}>
                 <Form.Item name="gobernador">
                   <Select placeholder="¿Asistio el Gobernador?" onChange={(v: any) => {
                     let gobernor: any;

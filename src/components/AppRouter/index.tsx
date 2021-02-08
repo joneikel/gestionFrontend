@@ -32,10 +32,14 @@ const MeasurementForm = React.lazy(
   () => import("../../pages/MeasurementPage/forms/MeasurementForm")
 );
 
+const Dash = React.lazy(() => import("../../pages/Dash"));
+
 const AppRouter = () => {
   return (
     <Suspense fallback={<EcLoading />}>
       <Switch>
+        <Route exact path="/dashboard" component={() => <Dash />} />
+
         <Route
           exact
           path="/nueva-unidad-medida"
@@ -93,6 +97,8 @@ const AppRouter = () => {
           path="/nueva-secretaría-ejecutiva"
           component={() => <ExecutiveInstitutionForm />}
         />
+
+        <Route exact path="/" component={() => <Dash />} />
 
         {/* <Route exact path="/no-autorizado" component={() => <Unauthorized />} />
         <Route exact path="* *" component={() => <PageNotFound />} /> */}

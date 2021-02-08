@@ -17,7 +17,7 @@ const MainMenu = ({ items }: SidebarAppProps) => {
       style={{ height: "100%", borderRight: 0 }}
     >
       <Menu.Item key={0}>
-        <Link to={"/"}>
+        <Link to={"/dashboard"}>
           <HomeOutlined />
           Inicio
         </Link>

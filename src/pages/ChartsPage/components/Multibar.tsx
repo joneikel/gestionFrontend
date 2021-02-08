@@ -28,7 +28,7 @@ const GroupedBar = ({
     },
   };
   return (
-    <Card title={<h1 className="title">{title}</h1>}>
+    <Card title={<h4 className="title">{title}</h4>}>
       <Bar height={100} data={data} options={options} />
     </Card>
   );

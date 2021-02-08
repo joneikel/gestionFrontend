@@ -9,7 +9,7 @@ const CustomPageHeader = ({ title, subtitle }: { title: string, subtitle?: strin
     return (
         <PageHeader
             onBack={() => history.goBack()}
-            title={title}
+            title={<h2 className="ant-card-head-title">{title}</h2>}
             subTitle={subtitle || ""}
         />
     )

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Col, Layout, Row, Typography } from "antd";
 const { Header } = Layout;
 
-const HeaderApp = () => {
+const HeaderApp = ({ children }: { children: ReactNode }) => {
   const { Title } = Typography;
   return (
     <Header className="header">
-      <Row align="bottom" justify="center" style={{ width: "100%" }}>
-        <Col span={24} style={{ justifyContent: "center" }}>
-          <Title level={3} style={{ color: "white"}}>
+      <Row align="bottom" justify="start" style={{ width: "100%" }}>
+        <Col span={24} style={{ justifyContent: "start" }}>
+          <Title level={3} className="app-title">
             REGISTRO DE PROYECTOS
           </Title>
+        </Col>
+        <Col span={24}>
+          {children}
         </Col>
       </Row>
     </Header>

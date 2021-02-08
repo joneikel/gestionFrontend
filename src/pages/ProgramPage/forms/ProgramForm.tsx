@@ -1,8 +1,9 @@
-import { Button, Col, Form, Input, message, Row } from "antd";
+import { Button, Card, Col, Form, Input, message, Row } from "antd";
 import React, { useState } from "react";
 import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
+import CustomPageHeader from "../../../components/PageHeader";
 
 const ProgramForm = () => {
 
@@ -18,7 +19,7 @@ const ProgramForm = () => {
     try {
         const response = await axios.post('program', values);
         message.success("Programa creado.");
-        history.push('/nuevo-programa');
+        history.push('/listar-programas');
         return response;
     } catch (error) {
         message.error("No Se puedo crear el programa,");
@@ -30,11 +31,10 @@ const ProgramForm = () => {
     
     
     return (
-        <>
-        <h1>Nuevo Programa</h1><br/>
+        <Card title={<CustomPageHeader title="Nuevo programa"/>}>
         <Form layout="vertical" onFinish={handleSubmit}>
             <Row gutter={10}>
-                <Col span={12}>
+                <Col lg={12} md={12} sm={24} xs={24}>
                     <Form.Item
                         hasFeedback
                         name="parent_institution"
@@ -49,7 +49,7 @@ const ProgramForm = () => {
                     </Form.Item>
                 </Col>
                 
-                <Col span={12}>
+                <Col lg={12} md={12} sm={24} xs={24}>
                     <Form.Item
                     hasFeedback
                     name="institution"
@@ -69,7 +69,7 @@ const ProgramForm = () => {
                     </Form.Item>
                 </Col>
                
-                <Col span={12}>
+                <Col lg={12} md={12} sm={24} xs={24}>
                     <Form.Item
                         hasFeedback
                         name="name"
@@ -108,7 +108,7 @@ const ProgramForm = () => {
 
             </Row>
         </Form>
-        </>
+        </Card>
     );
 }
 

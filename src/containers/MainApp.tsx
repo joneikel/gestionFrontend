@@ -2,22 +2,21 @@ import React from 'react';
 import { Layout } from "antd";
 import ContentApp from './ContentApp';
 import HeaderApp from './HeaderApp';
-import SidebarApp from './SidebarApp'; 
 import { BrowserRouter as Router } from "react-router-dom";
 import { routes } from "../components/AppRouter/SidebarRoutes";
+import MainMenu from './components/MainMenu';
 
 const MainApp = () => {
   return (
     <Router>
-      <Layout>
-        <HeaderApp/>
-          <Layout>
-            <SidebarApp items={routes} />
-            <ContentApp/>  
-          </Layout>
+      <Layout className="layout">
+        <HeaderApp>
+          <MainMenu items={routes} />
+        </HeaderApp>
+          <ContentApp />
       </Layout>
     </Router>
-        
+
   )
 }
 

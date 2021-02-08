@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, message, Row, Select } from "antd";
+import { Button, Card, Col, Form, Input, message, Row, Select } from "antd";
 import React, { useState } from "react";
 import ProgramSelect from "../../ActivityPage/components/ProgramSelect";
 import { useAxios } from "../../../hooks/useAxios";
@@ -8,7 +8,7 @@ import ProjectStatusSelect from "../components/ProjectStatusSelect";
 import InputBudget from "../components/InputBudget";
 import InvestmentAreaSelect from "../components/InvesmentAreaSelect";
 import MeasurementUnitSelect from "../components/MeasurementUnitSelect";
-import { findAllByTestId } from "@testing-library/react";
+import CustomPageHeader from "../../../components/PageHeader";
 
 const ProjectForm = () => {
 
@@ -42,12 +42,11 @@ const ProjectForm = () => {
     const [Program, setProgram] = useState<string | undefined>();
 
     return (
-        <>
-            <h1>Nuevo Proyecto</h1><br />
+        <Card title={<CustomPageHeader title="Nuevo proyecto" />}>
             <Form layout="vertical" onFinish={handleSubmit}>
                 <Row gutter={10}>
 
-                    <Col span={12}>
+                    <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
                             name="parentInstitution"
@@ -63,7 +62,7 @@ const ProjectForm = () => {
                         </Form.Item>
                     </Col>
 
-                    <Col span={12}>
+                    <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
                             name="institutionId"
@@ -83,7 +82,7 @@ const ProjectForm = () => {
                         </Form.Item>
                     </Col>
 
-                    <Col span={12}>
+                    <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
                             name="program"
@@ -100,7 +99,7 @@ const ProjectForm = () => {
                         </Form.Item>
                     </Col>
 
-                    <Col span={12}>
+                    <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
                             name="name"
@@ -130,7 +129,7 @@ const ProjectForm = () => {
                         </Form.Item>
                     </Col>
 
-                    <Col span={12}>
+                    <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
                             name="status"
@@ -147,7 +146,7 @@ const ProjectForm = () => {
 
                     </Col>
 
-                    <Col span={12}>
+                    <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
                             name="isPlanified"
@@ -181,7 +180,7 @@ const ProjectForm = () => {
                         </Form.Item>
                     </Col>
 
-                    <Col span={12}>
+                    <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
                             name="investmentAreas"
@@ -230,7 +229,7 @@ const ProjectForm = () => {
                         </Form.Item>
                     </Col>
 
-                    <Col span={12}>
+                    <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
                             name="initDate"
@@ -246,7 +245,7 @@ const ProjectForm = () => {
                         </Form.Item>
                     </Col>
 
-                    <Col span={12}>
+                    <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
                             name="endDate"
@@ -269,7 +268,7 @@ const ProjectForm = () => {
                     </Col>
                 </Row>
             </Form>
-        </>
+        </Card>
     );
 }
 

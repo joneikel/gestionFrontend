@@ -11,26 +11,29 @@ const { SubMenu } = Menu;
 type SidebarAppProps = { items: Array<SidebarItem> };
 
 const SidebarApp = ({ items }: SidebarAppProps) => {
-    return (
-        <Sider width={200} breakpoint="lg" collapsedWidth="0" className="site-layout-background">
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={["0"]}
-            style={{ height: "100%", borderRight: 0 }}
-          >
-            {mapItems(items)}
-          </Menu>
-        </Sider>
-      );
+  return (
+    <Sider width={200} 
+      className="sider"
+      breakpoint="lg"
+      collapsedWidth="0" >
+      <Menu
+        mode="horizontal"
+        defaultSelectedKeys={["0"]}
+        style={{ height: "100%", borderRight: 0 }}
+      >
+        {mapItems(items)}
+      </Menu>
+    </Sider>
+  );
 }
 
 const mapItems = (items: Array<SidebarItem>) => {
-    return items.map((item: SidebarItem, i: number) =>
-      item.children.length > 0 ? (
-        <SubMenu key={uuidv4()} title={item.label} icon={item.icon}>
-          {mapItems(item.children)}
-        </SubMenu>
-      ) : (
+  return items.map((item: SidebarItem, i: number) =>
+    item.children.length > 0 ? (
+      <SubMenu key={uuidv4()} title={item.label} icon={item.icon}>
+        {mapItems(item.children)}
+      </SubMenu>
+    ) : (
         <Menu.Item key={uuidv4()}>
           <Link to={item.link}>
             {item.icon}
@@ -38,7 +41,7 @@ const mapItems = (items: Array<SidebarItem>) => {
           </Link>
         </Menu.Item>
       )
-    );
-  };
+  );
+};
 
 export default SidebarApp;

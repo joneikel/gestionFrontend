@@ -1,26 +1,25 @@
 import { Table } from 'antd';
 import React from 'react';
-import { Column } from '../../models';
 
 const MainTable = ({
     columns,
     dataSource,
     onSearch,
     loading,
-}:{
+}: {
     columns: Array<any>,
-    dataSource:any,
+    dataSource: any,
     onSearch: Function,
     loading: boolean
 }) => {
-            
-    
+
+
     return (
         <Table
-        bordered
-        loading={loading}
-        columns={columns}
-        dataSource={dataSource}
+            className="table"
+            loading={loading}
+            columns={columns}
+            dataSource={dataSource}
         />
     )
 }

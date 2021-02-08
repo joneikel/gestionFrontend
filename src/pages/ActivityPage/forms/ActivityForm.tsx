@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row, Select, message, Progress } from "antd";
+import { Button, Col, Form, Input, Row, Select, message, Progress, Card } from "antd";
 import React, { useState } from "react";
 import InstitutionsSelect from "../components/InstitutionSelect";
 import MunicipiosSelect from "../components/MunicipioSelect";
@@ -8,6 +8,7 @@ import ProjectSelect from "../components/ProjectSelect";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
 import EcUploader from "../components/EcUploader";
+import CustomPageHeader from "../../../components/PageHeader";
 
 const ActivityForm = () => {
   const axios = useAxios();
@@ -40,7 +41,7 @@ const ActivityForm = () => {
     }
   };
 
-  const buildFormData = (values: any) : FormData => {
+  const buildFormData = (values: any): FormData => {
     const data = new FormData();
     const { images } = values;
     delete values["images"];
@@ -54,246 +55,248 @@ const ActivityForm = () => {
   }
 
   return (
-    <Form layout="vertical" onFinish={handleSubmit}>
-      <Row gutter={10}>
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="parentInstitution"
-            label="Secretaria Ejecutiva"
-            rules={[
-              {
-                required: true,
-                message: "Debes seleccionar secretaria ejecutiva.",
-              },
-            ]}
-          >
-            <InstitutionsSelect onlyParent onChange={setParentInstitution} />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="institutionId"
-            label="Institucion"
-            rules={[
-              {
-                required: true,
-                message: "Debes seleccionar secretaria ejecutiva.",
-              },
-            ]}
-          >
-            <InstitutionsSelect
-              disabled={!parentInstitution}
-              parentId={parentInstitution}
-              onChange={setParentInstitution}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="program"
-            label="Programa"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar nombre del programa.",
-              },
-            ]}
-          >
-            <ProgramSelect
-              onChange={setProgram}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="project"
-            label="Proyecto"
-            rules={[
-              { required: true, message: "Debes seleccionar el proyecto." },
-            ]}
-          >
-            <ProjectSelect disabled={!program} programId={program} />
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Form.Item
-            hasFeedback
-            name="name"
-            label="Actividad"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar nombre de la actividad",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Form.Item
-            hasFeedback
-            name="description"
-            label="Descripcion"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar descripcion de la actividad",
-              },
-            ]}
-          >
-            <Input.TextArea rows={3} />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="gobernador"
-            label="Asistio el Gobernador"
-            rules={[{ required: true, message: "Debes indicar" }]}
-          >
-            <Select>
-              <Select.Option value={"SI"}>Si</Select.Option>
-              <Select.Option value={"NO"}>No</Select.Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="municipio"
-            label="Municipio"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar el municipio",
-              },
-            ]}
-          >
-            <MunicipiosSelect onChange={setMunicipio} />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="parroquia"
-            label="Parroquia"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar la parroquia",
-              },
-            ]}
-          >
-            <ParroquiaSelect disabled={!municipio} municipio_id={municipio} />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="address"
-            label="Sector"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar direccion de la actividad",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="initDate"
-            label="Fecha de inicio"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar fecha de inicio de la actividad",
-              },
-            ]}
-          >
-            <Input type="date" />
-          </Form.Item>
-        </Col>
+    <Card title={<CustomPageHeader title="Nueva actividad" />}>
+      <Form layout="vertical" onFinish={handleSubmit}>
+        <Row gutter={10}>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="parentInstitution"
+              label="Secretaria Ejecutiva"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes seleccionar secretaria ejecutiva.",
+                },
+              ]}
+            >
+              <InstitutionsSelect onlyParent onChange={setParentInstitution} />
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="institutionId"
+              label="Institucion"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes seleccionar secretaria ejecutiva.",
+                },
+              ]}
+            >
+              <InstitutionsSelect
+                disabled={!parentInstitution}
+                parentId={parentInstitution}
+                onChange={setParentInstitution}
+              />
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="program"
+              label="Programa"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar nombre del programa.",
+                },
+              ]}
+            >
+              <ProgramSelect
+                onChange={setProgram}
+              />
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="project"
+              label="Proyecto"
+              rules={[
+                { required: true, message: "Debes seleccionar el proyecto." },
+              ]}
+            >
+              <ProjectSelect disabled={!program} programId={program} />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              hasFeedback
+              name="name"
+              label="Actividad"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar nombre de la actividad",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              hasFeedback
+              name="description"
+              label="Descripcion"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar descripcion de la actividad",
+                },
+              ]}
+            >
+              <Input.TextArea rows={3} />
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="gobernador"
+              label="Asistio el Gobernador"
+              rules={[{ required: true, message: "Debes indicar" }]}
+            >
+              <Select>
+                <Select.Option value={"SI"}>Si</Select.Option>
+                <Select.Option value={"NO"}>No</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="municipio"
+              label="Municipio"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar el municipio",
+                },
+              ]}
+            >
+              <MunicipiosSelect onChange={setMunicipio} />
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="parroquia"
+              label="Parroquia"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar la parroquia",
+                },
+              ]}
+            >
+              <ParroquiaSelect disabled={!municipio} municipio_id={municipio} />
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="address"
+              label="Sector"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar direccion de la actividad",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="initDate"
+              label="Fecha de inicio"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar fecha de inicio de la actividad",
+                },
+              ]}
+            >
+              <Input type="date" />
+            </Form.Item>
+          </Col>
 
-        <Col span={12}>
-          <Form.Item
-            hasFeedback
-            name="endDate"
-            label="Fecha de Culminacion"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar fecha de culminacion de la actividad",
-              },
-            ]}
-          >
-            <Input type="date" />
-          </Form.Item>
-        </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="endDate"
+              label="Fecha de Culminacion"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar fecha de culminacion de la actividad",
+                },
+              ]}
+            >
+              <Input type="date" />
+            </Form.Item>
+          </Col>
 
-        <Col span={8}>
-          <Form.Item
-            hasFeedback
-            name="estimatedPopulation"
-            label="Poblacion Estimada"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar poblacion estimada de la actividad",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            hasFeedback
-            name="benefitedPopulation"
-            label="Poblacion Beneficiada"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar poblacion benefiada de la actividad",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            hasFeedback
-            name="images"
-            label="Imagenes"
-            rules={[
-              {
-                required: true,
-                message: "Debes indicar poblacion benefiada de la actividad",
-              },
-            ]}
-          >
-            <EcUploader />
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading} >
-              Registrar
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="estimatedPopulation"
+              label="Poblacion Estimada"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar poblacion estimada de la actividad",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="benefitedPopulation"
+              label="Poblacion Beneficiada"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar poblacion benefiada de la actividad",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              hasFeedback
+              name="images"
+              label="Imagenes"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar poblacion benefiada de la actividad",
+                },
+              ]}
+            >
+              <EcUploader />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" loading={loading} >
+                Registrar
               </Button>
-          </Form.Item>
-          { loading && <Progress percent={99.9} type='line' status='active' />}
-        </Col>
-      </Row>
-    </Form>
+            </Form.Item>
+            {loading && <Progress percent={99.9} type='line' status='active' />}
+          </Col>
+        </Row>
+      </Form>
+    </Card>
   );
 };
 export default ActivityForm;

@@ -5,6 +5,7 @@ import MainTable from '../../components/tables/MainTable';
 import { useAxios } from '../../hooks/useAxios';
 import { Budget, Project, ProjectStatus } from '../../models';
 import { useHistory } from 'react-router-dom';
+import { moneyFormatter } from '../../helpers';
 
 const ProjectPage = () => {
 
@@ -42,10 +43,10 @@ const ProjectPage = () => {
             dataIndex: 'budgets',
             key: 'budgets',
             render: (budget: Array<any>) => {
-                const bud= budget.map(b => b.value).reduce((a, b) => {
+                const bud = budget.map(b => b.value).reduce((a, b) => {
                     return (a + b);
                 });
-                return bud;
+                return moneyFormatter(bud);
             }
         }, {
             title: 'Status',
@@ -58,7 +59,7 @@ const ProjectPage = () => {
             title: '¿Planificado?',
             dataIndex: 'isPlanified',
             key: 'isPlanified',
-            render: (x: any) => x == 1 ? (<span>Si</span>) : (<span>No</span>)
+            render: (x: any) => x === 1 ? (<span>Si</span>) : (<span>No</span>)
         }, {
             title: 'Acciones',
             dataIndex: 'id',

@@ -1,3 +1,7 @@
+import { message } from "antd";
+import { AxiosInstance } from "axios";
+import React from "react";
+
 export function uuidv4() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0,
@@ -43,4 +47,37 @@ function formatMoney(
 
 export function moneyFormatter(amount: string) {
   return formatMoney(amount, 2, ",", ".");
+}
+
+export function downloadFile(
+  axios: AxiosInstance,
+  path: string,
+  filename: string,
+  extension: string
+) {
+  axios
+    .get(path, {
+      responseType: "blob",
+    })
+    .then((file) => {
+      const url = window.URL.createObjectURL(new Blob([file.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${filename}.${extension}`);
+      document.body.appendChild(link);
+      link.click();
+    })
+    .catch((e) => message.error("No se pudo descargar el archivo"));
+}
+
+export function downloadFileFromLink(
+  url: string,
+  filename: string,
+  extension: string
+) {
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", `${filename}.${extension}`);
+  document.body.appendChild(link);
+  link.click();
 }

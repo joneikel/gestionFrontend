@@ -23,7 +23,7 @@ const InstitutionsSelect = ({
   };
 
   return (
-    <Select disabled={disabled} onChange={handleChange} loading={loadingInstitution}>
+    <Select placeholder={ onlyParent ? "Secreataría ejecutiva" : "Secreataría"} disabled={disabled} onChange={handleChange} loading={loadingInstitution}>
       {institutions.map((institution) => (
         <Select.Option value={institution.id} key={institution.id}>
           {institution.name}

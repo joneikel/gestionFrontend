@@ -1,22 +1,33 @@
-import { Card, Col, Row, Tag } from 'antd';
+import { Button, Card, Col, Row, Select, Space, Tag, Form, Empty } from 'antd';
 import { AxiosInstance } from 'axios';
 import React, { useEffect, useState } from 'react';
 import MainTable from '../../components/tables/MainTable';
 import { useAxios } from '../../hooks/useAxios';
-import { Activity, Municipio, Parroquia, Project } from '../../models';
+import { Activity, Institution, Municipio, Parroquia, Project } from '../../models';
 import ActivityCard from './components/ActivityCard';
+import MunicipiosSelect from './components/MunicipioSelect';
+import ParroquiaSelect from './components/ParroquiaSelect';
+import { useHistory } from 'react-router-dom';
+import { useForm } from 'antd/lib/form/Form';
 
 const ActivityPage = ({ projectId }: { projectId?: string }) => {
 
-  const axios = useAxios()
+  const axios = useAxios();
+  const history = useHistory();
+  const [form] = useForm();
+
+  const [municipio, setMunicipio] = useState<string | undefined>();
+
 
   const [loading, setLoading] = useState(false);
   const [activities, setActivities] = useState<Activity[] | undefined>();
+  const [parentInstitution, setParentInstitution] = useState<string | undefined>();
+  const [filteredActivities, setFilteredActivities] = useState<Activity[] | undefined>();
 
   useEffect(() => {
     setLoading(true);
     getActivities(axios)
-      .then((c: Activity[]) => setActivities(c))
+      .then((c: Activity[]) => { setActivities(c); setFilteredActivities(c); })
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
   }, [])
@@ -57,14 +68,17 @@ const ActivityPage = ({ projectId }: { projectId?: string }) => {
   ];
 
   return (
-    <Row gutter={[25, 10]}>
-      {activities?.map((activity, i) => (
-        <Col span={4.8}>
-          <ActivityCard i={i} key={activity.id}
-            activity={activity} />
-        </Col>
-      ))}
-    </Row>
+    <>
+      <Row gutter={[10, 100]}>
+        {filteredActivities?.map((activity, i) => (
+          <Col span={4}>
+            <ActivityCard i={i}
+              key={activity.id}
+              activity={activity} />
+          </Col>
+        ))}
+      </Row>
+    </>
   )
 }
 

@@ -6,7 +6,7 @@ import GroupedBar from "../ChartsPage/components/Multibar";
 const Dash = () => {
   return (
     <Space direction="vertical" style={{ width: "100%" }}>
-      <GroupedBar
+ {/*      <GroupedBar
         title="Distribución de actividades en los municipios del estado agrupadas por sector"
         labels={[
           "Julián Mellado",
@@ -22,42 +22,43 @@ const Dash = () => {
             label: "ECONOMÍA",
             data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
               .map((i) => Math.trunc(Math.random() * 40) + 1)
-              .sort().sort(),
+              .sort()
+              .sort(),
             backgroundColor: "#4287f5",
           },
           {
             label: "TECNOLOGÍA",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#9342f5",
           },
           {
             label: "SEGURIDAD",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#d91a76",
           },
           {
             label: "DEPORTE",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#6ad419",
           },
           {
             label: "POLÍTICO",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#cc6210",
           },
           {
             label: "SOCIAL",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#cc1010",
           },
           {
@@ -109,85 +110,85 @@ const Dash = () => {
         datasets={[
           {
             label: "ECONOMÍA",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#4287f5",
           },
           {
             label: "TECNOLOGÍA",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#9342f5",
           },
           {
             label: "SEGURIDAD",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#d91a76",
           },
           {
             label: "DEPORTE",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#6ad419",
           },
           {
             label: "POLÍTICO",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#cc6210",
           },
           {
             label: "SOCIAL",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#cc1010",
           },
           {
             label: "CULTURA",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#05c7f2",
           },
           {
             label: "SERVICIOS PÚBLICOS",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#330596",
           },
           {
             label: "COMUNICACIÓN",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#f58f00",
           },
           {
             label: "SALUD",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#1d2640",
             borderColor: "#000",
           },
           {
             label: "EDUCACIÓN",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (i) => Math.trunc(Math.random() * 40) + 1
-            ).sort(),
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+              .map((i) => Math.trunc(Math.random() * 40) + 1)
+              .sort(),
             backgroundColor: "#12e6e2",
           },
         ]}
       />
-      <ChartsPage />
+      <ChartsPage /> */}
     </Space>
   );
 };

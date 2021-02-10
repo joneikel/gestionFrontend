@@ -20,7 +20,7 @@ const ParroquiaSelect = ({
   };
 
   return (
-    <Select disabled={disabled} onChange={handleChange} loading={loadingParroquias}>
+    <Select disabled={disabled} onChange={handleChange} loading={loadingParroquias} placeholder="Parroquia">
       {parroquias.map((parroquias) => (
         <Select.Option value={parroquias.id} key={parroquias.id}>
           {parroquias.name}

@@ -29,7 +29,7 @@ const GroupedBar = ({
   };
   return (
     <Card title={<h1 className="title">{title}</h1>}>
-      <Bar height={100} data={data} options={options} />
+      <Bar type="horizontal" height={100} data={data} options={options} />
     </Card>
   );
 };

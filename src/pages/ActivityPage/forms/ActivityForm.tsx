@@ -49,7 +49,7 @@ const ActivityForm = () => {
       data.set(key, values[key]);
     });
     images?.forEach((image: any) => {
-      data.append("images", image.originFileObj);
+      data.append("images[]", image.originFileObj);
     });
     return data;
   }
@@ -95,7 +95,7 @@ const ActivityForm = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
-              name="program"
+              name="program_id"
               label="Programa"
               rules={[
                 {
@@ -112,7 +112,7 @@ const ActivityForm = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
-              name="project"
+              name="project_id"
               label="Proyecto"
               rules={[
                 { required: true, message: "Debes seleccionar el proyecto." },
@@ -167,7 +167,7 @@ const ActivityForm = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
-              name="municipio"
+              name="municipio_id"
               label="Municipio"
               rules={[
                 {
@@ -182,7 +182,7 @@ const ActivityForm = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
-              name="parroquia"
+              name="parroquia_id"
               label="Parroquia"
               rules={[
                 {
@@ -212,7 +212,7 @@ const ActivityForm = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
-              name="initDate"
+              name="init_date"
               label="Fecha de inicio"
               rules={[
                 {
@@ -228,7 +228,7 @@ const ActivityForm = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
-              name="endDate"
+              name="end_date"
               label="Fecha de Culminacion"
               rules={[
                 {
@@ -244,7 +244,7 @@ const ActivityForm = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
-              name="estimatedPopulation"
+              name="estimated_population"
               label="Poblacion Estimada"
               rules={[
                 {
@@ -259,7 +259,7 @@ const ActivityForm = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
-              name="benefitedPopulation"
+              name="benefited_population"
               label="Poblacion Beneficiada"
               rules={[
                 {

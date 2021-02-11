@@ -1,6 +1,5 @@
 import { Select } from "antd";
 import React, { useEffect, useState } from "react";
-import { useProjectStatus } from "../../../hooks/useProjectStatus";
 import { useAxios } from '../../../hooks/useAxios';
 import { AxiosInstance } from "axios";
 import { BudgetSource } from "../../../models";
@@ -44,7 +43,7 @@ const BudgetSourceSelector = ({
 export default BudgetSourceSelector;
 
 async function getBudgetSource(axios:AxiosInstance):Promise<BudgetSource[]>{
-    const response = await axios.get('/budgetSource');
+    const response = await axios.get('/budget-source');
     return response.data;
 
 

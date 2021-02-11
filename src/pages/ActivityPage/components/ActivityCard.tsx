@@ -20,7 +20,7 @@ const ActivityCard = ({ activity, i }: { activity: Activity; i: number }) => {
         description={<div className="description-text">{activity.name}</div>}
       ></Card.Meta>
       <div className="card-footer">
-        <Tag color="#2961c4">{moment(activity.initDate).format("L")}</Tag>
+        <Tag color="#2961c4">{moment(activity.init_date).format("L")}</Tag>
         <Button
           type="primary"
           icon={<PrinterFilled />}

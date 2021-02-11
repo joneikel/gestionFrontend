@@ -11,9 +11,9 @@ export function useInstitutions(parentId?: string, onlyParent?: boolean) : [Inst
     if(!onlyParent && !parentId) return;
     setLoading(true);
     axios
-      .get<Institution[]>("/institution/filter", {
+      .get<Institution[]>("/institutions-filtered", {
           params: {
-              parentId: parentId,
+              onlyParent: onlyParent ? 'ejecutiva' : parentId,
           }
       })
       .then((resp) => setInstitutions(resp.data))

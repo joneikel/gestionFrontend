@@ -2,23 +2,23 @@ import {useState, useEffect} from 'react';
 import { Municipio, Parroquia } from '../models';
 import { useAxios } from './useAxios';
 
-export function useParroaquias(municipio?: string) : [Municipio[], boolean] {
+export function useParroaquias(municipio_id?: string) : [Municipio[], boolean] {
     const [parroquia, setParroquias] = useState<Parroquia[]>([]);
     const [loading, setLoading] = useState(false);
     const axios =  useAxios();
 
     useEffect(() => {
-        if(!municipio) return;
+        if(!municipio_id) return;
         setLoading(true);
         axios
-            .get<Parroquia[]>("/parroquia/filter", {
+            .get<Parroquia[]>("/parroquia", {
                 params: {
-                    municipio
+                    municipio_id
                 }
             })
             .then((resp) => setParroquias(resp.data))
             .catch((e) => setLoading(false))
             .finally(() => setLoading(false));
-    }, [municipio]);
+    }, [municipio_id]);
     return [parroquia, loading];
 }

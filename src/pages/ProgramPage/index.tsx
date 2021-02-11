@@ -3,7 +3,7 @@ import { AxiosInstance } from "axios";
 import React, { useEffect, useState } from "react";
 import MainTable from "../../components/tables/MainTable";
 import { useAxios } from "../../hooks/useAxios";
-import { Program } from "../../models";
+import { Institution, Program } from "../../models";
 
 const ProgramPage = () => {
   const axios = useAxios();
@@ -29,8 +29,8 @@ const ProgramPage = () => {
       title: "Institución",
       dataIndex: "institution",
       key: "institution",
-      render: (x: any) => <a>{x.name}</a>,
-    }, 
+      render: (x: Institution) => <a href="#">{x.name}</a>,
+    },
   ];
 
   return (

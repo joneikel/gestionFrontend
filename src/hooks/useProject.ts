@@ -11,7 +11,7 @@ export function useProjects(program?: string) : [Project[], boolean] {
         if(!program) return;
         setLoading(true);
         axios
-            .get<Project[]>("/project/filter", {
+            .get<Project[]>("/project", {
                 params: {
                     program
                 }

@@ -5,7 +5,7 @@ import MainTable from "../../components/tables/MainTable";
 import { useAxios } from "../../hooks/useAxios";
 import { Project, ProjectStatus } from "../../models";
 import { useHistory } from "react-router-dom";
-import { downloadFile, downloadFileFromLink, moneyFormatter } from "../../helpers";
+import { downloadFileFromLink, moneyFormatter } from "../../helpers";
 
 const ProjectPage = () => {
   const axios = useAxios();
@@ -36,8 +36,8 @@ const ProjectPage = () => {
     },
     {
       title: "Areas de Inversión",
-      dataIndex: "investmentAreas",
-      key: "investmentAreas",
+      dataIndex: "investment_areas",
+      key: "investment_areas",
       render: (area: Array<any>) => area.map((x) => <Tag>{x.name}</Tag>),
     },
     {
@@ -55,10 +55,10 @@ const ProjectPage = () => {
     },
     {
       title: "Status",
-      dataIndex: "status",
-      key: "status",
+      dataIndex: "project_status",
+      key: "project_status",
       render: (x: ProjectStatus) =>
-        x.isFinal === true ? (
+        x.is_final ? (
           <Tag color="red">{x.name}</Tag>
         ) : (
           <Tag color="green">{x.name}</Tag>
@@ -66,8 +66,8 @@ const ProjectPage = () => {
     },
     {
       title: "¿Planificado?",
-      dataIndex: "isPlanified",
-      key: "isPlanified",
+      dataIndex: "is_planified",
+      key: "is_planified",
       render: (x: any) => (x === 1 ? <span>Si</span> : <span>No</span>),
     },
     {

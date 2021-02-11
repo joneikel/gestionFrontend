@@ -3,7 +3,7 @@ import { Descriptions, Card, Tag } from "antd";
 import { useHistory } from "react-router-dom";
 import ActivityPage from "../../ActivityPage";
 import CustomPageHeader from "../../../components/PageHeader";
-import { Project } from "../../../models";
+import { Budget, Project } from "../../../models";
 import { moneyFormatter } from "../../../helpers";
 
 const ProjectDetails = () => {
@@ -22,13 +22,13 @@ const ProjectDetails = () => {
           {project.description}
         </Descriptions.Item>
         <Descriptions.Item label="¿Planificado?" span={1}>
-          {project.isPlanified === 0 ? "No" : "Si"}
+          {project.is_planified === 0 ? "No" : "Si"}
         </Descriptions.Item>
         <Descriptions.Item label="Presupuesto según origen:">
-          {project.budgets.map((budget: any) => (
+          {project.budgets.map((budget: Budget) => (
             <>
               <Tag style={{ padding: "2px" }}>
-                Bs. {moneyFormatter(budget.value)} {budget.budgetSource.name}{" "}
+                Bs. {moneyFormatter(budget.value.toString())} {budget.budget_source.name}{" "}
               </Tag>
               <br />
             </>
@@ -38,16 +38,16 @@ const ProjectDetails = () => {
           <Tag style={{ padding: "2px" }}>
             Bs.
             {moneyFormatter(
-              project.budgets
-                .map((x: any) => x.value)
-                .reduce((a: number, b: number) => {
-                  return a + b;
-                })
-            )}
+            project.budgets
+              .map((x: any) => x.value)
+              .reduce((a: number, b: number) => {
+                return a + b;
+              })
+          )}
           </Tag>
         </Descriptions.Item>
         <Descriptions.Item label="Areas de inversión:">
-          {project.investmentAreas.map((area: any) => (
+          {project.investment_areas.map((area: any) => (
             <>
               <Tag style={{ padding: "2px" }}>{area.name}</Tag>
               <br />
@@ -58,13 +58,13 @@ const ProjectDetails = () => {
           {project.measurement.name}
         </Descriptions.Item>
         <Descriptions.Item label="Valor de medida:">
-          {project.measurementValue}
+          {project.measurement_value}
         </Descriptions.Item>
         <Descriptions.Item label="Fecha de Inicio:">
-          {project.initDate}
+          {project.init_date}
         </Descriptions.Item>
         <Descriptions.Item label="Fecha de Culminación:">
-          {project.endDate ? project.endDate : "Sin culminar"}
+          {project.end_date ? project.end_date : "Sin culminar"}
         </Descriptions.Item>
       </Descriptions>
 

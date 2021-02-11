@@ -88,13 +88,13 @@ const AppRouter = () => {
 
         <Route
           exact
-          path="/nueva-secretaría"
+          path="/nueva-secretaria"
           component={() => <InstitutionForm />}
         />
 
         <Route
           exact
-          path="/nueva-secretaría-ejecutiva"
+          path="/nueva-secretaria-ejecutiva"
           component={() => <ExecutiveInstitutionForm />}
         />
 

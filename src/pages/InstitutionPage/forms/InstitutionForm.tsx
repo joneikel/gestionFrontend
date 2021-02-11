@@ -37,7 +37,7 @@ const InstitutionForm = () => {
                 <Col span={12}>
                     <Form.Item
                         hasFeedback
-                        name="parentId"
+                        name="parent_id"
                         label="Secretaria Ejecutiva a la que pertence"
                         rules={[
                         {

@@ -10,7 +10,7 @@ export function useInvestmentArea( ) : [InvestmentArea[], boolean] {
     useEffect(() => {
         setLoading(true);
         axios
-            .get<InvestmentArea[]>("/investmentArea")
+            .get<InvestmentArea[]>("/investment-area")
             .then((resp) => setInvestmentArea(resp.data))
             .catch((e) => console.log(e))
             .finally(() => setLoading(false));

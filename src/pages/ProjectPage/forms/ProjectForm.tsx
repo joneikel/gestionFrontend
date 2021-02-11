@@ -39,7 +39,7 @@ const ProjectForm = () => {
         }
     };
 
-    const [Program, setProgram] = useState<string | undefined>();
+    const [program, setProgram] = useState<string | undefined>();
 
     return (
         <Card title={<CustomPageHeader title="Nuevo proyecto" />}>
@@ -65,7 +65,7 @@ const ProjectForm = () => {
                     <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
-                            name="institutionId"
+                            name="institution_id"
                             label="Institucion"
                             rules={[
                                 {
@@ -85,7 +85,7 @@ const ProjectForm = () => {
                     <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
-                            name="program"
+                            name="program_id"
                             label="Programa al que pertence"
                             rules={[
                                 { required: true, message: "Debes indicar nombre del programa." },
@@ -132,7 +132,7 @@ const ProjectForm = () => {
                     <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
-                            name="status"
+                            name="project_status_id"
                             label="Status de ejecución"
                             rules={[
                                 {
@@ -149,7 +149,7 @@ const ProjectForm = () => {
                     <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
-                            name="isPlanified"
+                            name="is_planified"
                             label="¿Planificado?"
                             rules={[
                                 {
@@ -183,7 +183,7 @@ const ProjectForm = () => {
                     <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
-                            name="investmentAreas"
+                            name="investment_areas"
                             label="Area de Inversión"
                             key="investmentArea"
                             rules={[
@@ -200,7 +200,7 @@ const ProjectForm = () => {
                     <Col span={3}>
                         <Form.Item
                             hasFeedback
-                            name="measurement"
+                            name="measurement_id"
                             label="Unidad de medida"
                             rules={[
                                 {
@@ -216,7 +216,7 @@ const ProjectForm = () => {
                     <Col span={3}>
                         <Form.Item
                             hasFeedback
-                            name="measurementValue"
+                            name="measurement_value"
                             label="Valor de medida"
                             rules={[
                                 {
@@ -232,7 +232,7 @@ const ProjectForm = () => {
                     <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
-                            name="initDate"
+                            name="init_date"
                             label="Fecha de inicio"
                             rules={[
                                 {
@@ -248,7 +248,7 @@ const ProjectForm = () => {
                     <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
                             hasFeedback
-                            name="endDate"
+                            name="end_date"
                             label="Fecha de Culminacion"
                             rules={[
                                 {

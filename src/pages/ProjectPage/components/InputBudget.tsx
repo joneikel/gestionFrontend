@@ -34,8 +34,8 @@ const InputBudget = ({
               <Form.Item
                 hasFeedback
                 {...field}
-                name={[field.name, "budgetSource"]}
-                fieldKey={[field.fieldKey, "budgetSource"]}
+                name={[field.name, "budget_source_id"]}
+                fieldKey={[field.fieldKey, "budget_source_id"]}
                 rules={[{ required: true, message: "Seleccione el tipo de presupuesto" }]}
               >
                 <BudgetSourceSelector/>

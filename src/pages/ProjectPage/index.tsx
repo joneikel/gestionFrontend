@@ -6,17 +6,23 @@ import { useAxios } from "../../hooks/useAxios";
 import { Project, ProjectStatus } from "../../models";
 import { useHistory } from "react-router-dom";
 import { downloadFileFromLink, moneyFormatter } from "../../helpers";
+import ProjectFilters from './components/ProjectFilter';
 
 const ProjectPage = () => {
   const axios = useAxios();
   const history = useHistory();
-
+  const [filters, setFilters] = useState({
+    institution_id: undefined,
+    investment_areas: undefined,
+    project_status_id: undefined,
+    is_planified: undefined
+  });
   const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState<Project[] | undefined>();
 
   useEffect(() => {
     setLoading(true);
-    getProjects(axios)
+    getProjects(axios, filters)
       .then((c: Project[]) => setProjects(c))
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
@@ -61,14 +67,20 @@ const ProjectPage = () => {
         x.is_final ? (
           <Tag color="red">{x.name}</Tag>
         ) : (
-          <Tag color="green">{x.name}</Tag>
-        ),
+            <Tag color="green">{x.name}</Tag>
+          ),
     },
     {
       title: "¿Planificado?",
       dataIndex: "is_planified",
       key: "is_planified",
       render: (x: any) => (x === 1 ? <span>Si</span> : <span>No</span>),
+    },
+    {
+      title: "Actividades",
+      dataIndex: "total_activities",
+      key: "total_activities",
+      render: (x: number) => <span>{x}</span>,
     },
     {
       title: "Acciones",
@@ -98,6 +110,13 @@ const ProjectPage = () => {
 
   return (
     <Card>
+      <ProjectFilters onChange={(f: any) => {
+        setLoading(true);
+        getProjects(axios, f)
+          .then((c: Project[]) => setProjects(c))
+          .catch((e) => console.log(e))
+          .finally(() => setLoading(false));
+      }} />
       <MainTable
         loading={loading}
         columns={columns}
@@ -108,8 +127,10 @@ const ProjectPage = () => {
   );
 };
 
-async function getProjects(axios: AxiosInstance): Promise<Project[]> {
-  const response = await axios.get("/project");
+async function getProjects(axios: AxiosInstance, params: any): Promise<Project[]> {
+  const response = await axios.get("/project", {
+    params
+  });
   return response.data;
 }
 

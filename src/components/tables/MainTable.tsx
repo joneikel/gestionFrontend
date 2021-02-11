@@ -16,6 +16,7 @@ const MainTable = ({
 
     return (
         <Table
+            footer={() => <p>Total {dataSource?.length}</p>}
             className="table"
             loading={loading}
             columns={columns}

@@ -1,36 +1,32 @@
-import { Button, Card, Col, Row, Select, Space, Tag, Form, Empty } from 'antd';
+import { Col, Row, Tag } from 'antd';
 import { AxiosInstance } from 'axios';
 import React, { useEffect, useState } from 'react';
 import MainTable from '../../components/tables/MainTable';
 import { useAxios } from '../../hooks/useAxios';
-import { Activity, Institution, Municipio, Parroquia, Project } from '../../models';
-import ActivityCard from './components/ActivityCard';
-import MunicipiosSelect from './components/MunicipioSelect';
-import ParroquiaSelect from './components/ParroquiaSelect';
-import { useHistory } from 'react-router-dom';
-import { useForm } from 'antd/lib/form/Form';
+import { Activity, Parroquia, Project } from '../../models';
+import Filters from './components/ActivityFilters';
 
 const ActivityPage = ({ projectId }: { projectId?: string }) => {
 
   const axios = useAxios();
-  const history = useHistory();
-  const [form] = useForm();
-
-  const [municipio, setMunicipio] = useState<string | undefined>();
-
 
   const [loading, setLoading] = useState(false);
   const [activities, setActivities] = useState<Activity[] | undefined>();
-  const [parentInstitution, setParentInstitution] = useState<string | undefined>();
-  const [filteredActivities, setFilteredActivities] = useState<Activity[] | undefined>();
+  const [filters, setFilters] = useState({
+    institution_id: undefined,
+    municipio_id: undefined,
+    parroquia_id: undefined,
+    gobernador: undefined,
+    project_id: projectId
+  });
 
   useEffect(() => {
     setLoading(true);
-    getActivities(axios)
-      .then((c: Activity[]) => { setActivities(c); setFilteredActivities(c); })
+    getActivities(axios, filters)
+      .then((c: Activity[]) => { setActivities(c); })
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
-  }, [])
+  }, []);
 
   const columns = [
     {
@@ -41,6 +37,7 @@ const ActivityPage = ({ projectId }: { projectId?: string }) => {
       title: '¿Presencia del Gobernador?',
       dataIndex: 'gobernador',
       key: 'gobernador',
+      align: 'center',
       render: (gobernador: boolean) => !gobernador ?
         (<Tag color='red' >No</Tag>) :
         (<Tag color='green' >Si</Tag>)
@@ -51,14 +48,15 @@ const ActivityPage = ({ projectId }: { projectId?: string }) => {
       render: (project: Project) => <span color='green' >{project.name}</span>
     }, {
       title: 'Poblacion beneficiada',
-      dataIndex: 'benefitedPopulation',
+      dataIndex: 'benefited_population',
       key: 'benefitedPopulation',
-      render: (benefitedPopulation: number) => <span>{benefitedPopulation}</span>
+      align: 'center',
+      render: (benefitedPopulation: number, record: Activity) => <span>{benefitedPopulation}/{record.estimated_population}</span>
     }, {
       title: 'Municipio',
-      dataIndex: 'municipio',
+      dataIndex: 'parroquia',
       key: 'municipio',
-      render: (municipio: Municipio) => <span>{municipio.name}</span>
+      render: (parroquia: Parroquia) => <span>{parroquia.municipio.name}</span>
     }, {
       title: 'Parroquia',
       dataIndex: 'parroquia',
@@ -69,21 +67,28 @@ const ActivityPage = ({ projectId }: { projectId?: string }) => {
 
   return (
     <>
-      <Row gutter={[10, 100]}>
-        {filteredActivities?.map((activity, i) => (
-          <Col span={4}>
-            <ActivityCard i={i}
-              key={activity.id}
-              activity={activity} />
-          </Col>
-        ))}
+      <Row gutter={10}>
+        <Col span={24}>
+          <Filters onChange={(f: any) => {
+            setLoading(true);
+            getActivities(axios, { ...filters, ...f })
+              .then((c: Activity[]) => { setActivities(c); })
+              .catch((e) => console.log(e))
+              .finally(() => setLoading(false));
+          }} />
+        </Col>
+        <Col span={24}>
+          <MainTable onSearch={() => null} loading={loading} dataSource={activities} columns={columns} />
+        </Col>
       </Row>
     </>
   )
 }
 
-async function getActivities(axios: AxiosInstance): Promise<Activity[]> {
-  const response = await axios.get('/activity');
+async function getActivities(axios: AxiosInstance, params?: any): Promise<Activity[]> {
+  const response = await axios.get('/activity', {
+    params: params || null
+  });
   return response.data;
 
 }

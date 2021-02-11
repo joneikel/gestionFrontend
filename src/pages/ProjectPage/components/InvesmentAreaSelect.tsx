@@ -16,7 +16,8 @@ const InvestmentAreaSelect = ({mode, value, onChange}: {mode: "multiple"|"tags"|
 
     return (
         <Select
-        
+        placeholder="Areas de inversión"
+        style={{width: '100%'}}
         value={area}
         mode={mode}
         loading={loading}

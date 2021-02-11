@@ -32,6 +32,7 @@ export type Project = {
   is_planified: number;
   init_date: Date;
   end_date: Date;
+  total_activities?: number;
 };
 
 export type Municipio = {
@@ -41,6 +42,7 @@ export type Municipio = {
 export type Parroquia = {
   id: string;
   name: string;
+  municipio: Municipio;
 };
 
 export type ProjectStatus = {

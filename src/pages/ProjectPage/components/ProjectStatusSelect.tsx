@@ -17,7 +17,10 @@ const ProjectStatusSelect = ({
   };
 
   return (
-    <Select disabled={disabled} onChange={handleChange} loading={loadingProjectStatus}>
+    <Select
+    placeholder="Estatus del proyecto"
+    style={{width: '100%'}}
+    disabled={disabled} onChange={handleChange} loading={loadingProjectStatus}>
       {projectStatus.map((status) => (
         <Select.Option value={status.id} key={status.id}>
           {status.name}

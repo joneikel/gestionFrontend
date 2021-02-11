@@ -32,7 +32,7 @@ const MeasurementForm = React.lazy(
   () => import("../../pages/MeasurementPage/forms/MeasurementForm")
 );
 
-const Dash = React.lazy(() => import("../../pages/Dash"));
+const Dash = React.lazy(() => import("../../pages/ActivityPage"));
 
 const AppRouter = () => {
   return (

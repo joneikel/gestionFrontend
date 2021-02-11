@@ -6,7 +6,7 @@ import { useAxios } from '../../hooks/useAxios';
 import { Activity, Parroquia, Project } from '../../models';
 import Filters from './components/ActivityFilters';
 
-const ActivityPage = ({ projectId }: { projectId?: string }) => {
+const ActivityPage = ({ projectId, projectDetails }: { projectId?: string, projectDetails?: boolean }) => {
 
   const axios = useAxios();
 

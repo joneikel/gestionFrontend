@@ -55,14 +55,14 @@ const ProgramForm = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: "Debes seleccionar una secretaría.",
+                                    message: "Debes seleccionar una secretaría",
                                 },
                             ]}
                         >
                             <InstitutionsSelect
                                 disabled={!parentInstitution}
                                 parentId={parentInstitution}
-                                onChange={setParentInstitution}
+                                onChange={(v:any) => console.log(v)}
                             />
                         </Form.Item>
                     </Col>

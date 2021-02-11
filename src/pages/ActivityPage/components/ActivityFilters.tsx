@@ -46,10 +46,12 @@ const Filters = ({ onChange }: { onChange: Function }) => {
           }
           }
           municipio_id={filters.municipio_id} />
-        <Select onChange={(gobernador: "SI" | "NO" | "TODOS") => {
-          setFilters({ ...filters, gobernador })
-          handleChange({ ...filters, gobernador });
-        }}>
+        <Select
+          style={{ width: '100%' }}
+          onChange={(gobernador: "SI" | "NO" | "TODOS") => {
+            setFilters({ ...filters, gobernador })
+            handleChange({ ...filters, gobernador });
+          }}>
           <Select.Option value={"TODOS"}>TODOS</Select.Option>
           <Select.Option value={"SI"}>Si</Select.Option>
           <Select.Option value={"NO"}>No</Select.Option>

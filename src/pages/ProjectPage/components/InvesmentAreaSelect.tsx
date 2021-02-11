@@ -4,24 +4,24 @@ import { Select } from 'antd';
 import { useInvestmentArea } from '../../../hooks/useInvestmentArea';
 import { InvestmentArea } from '../../../models';
 
-const InvestmentAreaSelect = ({mode, value, onChange}: {mode: "multiple"|"tags"|undefined , value?:string, onChange?: Function }) => {
+const InvestmentAreaSelect = ({ mode, value, onChange }: { mode: "multiple" | "tags" | undefined, value?: string[], onChange?: Function }) => {
 
     const [investmentAreas, loading] = useInvestmentArea();
-    const [ area, setArea ] = useState<Array<string>|string|undefined>(value)
+    const [area, setArea] = useState<Array<string> | string | undefined>(value)
 
-    const handleChange = (value:any) => {
+    const handleChange = (value: any) => {
         setArea(value);
         onChange && onChange(value);
     }
 
     return (
         <Select
-        placeholder="Areas de inversión"
-        style={{width: '100%'}}
-        value={area}
-        mode={mode}
-        loading={loading}
-        onChange={ (value) => handleChange(value)}
+            placeholder="Areas de inversión"
+            style={{ width: '100%' }}
+            value={area}
+            mode={mode}
+            loading={loading}
+            onChange={(value) => handleChange(value)}
         >
             {investmentAreas.map(investmentArea => (
                 <Select.Option

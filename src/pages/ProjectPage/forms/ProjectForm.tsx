@@ -30,7 +30,7 @@ const ProjectForm = () => {
         try {
             const response = await axios.post('project', values);
             message.success("Proyecto creado.");
-            history.push('/nuevo-proyecto');
+            history.push('/listar-proyectos');
             return response;
         } catch (error) {
             message.error("No se pudo crear el proyecto.");

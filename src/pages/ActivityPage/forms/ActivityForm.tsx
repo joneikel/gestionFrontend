@@ -32,7 +32,7 @@ const ActivityForm = () => {
         }
       });
       message.success("Actividad creada exitosamente");
-      history.push('/nueva-actividad');
+      history.push('/listar-actividades');
       return response;
     } catch (error) {
       message.error("No se ha podido crear la actividad");

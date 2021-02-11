@@ -26,7 +26,9 @@ const ProjectFilters = ({ onChange }: { onChange: Function }) => {
     <Card>
       <Row gutter={10}>
         <Col span={6}>
-          <InstitutionsSelect onlyParent
+          <InstitutionsSelect
+            value={filters.institution_id}
+            onlyParent
             onChange={(institution_id: string) => {
               handleChange({ ...filters, institution_id });
               setFilters({ ...filters, institution_id })
@@ -35,6 +37,7 @@ const ProjectFilters = ({ onChange }: { onChange: Function }) => {
         </Col>
         <Col span={6}>
           <InvestmentAreaSelect
+            value={filters.investment_areas}
             mode="multiple" onChange={(investment_areas: string[]) => {
               handleChange({ ...filters, investment_areas });
               setFilters({ ...filters, investment_areas })
@@ -42,6 +45,7 @@ const ProjectFilters = ({ onChange }: { onChange: Function }) => {
         </Col>
         <Col span={6}>
           <ProjectStatusSelect
+            value={filters.project_status_id}
             onChange={(project_status_id: string) => {
               handleChange({ ...filters, project_status_id });
               setFilters({ ...filters, project_status_id })
@@ -49,6 +53,7 @@ const ProjectFilters = ({ onChange }: { onChange: Function }) => {
         </Col>
         <Col span={6}>
           <Select
+            value={filters.is_planified}
             placeholder="¿Planificada?"
             style={{ width: '100%' }}
             onChange={(is_planified: number) => {
@@ -63,11 +68,15 @@ const ProjectFilters = ({ onChange }: { onChange: Function }) => {
           <Button onClick={() => {
             setFilters({
               institution_id: undefined,
-
+              investment_areas: undefined,
+              project_status_id: undefined,
+              is_planified: undefined
             })
             handleChange({
               institution_id: undefined,
-
+              investment_areas: undefined,
+              project_status_id: undefined,
+              is_planified: undefined
             });
           }}>Limpiar filtros</Button>
         </Col>

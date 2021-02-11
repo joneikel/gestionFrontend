@@ -1,11 +1,28 @@
-import { Button, Form, Input } from "antd";
-import React from "react";
+import { Button, Form, Input, message } from "antd";
+import React, { useState } from "react";
+import { useAxios } from "../../../hooks/useAxios";
+import { useHistory } from "react-router-dom";
 
 const LoginForm = () => {
-  const handleSubmit = (values: any) => {
-    console.log(values);
-  };
+  const axios = useAxios();
+  const history = useHistory();
+  const [loading, setLoading] = useState<boolean>(false);
 
+  const handleSubmit = async (values: any) => {
+    console.log(values);
+    setLoading(true);
+    try {
+      const response = await axios.post("login", values);
+      message.success("Registro exitoso.");
+      history.push("/");
+      return response;
+    } catch (error) {
+      message.error("Error de credenciales.");
+    } finally {
+      setLoading(false);
+    }
+  };
+    
   return (
     <Form layout="vertical" onFinish={handleSubmit}>
       <Form.Item

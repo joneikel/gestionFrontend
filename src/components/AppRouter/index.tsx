@@ -34,6 +34,8 @@ const MeasurementForm = React.lazy(
 
 const Dash = React.lazy(() => import("../../pages/Dash"));
 
+const LoginForm = React.lazy(() => import("../../containers/components/LoginMain"));
+
 const AppRouter = () => {
   return (
     <Suspense fallback={<EcLoading />}>
@@ -99,6 +101,8 @@ const AppRouter = () => {
         />
 
         <Route exact path="/" component={() => <Dash />} />
+
+        <Route exact path="/login" component={() => <LoginForm/>} />
 
         {/* <Route exact path="/no-autorizado" component={() => <Unauthorized />} />
         <Route exact path="* *" component={() => <PageNotFound />} /> */}

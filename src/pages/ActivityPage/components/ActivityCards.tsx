@@ -5,7 +5,7 @@ import moment from "moment";
 import { downloadFileFromLink } from "../../../helpers";
 import { PrinterFilled } from "@ant-design/icons";
 
-const ActivityCard = ({ activity, i }: { activity: Activity; i: number }) => {
+const ActivityCards = ({ activity, i }: { activity: Activity; i: number }) => {
   return (
     <Card
       className="base-card activity-card shadow-drop-center"
@@ -38,7 +38,7 @@ const ActivityCard = ({ activity, i }: { activity: Activity; i: number }) => {
   );
 };
 
-export default ActivityCard;
+export default ActivityCards;
 
 const images = [
   "https://ultimasnoticias.com.ve/wp-content/uploads/2020/09/plan-de-vacunacion-guarico-2.jpg",

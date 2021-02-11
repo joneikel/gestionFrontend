@@ -1,12 +1,14 @@
 import { Col, Row, Tag } from 'antd';
 import { AxiosInstance } from 'axios';
+import { randomInt } from 'crypto';
 import React, { useEffect, useState } from 'react';
 import MainTable from '../../components/tables/MainTable';
 import { useAxios } from '../../hooks/useAxios';
 import { Activity, Parroquia, Project } from '../../models';
+import ActivityCards from './components/ActivityCards';
 import Filters from './components/ActivityFilters';
 
-const ActivityPage = ({ projectId }: { projectId?: string }) => {
+const ActivityPage = ({ projectId, projectDetails }: { projectId?: string, projectDetails?: boolean }) => {
 
   const axios = useAxios();
 
@@ -25,7 +27,7 @@ const ActivityPage = ({ projectId }: { projectId?: string }) => {
     getActivities(axios, filters)
       .then((c: Activity[]) => { setActivities(c); })
       .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
+      .finally(() => {setLoading(false); console.log(activities);});
   }, []);
 
   const columns = [
@@ -78,7 +80,8 @@ const ActivityPage = ({ projectId }: { projectId?: string }) => {
           }} />
         </Col>
         <Col span={24}>
-          <MainTable onSearch={() => null} loading={loading} dataSource={activities} columns={columns} />
+          { projectDetails === true ? <MainTable onSearch={() => null} loading={loading} dataSource={activities} columns={columns} /> :
+          activities && activities.length > 0 && activities.map((act) => <ActivityCards activity={act} i={1} />)}
         </Col>
       </Row>
     </>

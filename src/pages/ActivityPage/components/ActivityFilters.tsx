@@ -23,7 +23,7 @@ const Filters = ({ onChange }: { onChange: Function }) => {
   }
 
   return (
-    <Card>
+    <Card className="filter-card">
       <Space>
         <InstitutionsSelect onlyParent
           onChange={(institution_id: string) => {

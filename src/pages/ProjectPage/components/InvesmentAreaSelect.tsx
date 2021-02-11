@@ -16,6 +16,8 @@ const InvestmentAreaSelect = ({ mode, value, onChange }: { mode: "multiple" | "t
 
     return (
         <Select
+            filterOption={true}
+            optionFilterProp='label'
             placeholder="Areas de inversión"
             style={{ width: '100%' }}
             value={area}
@@ -25,6 +27,7 @@ const InvestmentAreaSelect = ({ mode, value, onChange }: { mode: "multiple" | "t
         >
             {investmentAreas.map(investmentArea => (
                 <Select.Option
+                    label={investmentArea.name}
                     value={investmentArea.id}
                     key={investmentArea.id}>
                     {investmentArea.name}

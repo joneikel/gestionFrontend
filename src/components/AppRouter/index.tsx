@@ -32,7 +32,7 @@ const MeasurementForm = React.lazy(
   () => import("../../pages/MeasurementPage/forms/MeasurementForm")
 );
 
-const Dash = React.lazy(() => import("../../pages/Dash"));
+const Dash = React.lazy(() => import("../../pages/ActivityPage"));
 
 const LoginForm = React.lazy(() => import("../../containers/components/LoginMain"));
 
@@ -40,7 +40,7 @@ const AppRouter = () => {
   return (
     <Suspense fallback={<EcLoading />}>
       <Switch>
-        <Route exact path="/dashboard" component={() => <Dash />} />
+        <Route exact path="/dashboard" component={() => <Dash projectDetails={true} />} />
 
         <Route
           exact

@@ -24,10 +24,13 @@ const InstitutionsSelect = ({
 
   return (
     <Select
+      showSearch
+      filterOption={true}
+      optionFilterProp='label'
       style={{ width: '100%' }}
       placeholder={onlyParent ? "Secreataría ejecutiva" : "Secreataría"} disabled={disabled} onChange={handleChange} loading={loadingInstitution}>
       {institutions.map((institution) => (
-        <Select.Option value={institution.id} key={institution.id}>
+        <Select.Option value={institution.id} key={institution.id} label={institution.name} >
           {institution.name}
         </Select.Option>
       ))}

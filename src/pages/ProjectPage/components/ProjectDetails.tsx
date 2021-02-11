@@ -69,7 +69,7 @@ const ProjectDetails = () => {
       </Descriptions>
 
       <Card title="Actividades del proyecto">
-        <ActivityPage projectId={project.id} />
+        <ActivityPage projectId={project.id} projectDetails />
       </Card>
     </Card>
   );

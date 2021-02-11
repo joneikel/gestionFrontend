@@ -20,9 +20,9 @@ const ProgramSelect = ({
   };
 
   return (
-    <Select onChange={handleChange} loading={loadingPrograms} disabled={disabled} >
+    <Select onChange={handleChange} loading={loadingPrograms} disabled={disabled} showSearch filterOption={true} optionFilterProp='label' >
       {programs.map((program) => (
-        <Select.Option value={program.id} key={program.id}>
+        <Select.Option value={program.id} key={program.id} label={program.name} >
           {program.name}
         </Select.Option>
       ))}

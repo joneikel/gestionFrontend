@@ -23,7 +23,7 @@ const ProjectFilters = ({ onChange }: { onChange: Function }) => {
   }
 
   return (
-    <Card>
+    <Card className="filter-card">
       <Row gutter={10}>
         <Col span={6}>
           <InstitutionsSelect

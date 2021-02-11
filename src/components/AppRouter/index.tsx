@@ -38,7 +38,7 @@ const AppRouter = () => {
   return (
     <Suspense fallback={<EcLoading />}>
       <Switch>
-        <Route exact path="/dashboard" component={() => <Dash />} />
+        <Route exact path="/dashboard" component={() => <Dash projectDetails={true} />} />
 
         <Route
           exact

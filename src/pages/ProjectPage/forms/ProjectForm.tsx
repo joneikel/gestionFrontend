@@ -20,7 +20,7 @@ const ProjectForm = () => {
     string | undefined
   >();
   const [institution, setInstitution] = useState<string | undefined>();
-  const [investmentArea, setInvestmentArea] = useState <string | undefined>();
+  const [investmentArea, setInvestmentArea] = useState <string[] | undefined>();
 
   const handleSubmit = async (values: any) => {
     setLoading(true);
@@ -212,7 +212,10 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <InvestmentSubAreaSelect mode="multiple"/>
+              <InvestmentSubAreaSelect
+              disabled={!investmentArea}
+              investmentAreaIds={investmentArea}
+               mode="multiple"/>
             </Form.Item>
           </Col>
 

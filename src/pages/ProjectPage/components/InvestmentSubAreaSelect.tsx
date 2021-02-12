@@ -1,10 +1,11 @@
 import { Select } from "antd";
 import React, { useState } from "react";
 import { useInvestmentSubArea } from "../../../hooks/useInvestmentSubAreas";
-import { InvestmentSubArea } from "../../../models";
 
-const InvestmentSubAreaSelect = ({ mode, value, onChange }:{ mode: "multiple" | "tags" | undefined, value?: string[], onChange?: Function }) => {
-    const [investmentSubArea, loading] = useInvestmentSubArea();
+const InvestmentSubAreaSelect = ({ mode, value, onChange, investmentAreaIds, disabled}:{ mode: "multiple" | "tags" | undefined, value?: string[], onChange?: Function, investmentAreaIds?:string[], disabled?:boolean }) => {
+
+    const [investmentSubArea, loading] = useInvestmentSubArea(investmentAreaIds);
+
     const [subArea, setSubArea] = useState<string[] | undefined>(value)
 
     const handleChange = (value: string[]) => {
@@ -13,6 +14,7 @@ const InvestmentSubAreaSelect = ({ mode, value, onChange }:{ mode: "multiple" | 
     }
     return(
         <Select
+            disabled={disabled}
             filterOption={true}
             optionFilterProp= 'label'
             placeholder= 'Sub-Area de inversión'

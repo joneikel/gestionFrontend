@@ -8,7 +8,7 @@ function useUser() {
     clearSessions();
   }
   let login = (payload: User) => {
-    sessionStorage.setItem("user", JSON.stringify(payload));
+    localStorage.setItem("user", JSON.stringify(payload));
     setUser(payload);
   };
   return { user, login, logout }

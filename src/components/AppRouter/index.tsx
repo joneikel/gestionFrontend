@@ -33,6 +33,10 @@ const MeasurementForm = React.lazy(
   () => import("../../pages/MeasurementPage/forms/MeasurementForm")
 );
 
+const UserForm = React.lazy(
+  () => import("../../pages/UserPage/forms/UserForm")
+);
+
 const Dash = React.lazy(() => import("../../pages/ActivityPage"));
 
 const LoginForm = React.lazy(() => import("../../containers/components/LoginMain"));
@@ -110,6 +114,12 @@ const AppRouter = () => {
         <Route exact path="/" component={() => <Dash />} />
 
         <Route exact path="/login" component={() => <LoginForm />} />
+
+        <Route
+          exact
+          path="/nuevo-usuario"
+          component={() => <UserForm />}
+        />
 
         {/* <Route exact path="/no-autorizado" component={() => <Unauthorized />} />
         <Route exact path="* *" component={() => <PageNotFound />} /> */}

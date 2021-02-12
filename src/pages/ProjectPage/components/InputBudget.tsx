@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import { Form, Button, Space, Select, Input } from "antd";
+import { Form, Button, Space, Input } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Budget } from "../../../models";
 import BudgetSourceSelector from "./BudgetSourceSelector";
 
-const InputBudget = ({
-
-    }:{
-
-}) => {
-  const [budget, setBudget] = useState<Budget | undefined> ();
+const InputBudget = () => {
 
   return (
     <Form.List name="budgets">

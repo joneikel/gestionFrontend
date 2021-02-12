@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import CustomPageHeader from '../../../components/PageHeader';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import InstitutionsSelect from '../../ActivityPage/components/InstitutionSelect';
-import { Institution } from '../../../models';
 import { useAxios } from '../../../hooks/useAxios';
 import { useHistory } from 'react-router-dom';
 
@@ -16,7 +15,7 @@ const UserForm = () => {
 
     const handleSubmit = async (values:any) =>{
         setLoading(true);
-        if( values.password != values.password_confirmation ){
+        if( values.password !== values.password_confirmation ){
             setLoading(false);
             return message.error("Las contraseñas no coinciden");
         }

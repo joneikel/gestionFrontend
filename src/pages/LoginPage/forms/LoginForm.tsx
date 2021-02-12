@@ -1,8 +1,9 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Card, Form, Input, message } from "antd";
 import React, { useState } from "react";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
 import UserContainer from "../../../unstated/UserContainer";
+
 
 const LoginForm = () => {
   const axios = useAxios();
@@ -10,6 +11,7 @@ const LoginForm = () => {
   const userState = UserContainer.useContainer();
 
   const [loading, setLoading] = useState<boolean>(false);
+
 
   const handleSubmit = async (values: any) => {
     console.log(values);
@@ -31,6 +33,7 @@ const LoginForm = () => {
   };
 
   return (
+      <Card title="Validacion de Usuario" bordered={false} style={{width: 500 }}>
     <Form layout="vertical" onFinish={handleSubmit}>
       <Form.Item
         hasFeedback
@@ -63,6 +66,7 @@ const LoginForm = () => {
         </Button>
       </Form.Item>
     </Form>
+    </Card>
   );
 };
 

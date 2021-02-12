@@ -2,18 +2,16 @@ import React from "react";
 import { Layout } from 'antd';
 import LoginForm from '../../pages/LoginPage/forms/LoginForm'
 
+const LoginMain = () => {
 
-const { Content } = Layout;
-const LoginMain = ()=> {
-
-    return (
+  return (
 
     <Layout>
-      
-      <Content> <LoginForm/> </Content>
-     
+
+      <LoginForm />
+
     </Layout>
 
-    )
+  )
 }
 export default LoginMain;

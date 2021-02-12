@@ -23,7 +23,7 @@ const InvestmentAreaSelect = ({ mode, value, onChange }: { mode: "multiple" | "t
             value={area}
             mode={mode}
             loading={loading}
-            onChange={(value) => handleChange(value)}
+            onChange={(value) => {console.log(value);handleChange(value);}}
         >
             {investmentAreas.map(investmentArea => (
                 <Select.Option

@@ -70,6 +70,11 @@ export type InvestmentArea = {
   name: string;
 };
 
+export type InvestmentSubArea = {
+  id: string;
+  name: string;
+}
+
 export type MeasurementUnit = {
   id: string;
   name: string;

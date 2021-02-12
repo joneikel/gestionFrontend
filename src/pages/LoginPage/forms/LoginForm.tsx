@@ -2,10 +2,13 @@ import { Button, Form, Input, message } from "antd";
 import React, { useState } from "react";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
+import UserContainer from "../../../unstated/UserContainer";
 
 const LoginForm = () => {
   const axios = useAxios();
   const history = useHistory();
+  const userState = UserContainer.useContainer();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (values: any) => {
@@ -13,8 +16,12 @@ const LoginForm = () => {
     setLoading(true);
     try {
       const response = await axios.post("login", values);
-      message.success("Registro exitoso.");
-      history.push("/");
+      message.success("Inicio de sesión exitoso.");
+      let loginInformation = {
+        name: response.data.data.name,
+        access_token: response.data.token
+      }
+      userState.login(loginInformation);
       return response;
     } catch (error) {
       message.error("Error de credenciales.");
@@ -22,7 +29,7 @@ const LoginForm = () => {
       setLoading(false);
     }
   };
-    
+
   return (
     <Form layout="vertical" onFinish={handleSubmit}>
       <Form.Item

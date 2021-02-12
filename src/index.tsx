@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import UserContainer from './unstated/UserContainer';
 
 ReactDOM.render(
   <React.StrictMode>
+    <UserContainer.Provider>
     <App />
+    </UserContainer.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

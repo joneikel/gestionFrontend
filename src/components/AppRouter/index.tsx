@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
+import StatisticsPage from "../../pages/StatisticsPage";
 import EcLoading from "./EcLoading";
 
 const ActivityForm = React.lazy(
@@ -100,9 +101,15 @@ const AppRouter = () => {
           component={() => <ExecutiveInstitutionForm />}
         />
 
+        <Route
+          exact
+          path="/estadisticas"
+          component={() => <StatisticsPage />}
+        />
+
         <Route exact path="/" component={() => <Dash />} />
 
-        <Route exact path="/login" component={() => <LoginForm/>} />
+        <Route exact path="/login" component={() => <LoginForm />} />
 
         {/* <Route exact path="/no-autorizado" component={() => <Unauthorized />} />
         <Route exact path="* *" component={() => <PageNotFound />} /> */}

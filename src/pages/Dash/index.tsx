@@ -6,7 +6,7 @@ import GroupedBar from "../ChartsPage/components/Multibar";
 const Dash = () => {
   return (
     <Space direction="vertical" style={{ width: "100%" }}>
- {/*      <GroupedBar
+      <GroupedBar
         title="Distribución de actividades en los municipios del estado agrupadas por sector"
         labels={[
           "Julián Mellado",
@@ -188,7 +188,7 @@ const Dash = () => {
           },
         ]}
       />
-      <ChartsPage /> */}
+      <ChartsPage />
     </Space>
   );
 };

@@ -3,7 +3,8 @@ import {
   CalendarOutlined,
   FolderOutlined,
   AudioOutlined,
-  PlusCircleOutlined
+  PlusCircleOutlined,
+  BarChartOutlined
 } from "@ant-design/icons";
 
 export const routes: SidebarItem[] = [
@@ -30,63 +31,70 @@ export const routes: SidebarItem[] = [
           },
         ],
       },*/{
-        label: "Programas",
+    label: "Programas",
+    icon: <CalendarOutlined />,
+    link: "#",
+    children: [
+      {
+        label: "Listar",
         icon: <CalendarOutlined />,
-        link: "#",
-        children: [
-           {
-            label: "Listar",
-            icon: <CalendarOutlined />,
-            link: "/listar-programas",
-            children: [],
-          },  {
-            label: "Nuevo",
-            icon: <PlusCircleOutlined />,
-            link: "/nuevo-programa",
-            children: [],
-          }
-        ],
-      },{
-        label: "Proyectos",
-        icon: <FolderOutlined />,
-        link: "#",
-        children: [
-          {
-            label: "Listar",
-            icon: <CalendarOutlined />,
-            link: "/listar-proyectos",
-            children: [],
-          },{
-            label: "Nuevo",
-            icon: <PlusCircleOutlined />,
-            link: "/nuevo-proyecto",
-            children: [],
-          }
-        ],
-      },{
-        label: "Actividades",
-        icon: <AudioOutlined />,
-        link: "#",
-        children: [
-          {
-            label: "listar",
-            icon: <PlusCircleOutlined />,
-            link: "/listar-actividades",
-            children: [],
-          },{
-            label: "Nueva",
-            icon: <PlusCircleOutlined />,
-            link: "/nueva-actividad",
-            children: [],
-          }
-        ],
-      },
+        link: "/listar-programas",
+        children: [],
+      }, {
+        label: "Nuevo",
+        icon: <PlusCircleOutlined />,
+        link: "/nuevo-programa",
+        children: [],
+      }
+    ],
+  }, {
+    label: "Proyectos",
+    icon: <FolderOutlined />,
+    link: "#",
+    children: [
+      {
+        label: "Listar",
+        icon: <CalendarOutlined />,
+        link: "/listar-proyectos",
+        children: [],
+      }, {
+        label: "Nuevo",
+        icon: <PlusCircleOutlined />,
+        link: "/nuevo-proyecto",
+        children: [],
+      }
+    ],
+  },
+  {
+    label: "Actividades",
+    icon: <AudioOutlined />,
+    link: "#",
+    children: [
+      {
+        label: "listar",
+        icon: <PlusCircleOutlined />,
+        link: "/listar-actividades",
+        children: [],
+      }, {
+        label: "Nueva",
+        icon: <PlusCircleOutlined />,
+        link: "/nueva-actividad",
+        children: [],
+      }
+    ],
+  },
+  {
+    label: "Estadisticas",
+    icon: <BarChartOutlined />,
+    link: "/estadisticas",
+    children: [],
+  },
 ]
 
 
 export type SidebarItem = {
-    label: string;
-    icon: ReactNode;
-    link: string;
-    children: Array<SidebarItem>;
-  };
+  label: string;
+  icon: ReactNode;
+  link: string;
+  children: Array<SidebarItem>;
+};

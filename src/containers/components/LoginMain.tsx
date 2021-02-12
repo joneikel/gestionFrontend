@@ -10,7 +10,7 @@ const LoginMain = ()=> {
 
     <Layout>
       
-      <Content> <LoginForm/> </Content>
+      <LoginForm/> 
      
     </Layout>
 

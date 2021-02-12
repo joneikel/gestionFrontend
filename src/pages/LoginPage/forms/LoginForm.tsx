@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
 import UserContainer from "../../../unstated/UserContainer";
+import Modal from "antd/lib/modal/Modal";
 
 
 const LoginForm = () => {
@@ -33,40 +34,44 @@ const LoginForm = () => {
   };
 
   return (
-      <Card title="Validacion de Usuario" bordered={false} style={{width: 500 }}>
-    <Form layout="vertical" onFinish={handleSubmit}>
-      <Form.Item
-        hasFeedback
-        name="email"
-        label="Correo"
-        rules={[
-          { required: true, message: "Debes indicar tu correo" },
-          {
-            pattern: /\w+@\w+\.\w+/,
-            message: "Debes coloca un correo valido.",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        hasFeedback
-        name="password"
-        label="Contraseña"
-        rules={[
-          { required: true, message: "Debes indicar tu contraseña" },
-          { min: 6, message: "Debe tener al menos 6 caracteres alfanumericos" },
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Acceder
+    <Modal
+    visible
+    >
+      <Card title="Validacion de Usuario" bordered={false} style={{ width: '100%' }}>
+        <Form layout="vertical" onFinish={handleSubmit}>
+          <Form.Item
+            hasFeedback
+            name="email"
+            label="Correo"
+            rules={[
+              { required: true, message: "Debes indicar tu correo" },
+              {
+                pattern: /\w+@\w+\.\w+/,
+                message: "Debes coloca un correo valido.",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            hasFeedback
+            name="password"
+            label="Contraseña"
+            rules={[
+              { required: true, message: "Debes indicar tu contraseña" },
+              { min: 6, message: "Debe tener al menos 6 caracteres alfanumericos" },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Acceder
         </Button>
-      </Form.Item>
-    </Form>
-    </Card>
+          </Form.Item>
+        </Form>
+      </Card>
+    </Modal>
   );
 };
 

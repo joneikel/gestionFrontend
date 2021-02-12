@@ -4,6 +4,7 @@ import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
 import UserContainer from "../../../unstated/UserContainer";
 import Modal from "antd/lib/modal/Modal";
+import { isNonNullChain } from "typescript";
 
 
 const LoginForm = () => {
@@ -36,6 +37,7 @@ const LoginForm = () => {
   return (
     <Modal
     visible
+    footer={null}
     >
       <Card title="Validacion de Usuario" bordered={false} style={{ width: '100%' }}>
         <Form layout="vertical" onFinish={handleSubmit}>
@@ -65,9 +67,9 @@ const LoginForm = () => {
             <Input.Password />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" >
               Acceder
-        </Button>
+            </Button>
           </Form.Item>
         </Form>
       </Card>

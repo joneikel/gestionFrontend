@@ -1,18 +1,20 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Card, Form, Input, message } from "antd";
 import React, { useState } from "react";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
+
 
 const LoginForm = () => {
   const axios = useAxios();
   const history = useHistory();
   const [loading, setLoading] = useState<boolean>(false);
 
+
   const handleSubmit = async (values: any) => {
     console.log(values);
     setLoading(true);
     try {
-      const response = await axios.post("login", values);
+      const response = await axios.post("/login", values);
       message.success("Registro exitoso.");
       history.push("/");
       return response;
@@ -24,6 +26,7 @@ const LoginForm = () => {
   };
     
   return (
+      <Card title="Validacion de Usuario" bordered={false} style={{width: 500 }}>
     <Form layout="vertical" onFinish={handleSubmit}>
       <Form.Item
         hasFeedback
@@ -56,6 +59,7 @@ const LoginForm = () => {
         </Button>
       </Form.Item>
     </Form>
+    </Card>
   );
 };
 

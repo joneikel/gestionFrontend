@@ -42,8 +42,8 @@ const ProjectPage = () => {
     },
     {
       title: "Areas de Inversión",
-      dataIndex: "investment_areas",
-      key: "investment_areas",
+      dataIndex: "investment_sub_areas",
+      key: "investmentsub__areas",
       render: (area: Array<any>) => area.map((x) => <Tag>{x.name}</Tag>),
     },
     {

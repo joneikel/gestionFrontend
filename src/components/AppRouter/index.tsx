@@ -101,6 +101,12 @@ const AppRouter = () => {
 
         <Route
           exact
+          path="/editar-secretaria"
+          component={() => <InstitutionForm />}
+        />
+
+        <Route
+          exact
           path="/nueva-secretaria-ejecutiva"
           component={() => <ExecutiveInstitutionForm />}
         />

@@ -24,7 +24,7 @@ export type Project = {
   name: string;
   description: string;
   program: Program;
-  investment_areas: InvestmentArea[];
+  investment_sub_areas: InvestmentSubArea[];
   measurement: MeasurementUnit;
   budgets: Budget[];
   status: ProjectStatus;

@@ -47,7 +47,7 @@ const ProjectDetails = () => {
           </Tag>
         </Descriptions.Item>
         <Descriptions.Item label="Areas de inversión:">
-          {project.investment_areas.map((area: any) => (
+          {project.investment_sub_areas.map((area: any) => (
             <>
               <Tag style={{ padding: "2px" }}>{area.name}</Tag>
               <br />

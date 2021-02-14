@@ -101,7 +101,7 @@ const AppRouter = () => {
 
         <Route
           exact
-          path="/editar-secretaria"
+          path="/editar-secretaria/:institution_id"
           component={() => <InstitutionForm />}
         />
 

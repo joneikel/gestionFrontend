@@ -1,31 +1,40 @@
 import { Button, Col, Form, Input, message, Row } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
 import { useAxios } from "../../../hooks/useAxios";
-import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { AxiosInstance } from "axios";
+import { useForm } from "antd/lib/form/Form";
 
 const InstitutionForm = () => {
   const axios = useAxios();
-  const history = useHistory();
-
-  const [parentInstitution, setParentInstitution] = useState<
-    string | undefined
-  >();
-
+  const params = useParams() as { institution_id?: string };
+  const [parentInstitution, setParentInstitution] = useState<string | undefined>();
+  const [form] = useForm();
   const [loading, setLoading] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (params.institution_id)
+      getInsitution(params.institution_id, axios)
+        .then((i) => {
+          form.setFieldsValue(i);
+        })
+        .catch(err => message.error("Ha ocurrido un error"));
+  }, []);
+
   const handleSubmit = async (values: any) => {
-    console.log(values);
     setLoading(true);
     try {
-      const response = await axios.post("institution", values);
-      message.success("Institución creada.");
-      history.push("/nueva-secretaría");
-      return response;
+      if (!params.institution_id) {
+        await createInstitution(values, axios);
+      } else {
+        await updateInstitution(values, params.institution_id, axios);
+      }
     } catch (error) {
       message.error("No Se puedo crear el la institución.");
     } finally {
       setLoading(false);
+      form.resetFields();
     }
   };
 
@@ -33,7 +42,7 @@ const InstitutionForm = () => {
     <>
       <h1>Nueva Secretaría</h1>
       <br />
-      <Form layout="vertical" onFinish={handleSubmit}>
+      <Form form={form} layout="vertical" onFinish={handleSubmit}>
         <Row gutter={10}>
           <Col span={12}>
             <Form.Item
@@ -42,7 +51,7 @@ const InstitutionForm = () => {
               label="Secretaria Ejecutiva a la que pertence"
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Debes seleccionar secretaría ejecutiva.",
                 },
               ]}
@@ -109,5 +118,22 @@ const InstitutionForm = () => {
     </>
   );
 };
+
+async function getInsitution(institution_id: string, axios: AxiosInstance) {
+  const resp = await axios.get(`/institution/${institution_id}`);
+  return resp.data;
+}
+
+async function createInstitution(values: any, axios: AxiosInstance) {
+  const response = await axios.post("/institution", values);
+  message.success("Institución creada.");
+  return response;
+}
+
+async function updateInstitution(values: any, id: string, axios: AxiosInstance) {
+  const response = await axios.patch(`/institution/${id}`, values);
+  message.success("Institución actualizada.");
+  return response;
+}
 
 export default InstitutionForm;

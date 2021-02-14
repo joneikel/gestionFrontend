@@ -2,7 +2,7 @@ import { Button, Card, Space, Tag } from "antd";
 import { AxiosInstance } from "axios";
 import React, { useEffect, useState } from "react";
 import MainTable from "../../components/tables/MainTable";
-import { useAxios } from "../../hooks/useAxios";
+import { baseURL, useAxios } from "../../hooks/useAxios";
 import { Project, ProjectStatus } from "../../models";
 import { useHistory } from "react-router-dom";
 import { downloadFileFromLink, moneyFormatter } from "../../helpers";
@@ -95,7 +95,7 @@ const ProjectPage = () => {
           <Button
             onClick={() =>
               downloadFileFromLink(
-                `http://service-reports-activities.guarico.gob.ve/report/${id}/project/pdf`,
+                `${baseURL}/project/ppareport/${id}`,
                 record.name,
                 "pdf"
               )

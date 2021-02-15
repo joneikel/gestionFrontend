@@ -1,18 +1,21 @@
 import React from "react";
 import { Layout } from "antd";
 import AppRouter from "../components/AppRouter";
+import SidebarApp from "./SidebarApp";
+import { routes } from "../components/AppRouter/SidebarRoutes";
 
 const { Content } = Layout;
 
 const ContentApp = () => {
   return (
-    <React.Fragment>
+    <div className="main-layout">
+      <SidebarApp items={routes} />
       <Content
         className="container"
       >
         <AppRouter />
       </Content>
-    </React.Fragment>
+    </div>
   );
 }
 

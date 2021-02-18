@@ -81,6 +81,12 @@ export type MeasurementUnit = {
   short_name: string;
 };
 
+export type Role = {
+  id: string;
+  name: string;
+  
+}
+
 export type Column = {
   title: string;
   dataIndex: string;

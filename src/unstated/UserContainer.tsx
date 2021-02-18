@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createContainer } from 'unstated-next';
 import { useScopeProps } from '../hooks/useScope';
+import { Institution, Role } from '../models';
 
 function useUser() {
   let [user, setUser] = useState<User | undefined>(checkCurrentSession());
@@ -22,7 +23,8 @@ export type User = {
   name: string;
   access_token: string,
   scopes: useScopeProps[],
-  institution_id: string,
+  institution?: Institution,
+  role: Role
 }
 
 function clearSessions(): void {

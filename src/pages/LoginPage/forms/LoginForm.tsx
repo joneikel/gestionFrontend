@@ -25,7 +25,8 @@ const LoginForm = () => {
         name: response.data.data.name,
         access_token: response.data.token,
         scopes: response.data.data.scopes,
-        institution_id: response.data.data.institution_id
+        institution: response.data.data.institution,
+        role: response.data.data.role,
       }
       userState.login(loginInformation);
       return response;

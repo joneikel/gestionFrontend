@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row, Select, message, Progress, Card } from "antd";
+import { Button, Col, Form, Input, Row, Select, message, Progress, Card, InputNumber } from "antd";
 import React, { useState } from "react";
 import InstitutionsSelect from "../components/InstitutionSelect";
 import MunicipiosSelect from "../components/MunicipioSelect";
@@ -154,6 +154,25 @@ const ActivityForm = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
+              name="budget_cost"
+              label="Presupusto Invertido"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar el presupuesto",
+                },
+                {
+                  pattern: /^\d+$/,
+                  message: "Solo puede introducir numeros"
+                }
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col lg={12} md={12} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
               name="gobernador"
               label="Asistio el Gobernador"
               rules={[{ required: true, message: "Debes indicar" }]}
@@ -164,7 +183,7 @@ const ActivityForm = () => {
               </Select>
             </Form.Item>
           </Col>
-          <Col lg={12} md={12} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <Form.Item
               hasFeedback
               name="municipio_id"
@@ -179,7 +198,7 @@ const ActivityForm = () => {
               <MunicipiosSelect onChange={setMunicipio} />
             </Form.Item>
           </Col>
-          <Col lg={12} md={12} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <Form.Item
               hasFeedback
               name="parroquia_id"
@@ -251,6 +270,10 @@ const ActivityForm = () => {
                   required: true,
                   message: "Debes indicar poblacion estimada de la actividad",
                 },
+                {
+                  pattern: /^\d+$/,
+                  message: "Solo puede introducir numeros"
+                }
               ]}
             >
               <Input />
@@ -266,6 +289,10 @@ const ActivityForm = () => {
                   required: true,
                   message: "Debes indicar poblacion benefiada de la actividad",
                 },
+                {
+                  pattern: /^\d+$/,
+                  message: "Solo puede introducir numeros"
+                }
               ]}
             >
               <Input />

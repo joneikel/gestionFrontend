@@ -3,6 +3,8 @@ import { Menu } from "antd";
 import { Link } from "react-router-dom";
 import { SidebarItem } from "../components/AppRouter/SidebarRoutes";
 import { uuidv4 } from "../helpers";
+import UserContainer from "../unstated/UserContainer";
+import { useScopeProps } from "../hooks/useScope";
 
 const { SubMenu } = Menu;
 
@@ -10,20 +12,24 @@ const { SubMenu } = Menu;
 type SidebarAppProps = { items: Array<SidebarItem> };
 
 const SidebarApp = ({ items }: SidebarAppProps) => {
+
+  const userState = UserContainer.useContainer();
+  const scopes = userState.user?.scopes;
   return (
     <Sidebar height={'100vh'} width={50}>
       <Menu>
-        {mapItems(items)}
+        {scopes && mapItems(items, scopes)}
       </Menu>
     </Sidebar>
   );
 }
 
-const mapItems = (items: Array<SidebarItem>) => {
-  return items.map((item: SidebarItem, i: number) =>
+const mapItems = (items: Array<SidebarItem>, scopes: useScopeProps[]) => {
+  
+  return items.filter((item : SidebarItem) => scopes.includes( item.scope )).map((item: SidebarItem, i: number) =>
     item.children.length > 0 ? (
       <SubMenu key={uuidv4()} title={item.label} icon={item.icon}>
-        {mapItems(item.children)}
+        {mapItems(item.children, scopes)}
       </SubMenu>
     ) : (
         <Menu.Item key={uuidv4()}>

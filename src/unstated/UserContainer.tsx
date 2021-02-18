@@ -20,6 +20,8 @@ export default UserContainer;
 export type User = {
   name: string;
   access_token: string,
+  scopes: string[],
+  institution_id: string,
 }
 
 function clearSessions(): void {

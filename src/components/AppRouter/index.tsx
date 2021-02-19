@@ -44,6 +44,12 @@ const Dash = React.lazy(() => import("../../pages/Dash"));
 
 const LoginForm = React.lazy(() => import("../../containers/components/LoginMain"));
 
+const RolesForm = React.lazy(() => import("../../pages/RolesPage/forms/RolesForm"));
+
+const ModulesForm = React.lazy(() => import("../../pages/ModulesPage/forms/ModuleForm"));
+
+const ScopeForm = React.lazy(() => import("../../pages/ScopePage/forms/ScopeForm"));
+
 const AppRouter = () => {
   return (
     <Suspense fallback={<EcLoading />}>
@@ -175,6 +181,36 @@ const AppRouter = () => {
           component={() => 
             <ProtectedComponent scope="users:create">
               <UserForm />
+            </ProtectedComponent>
+          }
+        />
+
+        <Route
+          exact
+          path="/nuevo-rol"
+          component={() => 
+            <ProtectedComponent scope="roles:create">
+              <RolesForm />
+            </ProtectedComponent>
+          }
+        />
+
+        <Route
+          exact
+          path="/nuevo-modulo"
+          component={() => 
+            <ProtectedComponent scope="modules:create">
+              <ModulesForm />
+            </ProtectedComponent>
+          }
+        />
+
+        <Route
+          exact
+          path="/nuevo-scope"
+          component={() => 
+            <ProtectedComponent scope="scopes:create">
+              <ScopeForm />
             </ProtectedComponent>
           }
         />

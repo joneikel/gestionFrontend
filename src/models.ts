@@ -112,3 +112,16 @@ export type Activity = {
   longitude?: number;
   images: string[];
 };
+
+export type Scope = {
+  id: string;
+  name: string;
+  module_id: string;
+  scoppe: string;
+}
+
+export type Module = {
+  id: string;
+  name: string;
+  label: string;
+}

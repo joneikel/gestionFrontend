@@ -7,7 +7,11 @@ import {
   BarChartOutlined,
   BankOutlined,
   UserOutlined,
-  UserAddOutlined
+  UserAddOutlined,
+  SettingOutlined,
+  UserSwitchOutlined,
+  BlockOutlined,
+  EyeOutlined
 } from "@ant-design/icons";
 import { useScopeProps } from '../../hooks/useScope';
 
@@ -117,6 +121,32 @@ export const routes: SidebarItem[] = [
         label: "Nuevo",
         icon: <UserAddOutlined />,
         link: "/nuevo-usuario",
+        children: [],
+      },
+    ],
+  },{
+    scope:"users:create",
+    label: "Configuración",
+    icon: <SettingOutlined />,
+    link: "/nuevo-usuario",
+    children: [
+      {
+        scope:"roles:create",
+        label: "Roles",
+        icon: <UserSwitchOutlined />,
+        link: "/nuevo-rol",
+        children: [],
+      },{
+        scope:"modules:create",
+        label: "Modulos",
+        icon: <BlockOutlined />,
+        link: "/nuevo-modulo",
+        children: [],
+      },{
+        scope:"scopes:create",
+        label: "Scopes",
+        icon: <EyeOutlined />,
+        link: "/nuevo-scope",
         children: [],
       },
     ],

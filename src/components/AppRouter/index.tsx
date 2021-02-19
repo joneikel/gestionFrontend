@@ -5,6 +5,7 @@ import EcLoading from "./EcLoading";
 import Unauthorized from "../errors/unauthorized";
 import PageNotFound from "../errors/not-found";
 import ProtectedComponent from "./ProtectedComponent";
+import EditScopes from "../../pages/RolesPage/forms/EditScopes";
 
 const ActivityForm = React.lazy(
   () => import("../../pages/ActivityPage/forms/ActivityForm")
@@ -46,7 +47,11 @@ const LoginForm = React.lazy(() => import("../../containers/components/LoginMain
 
 const RolesForm = React.lazy(() => import("../../pages/RolesPage/forms/RolesForm"));
 
+const RolesPage = React.lazy(() => import("../../pages/RolesPage"));
+
 const ModulesForm = React.lazy(() => import("../../pages/ModulesPage/forms/ModuleForm"));
+
+const EditRoles = React.lazy(() => import("../../pages/RolesPage/forms/EditScopes"));
 
 const ScopeForm = React.lazy(() => import("../../pages/ScopePage/forms/ScopeForm"));
 
@@ -191,6 +196,26 @@ const AppRouter = () => {
           component={() => 
             <ProtectedComponent scope="roles:create">
               <RolesForm />
+            </ProtectedComponent>
+          }
+        />
+
+        <Route
+          exact
+          path="/listar-roles"
+          component={() => 
+            <ProtectedComponent scope="roles:read">
+              <RolesPage />
+            </ProtectedComponent>
+          }
+        />
+
+        <Route
+          exact
+          path="/roles-scopes"
+          component={() => 
+            <ProtectedComponent scope="roles:update">
+              <EditScopes />
             </ProtectedComponent>
           }
         />

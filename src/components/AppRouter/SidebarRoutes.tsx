@@ -134,8 +134,22 @@ export const routes: SidebarItem[] = [
         scope:"roles:create",
         label: "Roles",
         icon: <UserSwitchOutlined />,
-        link: "/nuevo-rol",
-        children: [],
+        link: "#",
+        children: [
+          {
+            scope:"roles:read",
+            label: "Listar",
+            icon: <UserSwitchOutlined />,
+            link: "/listar-roles",
+            children: [],
+          },{
+            scope:"roles:create",
+            label: "Nuevo",
+            icon: <UserSwitchOutlined />,
+            link: "/nuevo-rol",
+            children: [],
+          },
+        ],
       },{
         scope:"modules:create",
         label: "Modulos",

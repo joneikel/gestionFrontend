@@ -124,4 +124,5 @@ export type Module = {
   id: string;
   name: string;
   label: string;
+  scopes?: Scope[]
 }

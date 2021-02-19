@@ -23,7 +23,10 @@ const LoginForm = () => {
       message.success("Inicio de sesión exitoso.");
       let loginInformation = {
         name: response.data.data.name,
-        access_token: response.data.token
+        access_token: response.data.token,
+        scopes: response.data.data.scopes,
+        institution: response.data.data.institution,
+        role: response.data.data.role,
       }
       userState.login(loginInformation);
       return response;
@@ -36,8 +39,8 @@ const LoginForm = () => {
 
   return (
     <Modal
-    visible
-    footer={null}
+      visible
+      footer={null}
     >
       <Card title="Validacion de Usuario" bordered={false} style={{ width: '100%' }}>
         <Form layout="vertical" onFinish={handleSubmit}>

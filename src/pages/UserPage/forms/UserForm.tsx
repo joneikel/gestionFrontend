@@ -5,6 +5,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import InstitutionsSelect from '../../ActivityPage/components/InstitutionSelect';
 import { useAxios } from '../../../hooks/useAxios';
 import { useHistory } from 'react-router-dom';
+import RoleSelect from '../../ActivityPage/components/RoleSelect';
 
 const UserForm = () => {
 
@@ -124,7 +125,22 @@ const UserForm = () => {
               </Form.Item>
             </Col>
 
-            <Col lg={12} md={12} sm={24} xs={24} ></Col>
+            <Col lg={12} md={12} sm={24} xs={24} >
+                <Form.Item
+                    hasFeedback
+                    name="role_id"
+                    label="Roles"
+                    rules={[
+                    {
+                        required: true,
+                        message: "Debe seleccionar rol",
+                    },
+                    ]}
+                >
+                <RoleSelect
+                />
+              </Form.Item>
+            </Col>
 
             <Col lg={12} md={12} sm={24} xs={24}>
               <Form.Item

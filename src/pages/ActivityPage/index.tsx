@@ -1,6 +1,5 @@
 import { Col, Row, Tag } from 'antd';
 import { AxiosInstance } from 'axios';
-import { randomInt } from 'crypto';
 import React, { useEffect, useState } from 'react';
 import MainTable from '../../components/tables/MainTable';
 import { useAxios } from '../../hooks/useAxios';

@@ -81,6 +81,12 @@ export type MeasurementUnit = {
   short_name: string;
 };
 
+export type Role = {
+  id: string;
+  name: string;
+  
+}
+
 export type Column = {
   title: string;
   dataIndex: string;
@@ -106,3 +112,17 @@ export type Activity = {
   longitude?: number;
   images: string[];
 };
+
+export type Scope = {
+  id: string;
+  name: string;
+  module_id: string;
+  scoppe: string;
+}
+
+export type Module = {
+  id: string;
+  name: string;
+  label: string;
+  scopes?: Scope[]
+}

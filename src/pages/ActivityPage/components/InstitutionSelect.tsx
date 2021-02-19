@@ -1,6 +1,7 @@
 import { Select } from "antd";
 import React from "react";
 import { useInstitutions } from "../../../hooks/useInstitutions";
+import UserContainer from "../../../unstated/UserContainer";
 
 const InstitutionsSelect = ({
   parentId,
@@ -16,6 +17,8 @@ const InstitutionsSelect = ({
   onlyParent?: boolean;
 }) => {
 
+  const userState = UserContainer.useContainer();
+
   const [institutions, loadingInstitution] = useInstitutions(parentId, onlyParent);
 
   const handleChange = (v: string) => {
@@ -23,7 +26,7 @@ const InstitutionsSelect = ({
   };
 
   return (
-    <Select
+      <Select
       showSearch
       filterOption={true}
       optionFilterProp='label'

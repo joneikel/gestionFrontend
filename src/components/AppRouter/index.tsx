@@ -128,7 +128,7 @@ const AppRouter = () => {
 
         <Route
           exact
-          path="/listar-secretarías"
+          path="/listar-secretarias"
           component={() => 
             <ProtectedComponent scope="institutions:read">
               <InstitutionPage />

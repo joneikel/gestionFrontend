@@ -28,7 +28,7 @@ const ProjectDetails = () => {
           {project.budgets.map((budget: Budget) => (
             <>
               <Tag style={{ padding: "2px" }}>
-                Bs. {moneyFormatter(budget.value.toString())} {budget.budget_source.name}{" "}
+                {moneyFormatter(budget.value.toString())} {budget.budget_source.name}{" "}
               </Tag>
               <br />
             </>
@@ -36,14 +36,16 @@ const ProjectDetails = () => {
         </Descriptions.Item>
         <Descriptions.Item label="Presupuesto total:">
           <Tag style={{ padding: "2px" }}>
-            Bs.
-            {moneyFormatter(
-            project.budgets
-              .map((x: any) => x.value)
-              .reduce((a: number, b: number) => {
-                return a + b;
+            {
+            moneyFormatter((project.budgets
+              .map((x: Budget) => {
+                let fixed_value = Number(x.value);
+                return fixed_value
               })
-          )}
+              .reduce((a, b) => {
+                return a + b;
+              })).toString())
+          }
           </Tag>
         </Descriptions.Item>
         <Descriptions.Item label="Areas de inversión:">

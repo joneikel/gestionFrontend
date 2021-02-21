@@ -3,7 +3,7 @@ import { AxiosInstance } from "axios";
 import React, { useEffect, useState } from "react";
 import MainTable from "../../components/tables/MainTable";
 import { baseURL, useAxios } from "../../hooks/useAxios";
-import { Project, ProjectStatus } from "../../models";
+import { Budget, Project, ProjectStatus } from "../../models";
 import { useHistory } from "react-router-dom";
 import { downloadFileFromLink, moneyFormatter } from "../../helpers";
 import ProjectFilters from './components/ProjectFilter';
@@ -50,13 +50,16 @@ const ProjectPage = () => {
       title: "Presupuesto",
       dataIndex: "budgets",
       key: "budgets",
-      render: (budget: Array<any>) => {
+      render: (budget: Array<Budget>) => {
         const bud = budget
-          .map((b) => b.value)
+          .map((b) => {
+            let fixed_value = Number(b.value);
+            return fixed_value;
+          })
           .reduce((a, b) => {
             return a + b;
           });
-        return moneyFormatter(bud);
+        return moneyFormatter(bud.toString());
       },
     },
     {

@@ -1,5 +1,5 @@
-import { Button, Col, Form, Input, Row, Select, message, Progress, Card, InputNumber } from "antd";
-import React, { useState } from "react";
+import { Button, Col, Form, Input, Row, Select, message, Progress, Card, InputNumber, Tag } from "antd";
+import React, { useEffect, useState } from "react";
 import InstitutionsSelect from "../components/InstitutionSelect";
 import MunicipiosSelect from "../components/MunicipioSelect";
 import ParroquiaSelect from "../components/ParroquiaSelect";
@@ -9,10 +9,16 @@ import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
 import EcUploader from "../components/EcUploader";
 import CustomPageHeader from "../../../components/PageHeader";
+import { useAvaiableBudget } from "../../../hooks/useAvailableBudget";
 
 const ActivityForm = () => {
   const axios = useAxios();
   const history = useHistory();
+  const [form] =  Form.useForm();
+
+  const [projectId,setProjectId] = useState<string|undefined>(undefined);
+
+  const [availableBudget,loadingAvailableBudget] = useAvaiableBudget(projectId);
 
   const [program, setProgram] = useState<string | undefined>();
   const [municipio, setMunicipio] = useState<string | undefined>();
@@ -20,6 +26,10 @@ const ActivityForm = () => {
     string | undefined
   >();
   const [loading, setLoading] = useState<boolean>(false);
+
+  /* useEffect(()=>{
+    form.setFieldsValue({available_budget: availableBudget});
+  },[availableBudget]) */
 
 
   const handleSubmit = async (values: any) => {
@@ -56,7 +66,7 @@ const ActivityForm = () => {
 
   return (
     <Card title={<CustomPageHeader title="Nueva actividad" />}>
-      <Form layout="vertical" onFinish={handleSubmit}>
+      <Form layout="vertical" onFinish={handleSubmit} form={form} >
         <Row gutter={10}>
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
@@ -118,7 +128,7 @@ const ActivityForm = () => {
                 { required: true, message: "Debes seleccionar el proyecto." },
               ]}
             >
-              <ProjectSelect disabled={!program} programId={program} />
+              <ProjectSelect disabled={!program} programId={program} onChange={setProjectId} />
             </Form.Item>
           </Col>
           <Col span={24}>
@@ -151,14 +161,15 @@ const ActivityForm = () => {
               <Input.TextArea rows={3} />
             </Form.Item>
           </Col>
-          <Col lg={12} md={12} sm={24} xs={24}>
+
+          <Col lg={6} md={6} sm={24} xs={24}>
             <Form.Item
               hasFeedback
-              name="budget_cost"
-              label="Presupusto Invertido"
+              name="available_budget"
+              label="Presupuesto disponible"
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Debes indicar el presupuesto",
                 },
                 {
@@ -167,10 +178,40 @@ const ActivityForm = () => {
                 }
               ]}
             >
+              <div className="budget-tag">Bs.{availableBudget}</div>
+            </Form.Item>
+          </Col>
+
+          <Col lg={10} md={10} sm={24} xs={24}>
+            <Form.Item
+              hasFeedback
+              name="budget_cost"
+              dependencies={['available_budget']}
+              label="Presupuesto Invertido"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar el presupuesto",
+                },
+                {
+                  pattern: /^\d+$/,
+                  message: "Solo puede introducir numeros"
+                },{
+                  validator: async (_,value) => {
+                    let fixed_value = Number(value);
+                    if (availableBudget && availableBudget >= fixed_value ){
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject('Presupuesto excedido');
+                    }
+                  } 
+                }
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
-          <Col lg={12} md={12} sm={24} xs={24}>
+          <Col lg={8} md={8} sm={24} xs={24}>
             <Form.Item
               hasFeedback
               name="gobernador"

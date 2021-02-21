@@ -207,7 +207,7 @@ const ProjectForm = () => {
               key="investmentSubArea"
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Selecciona el sub area de inversión",
                 },
               ]}

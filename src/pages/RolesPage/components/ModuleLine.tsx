@@ -36,7 +36,7 @@ const ScopeItemToggle = ({ scope, isActive, roleId, axios }: { scope: Scope, isA
 }
 
 async function toggleScope(scope_id: string, role_id: string, axios: AxiosInstance) {
-  const response = await axios.patch('role  /toggle-scope', {
+  const response = await axios.patch('role/toggle-scope', {
     scope_id,
     role_id
   });

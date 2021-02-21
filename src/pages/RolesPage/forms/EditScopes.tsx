@@ -1,7 +1,8 @@
 import { Card, Col, message, Row, Spin } from 'antd';
 import { AxiosInstance } from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import CustomPageHeader from '../../../components/PageHeader';
 import { useAxios } from '../../../hooks/useAxios';
 import { Module, Scope } from '../../../models';
 import ModuleLine from '../components/ModuleLine';
@@ -23,17 +24,15 @@ const EditScopes = () => {
   }, [ role])
 
   return (
-    <>
-      <Card>
-        <Row gutter={12} >
-          <Col span={24} >
+      <Card title={<CustomPageHeader title="Modificar scopes" />}>
+        <Row gutter={12} justify="center" className="module-lines">
+          <Col span={15} >
             {scopes !== undefined && modules !== undefined ?
               modules.map(module => <ModuleLine roleId={role.id} axios={axios} roleScopes={scopes} module={module} key={module.id} />)
               : <Spin />}
           </Col>
         </Row>
       </Card>
-    </>
   )
 }
 

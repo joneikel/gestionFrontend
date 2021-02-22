@@ -18,7 +18,7 @@ const SidebarApp = ({ items }: SidebarAppProps) => {
   const scopes = userState.user?.scopes;
 
   return (
-    <Sidebar height={'100vh'} width={50}>
+    <Sidebar height={'100vh'} width={200}>
       <Menu>
         {scopes && mapItems(items, scopes)}
       </Menu>

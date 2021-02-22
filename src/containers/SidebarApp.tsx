@@ -23,8 +23,8 @@ const SidebarApp = ({ items }: SidebarAppProps) => {
         {scopes && mapItems(items, scopes)}
       </Menu>
       
-      <Menu style={{position: 'absolute', bottom: '1px', width: '15px'}} >
-        <SubMenu key={uuidv4()} icon={<Avatar>{userState.user?.name[0].toUpperCase()} </Avatar>}  >
+      <Menu  style={{position: 'absolute', bottom: '1px'}} >
+        <SubMenu title={`  ${userState.user?.name.toUpperCase()}`} key={uuidv4()} icon={<Avatar>{userState.user?.name[0].toUpperCase()} </Avatar>}  >
             <Menu.Item onClick={() => userState.logout()} >
               Salir
             </Menu.Item>

@@ -9,6 +9,8 @@ export type Institution = {
   name: string;
   parent_id?: string;
   sector: Sector;
+  mision?: string;
+  vision?: string
 };
 
 export type Program = {

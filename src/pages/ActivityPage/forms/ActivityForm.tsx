@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import EcUploader from "../components/EcUploader";
 import CustomPageHeader from "../../../components/PageHeader";
 import { useAvaiableBudget } from "../../../hooks/useAvailableBudget";
+import { moneyFormatter } from "../../../helpers";
 
 const ActivityForm = () => {
   const axios = useAxios();
@@ -26,6 +27,7 @@ const ActivityForm = () => {
     string | undefined
   >();
   const [loading, setLoading] = useState<boolean>(false);
+  const [estimatedPopulation, setEstimatedPopulation] = useState<number | undefined>();
 
   /* useEffect(()=>{
     form.setFieldsValue({available_budget: availableBudget});
@@ -317,7 +319,7 @@ const ActivityForm = () => {
                 }
               ]}
             >
-              <Input />
+              <Input onChange={e => setEstimatedPopulation(Number(e.target.value))}/>
             </Form.Item>
           </Col>
           <Col lg={12} md={12} sm={24} xs={24}>
@@ -333,7 +335,19 @@ const ActivityForm = () => {
                 {
                   pattern: /^\d+$/,
                   message: "Solo puede introducir numeros"
+                },{
+                  validator: async (_,value) => {
+                    let benefitedPoulation = Number(value);
+                    let estimatedPopulation1 = Number(estimatedPopulation)
+                    
+                    if (estimatedPopulation1 >= benefitedPoulation ){
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject('Poblacion excedida');
+                    }
+                  }   
                 }
+                
               ]}
             >
               <Input />

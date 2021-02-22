@@ -23,7 +23,7 @@ export type User = {
   name: string;
   access_token: string,
   scopes: useScopeProps[],
-  institution?: Institution,
+  institution: Institution,
   role: Role
 }
 

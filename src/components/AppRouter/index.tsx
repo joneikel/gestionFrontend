@@ -55,6 +55,8 @@ const EditRoles = React.lazy(() => import("../../pages/RolesPage/forms/EditScope
 
 const ScopeForm = React.lazy(() => import("../../pages/ScopePage/forms/ScopeForm"));
 
+const MisionAndVisionForm = React.lazy(() => import("../../pages/InstitutionPage/forms/MisionAndVisionForm"));
+
 const AppRouter = () => {
   return (
     <Suspense fallback={<EcLoading />}>
@@ -240,7 +242,17 @@ const AppRouter = () => {
           }
         />
 
-        /* <Route exact path="/no-autorizado" component={() => <Unauthorized />} />
+        <Route
+          exact
+          path="/mision-vision"
+          component={() => 
+            <ProtectedComponent scope="institutions:update">
+              <MisionAndVisionForm />
+            </ProtectedComponent>
+          }
+        />  
+
+        <Route exact path="/no-autorizado" component={() => <Unauthorized />} />
         <Route exact path="* *" component={() => <PageNotFound />} /> 
       </Switch>
     </Suspense>

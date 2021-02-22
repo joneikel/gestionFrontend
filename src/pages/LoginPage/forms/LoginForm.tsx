@@ -1,11 +1,8 @@
-import { Button, Card, Form, Input, message } from "antd";
+import { Button, Card, Divider, Form, Input, message } from "antd";
 import React, { useState } from "react";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
 import UserContainer from "../../../unstated/UserContainer";
-import Modal from "antd/lib/modal/Modal";
-import { isNonNullChain } from "typescript";
-
 
 const LoginForm = () => {
   const axios = useAxios();
@@ -16,7 +13,6 @@ const LoginForm = () => {
 
 
   const handleSubmit = async (values: any) => {
-    console.log(values);
     setLoading(true);
     try {
       const response = await axios.post("login", values);
@@ -38,11 +34,9 @@ const LoginForm = () => {
   };
 
   return (
-    <Modal
-      visible
-      footer={null}
-    >
-      <Card title="Validacion de Usuario" bordered={false} style={{ width: '100%' }}>
+      <div style={{ width: '100%', height: '100vh', background: "#fff", padding: '10px 10px' }}>
+        <h3>Inicio de sesión</h3>
+        <Divider />
         <Form layout="vertical" onFinish={handleSubmit}>
           <Form.Item
             hasFeedback
@@ -70,13 +64,12 @@ const LoginForm = () => {
             <Input.Password />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" >
+            <Button loading={loading} type="primary" htmlType="submit" >
               Acceder
             </Button>
           </Form.Item>
         </Form>
-      </Card>
-    </Modal>
+      </div>
   );
 };
 

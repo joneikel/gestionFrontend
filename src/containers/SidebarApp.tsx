@@ -24,7 +24,7 @@ const SidebarApp = ({ items }: SidebarAppProps) => {
       </Menu>
       
       <Menu  style={{position: 'absolute', bottom: '1px'}} >
-        <SubMenu title={`  ${userState.user?.name.toUpperCase()}`} key={uuidv4()} icon={<Avatar>{userState.user?.name[0].toUpperCase()} </Avatar>}  >
+        <SubMenu title={`  ${userState.user?.name.toUpperCase()}`} key={uuidv4()} icon={<Avatar className="avatar-button">{userState.user?.name[0].toUpperCase()} </Avatar>}  >
             <Menu.Item onClick={() => userState.logout()} >
               Salir
             </Menu.Item>

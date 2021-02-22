@@ -1,10 +1,11 @@
 import React, { ReactNode } from "react";
-import { Menu } from "antd";
+import { Menu, Avatar } from "antd";
 import { Link } from "react-router-dom";
 import { SidebarItem } from "../components/AppRouter/SidebarRoutes";
 import { uuidv4 } from "../helpers";
 import UserContainer from "../unstated/UserContainer";
 import { useScopeProps } from "../hooks/useScope";
+import { UserOutlined }from "@ant-design/icons";
 
 const { SubMenu } = Menu;
 
@@ -15,11 +16,20 @@ const SidebarApp = ({ items }: SidebarAppProps) => {
 
   const userState = UserContainer.useContainer();
   const scopes = userState.user?.scopes;
+
   return (
     <Sidebar height={'100vh'} width={50}>
       <Menu>
         {scopes && mapItems(items, scopes)}
       </Menu>
+      
+      <Menu style={{position: 'absolute', bottom: '1px', width: '15px'}} >
+        <SubMenu key={uuidv4()} icon={<Avatar>{userState.user?.name[0].toUpperCase()} </Avatar>}  >
+            <Menu.Item onClick={() => userState.logout()} >
+              Salir
+            </Menu.Item>
+          </SubMenu>
+      </Menu>      
     </Sidebar>
   );
 }

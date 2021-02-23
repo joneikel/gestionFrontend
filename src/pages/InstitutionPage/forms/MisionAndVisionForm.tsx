@@ -46,7 +46,6 @@ const MisionAndVisionForm = () => {
                     vision: userState.user?.institution.vision
                 } : {}}>
                 <Row gutter={10}>
-
                     <Col span={24}>
                         <Form.Item
                             hasFeedback

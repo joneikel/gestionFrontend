@@ -30,7 +30,7 @@ const BudgetSourceSelector = ({
   }, [])
 
   return (
-    <Select disabled={disabled} onChange={handleChange} loading={loading} style={{width: '10vw'}}>
+    <Select disabled={disabled} onChange={handleChange} loading={loading} style={{width: '15vw'}}>
       {budgetSource && budgetSource.map((budget) => (
         <Select.Option value={budget.id} key={budget.id}>
           {budget.name}

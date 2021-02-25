@@ -23,7 +23,7 @@ const InputBudget = () => {
                 fieldKey={[field.fieldKey, "value"]}
                 rules={[{ required: true, message: "Introduzca el valor del presupuesto" }]}
               >
-                    <Input max={undefined} prefix='Bs.' style={{width: '25vw'}}  />
+                    <Input max={undefined} prefix='Bs.' style={{width: '23vw'}}  />
               </Form.Item>
 
               <Form.Item

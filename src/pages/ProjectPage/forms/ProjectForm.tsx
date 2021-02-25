@@ -118,11 +118,11 @@ const ProjectForm = () => {
             <Form.Item
               hasFeedback
               name="description"
-              label="Descripción del proyecto"
+              label="Objetivos del Proyecto"
               rules={[
                 {
                   required: true,
-                  message: "Escribe una breve descripción del proyecto.",
+                  message: "Objetivos del proyecto.",
                 },
               ]}
             >

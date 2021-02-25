@@ -7,6 +7,7 @@ import { Budget, Project, ProjectStatus } from "../../models";
 import { useHistory } from "react-router-dom";
 import { downloadFileFromLink, moneyFormatter } from "../../helpers";
 import ProjectFilters from './components/ProjectFilter';
+import UpdateProjectStatusModal from "./components/UpdateProjectStatusModal";
 
 const ProjectPage = () => {
   const axios = useAxios();
@@ -66,13 +67,12 @@ const ProjectPage = () => {
       title: "Status",
       dataIndex: "project_status",
       key: "project_status",
-      render: (x: ProjectStatus) =>
-        x.is_final ? (
-          <Tag color="red">{x.name}</Tag>
-        ) : (
-            <Tag color="green">{x.name}</Tag>
-          ),
-    },
+      render: (project_status: ProjectStatus,record:Project,) => <UpdateProjectStatusModal 
+        project_status={project_status} 
+        project_id={record.id} 
+        onChange={() => console.log('funcion')} 
+        />
+     },
     {
       title: "¿Planificado?",
       dataIndex: "is_planified",

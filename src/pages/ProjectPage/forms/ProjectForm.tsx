@@ -11,6 +11,7 @@ import MeasurementUnitSelect from "../components/MeasurementUnitSelect";
 import CustomPageHeader from "../../../components/PageHeader";
 import InvestmentSubAreaSelect from "../components/InvestmentSubAreaSelect";
 import ImputMeasurementUnit from "../components/ImputMeasurementUnit";
+import FormItem from "antd/lib/form/FormItem";
 
 const ProjectForm = () => {
   const axios = useAxios();
@@ -139,13 +140,28 @@ const ProjectForm = () => {
               label="Status de ejecución"
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Debe seleccionar el status de ejecución",
                 },
               ]}
             >
               <ProjectStatusSelect />
             </Form.Item>
+          </Col>
+          <Col lg={24} md={24} sm={24} xs={24}>
+            <FormItem
+              hasFeedback
+              name=""
+              label="Justifique el estatus"
+              rules={[
+                {
+                  required: true,
+                  message: "Justifique el estatus del proyecto"
+                }
+              ]}>
+              <Input.TextArea rows={3} />
+
+            </FormItem>
           </Col>
 
           <Col lg={12} md={12} sm={24} xs={24}>
@@ -241,38 +257,6 @@ const ProjectForm = () => {
               />
             </Form.Item>
           </Col>
-
-          {/* <Col span={3}>
-            <Form.Item
-              hasFeedback
-              name="measurement_id"
-              label="Unidad de medida"
-              rules={[
-                {
-                  required: true,
-                  message: "Indica la unidad de medida",
-                },
-              ]}
-            >
-              <MeasurementUnitSelect mode={undefined} />
-            </Form.Item>
-          </Col>
-
-          <Col span={3}>
-            <Form.Item
-              hasFeedback
-              name="measurement_value"
-              label="Valor de medida"
-              rules={[
-                {
-                  required: true,
-                  message: "Indica el valor de medida",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col> */}
           <Col span={24}>
             <Form.Item
               hasFeedback

@@ -14,6 +14,7 @@ const MeasurementUnitSelect = ({ mode, value, onChange }: { mode: "multiple" | "
 
     return (
         <Select
+            placeholder="Unidad de medida"
             value={unit}
             mode={mode}
             loading={loading}

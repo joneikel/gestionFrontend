@@ -10,6 +10,7 @@ import InvestmentAreaSelect from "../components/InvesmentAreaSelect";
 import MeasurementUnitSelect from "../components/MeasurementUnitSelect";
 import CustomPageHeader from "../../../components/PageHeader";
 import InvestmentSubAreaSelect from "../components/InvestmentSubAreaSelect";
+import ImputMeasurementUnit from "../components/ImputMeasurementUnit";
 
 const ProjectForm = () => {
   const axios = useAxios();
@@ -192,7 +193,7 @@ const ProjectForm = () => {
                 {
                   required: true,
                   message:
-                    "Debes indicar indicar el presupuesto asignado a este Proyecto",
+                    "Debes indicar el presupuesto asignado a este Proyecto",
                 },
               ]}
             >
@@ -200,7 +201,7 @@ const ProjectForm = () => {
             </Form.Item>
           </Col>
 
-          <Col lg={9} md={9} sm={24} xs={24}>
+          <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
               name="investment_areas"
@@ -220,7 +221,7 @@ const ProjectForm = () => {
             </Form.Item>
           </Col>
 
-          <Col lg={9} md={9} sm={24} xs={24}>
+          <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
               name="investment_sub_areas"
@@ -241,7 +242,7 @@ const ProjectForm = () => {
             </Form.Item>
           </Col>
 
-          <Col span={3}>
+          {/* <Col span={3}>
             <Form.Item
               hasFeedback
               name="measurement_id"
@@ -271,6 +272,22 @@ const ProjectForm = () => {
             >
               <Input />
             </Form.Item>
+          </Col> */}
+          <Col span={24}>
+            <Form.Item
+              hasFeedback
+              name="budgets"
+              label="Unidad de Medida"
+              rules={[
+                {
+                  required: true,
+                  message:
+                    "Debes indicar el unidad de medida",
+                },
+              ]}
+            >
+              <ImputMeasurementUnit />
+            </Form.Item>
           </Col>
 
           <Col lg={12} md={12} sm={24} xs={24}>
@@ -281,7 +298,7 @@ const ProjectForm = () => {
               rules={[
                 {
                   required: true,
-                  message: "Debes indicar fecha de inicio de la actividad",
+                  message: "Debes indicar fecha de inicio del projecto",
                 },
               ]}
             >

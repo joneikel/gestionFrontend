@@ -18,6 +18,7 @@ const MeasurementUnitSelect = ({ mode, value, onChange }: { mode: "multiple" | "
             mode={mode}
             loading={loading}
             onChange={(value: string[]|string) => handleChange(value)}
+            style={{width: '20vw'}}
         >
             {measurementUnit.map(unit => (
                 <Select.Option

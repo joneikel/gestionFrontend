@@ -10,6 +10,8 @@ import InvestmentAreaSelect from "../components/InvesmentAreaSelect";
 import MeasurementUnitSelect from "../components/MeasurementUnitSelect";
 import CustomPageHeader from "../../../components/PageHeader";
 import InvestmentSubAreaSelect from "../components/InvestmentSubAreaSelect";
+import ImputMeasurementUnit from "../components/ImputMeasurementUnit";
+import FormItem from "antd/lib/form/FormItem";
 
 const ProjectForm = () => {
   const axios = useAxios();
@@ -20,7 +22,8 @@ const ProjectForm = () => {
     string | undefined
   >();
   const [institution, setInstitution] = useState<string | undefined>();
-  const [investmentArea, setInvestmentArea] = useState <string[] | undefined>();
+  const [investmentArea, setInvestmentArea] = useState<string[] | undefined>();
+  const [isPlanified, setIsPlanified] = useState(1);
 
   const handleSubmit = async (values: any) => {
     setLoading(true);
@@ -137,13 +140,28 @@ const ProjectForm = () => {
               label="Status de ejecución"
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Debe seleccionar el status de ejecución",
                 },
               ]}
             >
               <ProjectStatusSelect />
             </Form.Item>
+          </Col>
+          <Col lg={24} md={24} sm={24} xs={24}>
+            <FormItem
+              hasFeedback
+              name=""
+              label="Justifique el estatus"
+              rules={[
+                {
+                  required: true,
+                  message: "Justifique el estatus del proyecto"
+                }
+              ]}>
+              <Input.TextArea rows={3} />
+
+            </FormItem>
           </Col>
 
           <Col lg={12} md={12} sm={24} xs={24}>
@@ -158,12 +176,29 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <Select>
+              <Select onChange={(value: number) => setIsPlanified(value)}>
                 <Select.Option value={1}> Si </Select.Option>
                 <Select.Option value={0}> No </Select.Option>
               </Select>
             </Form.Item>
           </Col>
+          {isPlanified === 0 && (
+            <Col span={24}>
+              <Form.Item
+                hasFeedback
+                name="justification"
+                label="¿Por que no es planificado este projecto?"
+                rules={[
+                  {
+                    required: true,
+                    message: "Justifique, ¿Por que no es planificado?.",
+                  },
+                ]}
+              >
+                <Input.TextArea rows={3} />
+              </Form.Item>
+            </Col>
+          )}
 
           <Col span={24}>
             <Form.Item
@@ -174,7 +209,7 @@ const ProjectForm = () => {
                 {
                   required: true,
                   message:
-                    "Debes indicar indicar el presupuesto asignado a este Proyecto",
+                    "Debes indicar el presupuesto asignado a este Proyecto",
                 },
               ]}
             >
@@ -182,7 +217,7 @@ const ProjectForm = () => {
             </Form.Item>
           </Col>
 
-          <Col lg={9} md={9} sm={24} xs={24}>
+          <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
               name="investment_areas"
@@ -195,11 +230,14 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <InvestmentAreaSelect mode="multiple" onChange={setInvestmentArea} />
+              <InvestmentAreaSelect
+                mode="multiple"
+                onChange={setInvestmentArea}
+              />
             </Form.Item>
           </Col>
 
-          <Col lg={9} md={9} sm={24} xs={24}>
+          <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
               hasFeedback
               name="investment_sub_areas"
@@ -213,42 +251,26 @@ const ProjectForm = () => {
               ]}
             >
               <InvestmentSubAreaSelect
-              disabled={!investmentArea}
-              investmentAreaIds={investmentArea}
-               mode="multiple"/>
+                disabled={!investmentArea}
+                investmentAreaIds={investmentArea}
+                mode="multiple"
+              />
             </Form.Item>
           </Col>
-
-          <Col span={3}>
+          <Col span={24}>
             <Form.Item
-              
               hasFeedback
-              name="measurement_id"
-              label="Unidad de medida"
+              name="budgets"
+              label="Unidad de Medida"
               rules={[
                 {
                   required: true,
-                  message: "Indica la unidad de medida",
+                  message:
+                    "Debes indicar el unidad de medida",
                 },
               ]}
             >
-              <MeasurementUnitSelect mode={undefined}/>
-            </Form.Item>
-          </Col>
-
-          <Col span={3}>
-            <Form.Item
-              hasFeedback
-              name="measurement_value"
-              label="Valor de medida"
-              rules={[
-                {
-                  required: true,
-                  message: "Indica el valor de medida",
-                },
-              ]}
-            >
-              <Input />
+              <ImputMeasurementUnit />
             </Form.Item>
           </Col>
 
@@ -260,7 +282,7 @@ const ProjectForm = () => {
               rules={[
                 {
                   required: true,
-                  message: "Debes indicar fecha de inicio de la actividad",
+                  message: "Debes indicar fecha de inicio del projecto",
                 },
               ]}
             >

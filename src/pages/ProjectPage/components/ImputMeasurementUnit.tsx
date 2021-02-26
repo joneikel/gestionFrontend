@@ -6,7 +6,7 @@ import MeasurementUnitSelect from "./MeasurementUnitSelect";
 const ImputMeasurementUnit = () => {
 
   return (
-    <Form.List name="measurement">
+    <Form.List name="measurement_units">
       {(fields, { add, remove }) => (
         <>
           {fields.map((field) => (
@@ -18,8 +18,8 @@ const ImputMeasurementUnit = () => {
               <Form.Item
                 hasFeedback
                 {...field}
-                name={[field.name, "measurement_id"]}
-                fieldKey={[field.fieldKey, "measurement_id"]}
+                name={[field.name, "measurement_unit_id"]}
+                fieldKey={[field.fieldKey, "measurement_unit_id"]}
                 rules={[{ required: true, message: "Selecciona unidad" }]}
               >
                 <MeasurementUnitSelect mode={undefined}/>
@@ -27,11 +27,24 @@ const ImputMeasurementUnit = () => {
               <Form.Item
                 hasFeedback
                 {...field}
-                name={[field.name, "measurement_value"]}
-                fieldKey={[field.fieldKey, "measurement_value"]}
+                name={[field.name, "proposed_goal"]}
+                fieldKey={[field.fieldKey, "proposed_goal"]}
                 rules={[{ required: true, message: "Introduzca el valor" }]}
               >
-                    <Input style={{width: '18vw'}}  />
+                    <Input 
+                    placeholder="Meta propuesta"
+                    style={{width: '18vw'}}  />
+              </Form.Item>
+              <Form.Item
+                hasFeedback
+                {...field}
+                name={[field.name, "reached_goal"]}
+                fieldKey={[field.fieldKey, "reached_goal"]}
+                rules={[{ required: true, message: "Introduzca el valor" }]}
+              >
+                    <Input 
+                    placeholder="Meta alcanzada"
+                    style={{width: '18vw'}}  />
               </Form.Item>
               <MinusCircleOutlined onClick={() => remove(field.name)} />
             

@@ -25,6 +25,7 @@ const ProjectForm = () => {
   const [isPlanified, setIsPlanified] = useState(1);
 
   const handleSubmit = async (values: any) => {
+    console.log(values);
     setLoading(true);
     try {
       const response = await axios.post("project", values);
@@ -259,13 +260,13 @@ const ProjectForm = () => {
           <Col span={24}>
             <Form.Item
               hasFeedback
-              name="budgets"
-              label="Unidad de Medida"
+              name="measurement"
+              label="Unidades de Medida"
               rules={[
                 {
                   required: true,
                   message:
-                    "Debes indicar el unidad de medida",
+                    "Debes indicar la unidad de medida",
                 },
               ]}
             >

@@ -10,7 +10,7 @@ export function useMeasurementUnit( ) : [MeasurementUnit[], boolean] {
     useEffect(() => {
         setLoading(true);
         axios
-            .get<MeasurementUnit[]>("/measurement")
+            .get<MeasurementUnit[]>("/measurement-unit")
             .then((resp) => setMeasurementUnit(resp.data))
             .catch((e) => console.log(e))
             .finally(() => setLoading(false));

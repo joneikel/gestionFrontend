@@ -11,6 +11,7 @@ import EcUploader from "../components/EcUploader";
 import CustomPageHeader from "../../../components/PageHeader";
 import { useAvaiableBudget } from "../../../hooks/useAvailableBudget";
 import { moneyFormatter } from "../../../helpers";
+import Checkbox from "antd/lib/checkbox/Checkbox";
 
 const ActivityForm = () => {
   const axios = useAxios();
@@ -28,12 +29,11 @@ const ActivityForm = () => {
   >();
   const [loading, setLoading] = useState<boolean>(false);
   const [estimatedPopulation, setEstimatedPopulation] = useState<number | undefined>();
+  const [population, setPopulation] = useState(false);
 
   /* useEffect(()=>{
     form.setFieldsValue({available_budget: availableBudget});
   },[availableBudget]) */
-
-
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
@@ -189,7 +189,7 @@ const ActivityForm = () => {
               hasFeedback
               name="budget_cost"
               dependencies={['available_budget']}
-              label="Presupuesto Invertido"
+              label="Consto de la actividad"
               rules={[
                 {
                   required: true,
@@ -302,8 +302,16 @@ const ActivityForm = () => {
               <Input type="date" />
             </Form.Item>
           </Col>
-
-          <Col lg={12} md={12} sm={24} xs={24}>
+          <Col lg={3} md={3} sm={24} xs={24}>
+          <Checkbox
+                  onChange={(e) => setPopulation(e.target.checked)}
+                >
+                  No aplica
+                </Checkbox>
+          </Col>
+          
+          {population === false && (
+          <Col lg={10} md={10} sm={24} xs={24}>
             <Form.Item
               hasFeedback
               name="estimated_population"
@@ -322,7 +330,9 @@ const ActivityForm = () => {
               <Input onChange={e => setEstimatedPopulation(Number(e.target.value))}/>
             </Form.Item>
           </Col>
-          <Col lg={12} md={12} sm={24} xs={24}>
+            )}
+          { population === false && (
+          <Col lg={11} md={11} sm={24} xs={24}>
             <Form.Item
               hasFeedback
               name="benefited_population"
@@ -351,13 +361,14 @@ const ActivityForm = () => {
               ]}
             >
               <Input />
+      
             </Form.Item>
-          </Col>
+          </Col>)}
           <Col span={24}>
             <Form.Item
               hasFeedback
               name="images"
-              label="Imagenes"
+              label="Memoria fotografica"
               rules={[
                 {
                   required: true,

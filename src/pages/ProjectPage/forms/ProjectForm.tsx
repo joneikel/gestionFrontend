@@ -7,7 +7,6 @@ import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect"
 import ProjectStatusSelect from "../components/ProjectStatusSelect";
 import InputBudget from "../components/InputBudget";
 import InvestmentAreaSelect from "../components/InvesmentAreaSelect";
-import MeasurementUnitSelect from "../components/MeasurementUnitSelect";
 import CustomPageHeader from "../../../components/PageHeader";
 import InvestmentSubAreaSelect from "../components/InvestmentSubAreaSelect";
 import ImputMeasurementUnit from "../components/ImputMeasurementUnit";

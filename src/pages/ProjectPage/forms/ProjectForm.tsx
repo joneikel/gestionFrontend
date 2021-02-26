@@ -20,7 +20,8 @@ const ProjectForm = () => {
     string | undefined
   >();
   const [institution, setInstitution] = useState<string | undefined>();
-  const [investmentArea, setInvestmentArea] = useState <string[] | undefined>();
+  const [investmentArea, setInvestmentArea] = useState<string[] | undefined>();
+  const [isPlanified, setIsPlanified] = useState(1);
 
   const handleSubmit = async (values: any) => {
     setLoading(true);
@@ -158,12 +159,29 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <Select>
+              <Select onChange={(value: number) => setIsPlanified(value)}>
                 <Select.Option value={1}> Si </Select.Option>
                 <Select.Option value={0}> No </Select.Option>
               </Select>
             </Form.Item>
           </Col>
+          {isPlanified === 0 && (
+            <Col span={24}>
+              <Form.Item
+                hasFeedback
+                name="justification"
+                label="¿Por que no es planificado este projecto?"
+                rules={[
+                  {
+                    required: true,
+                    message: "Justifique, ¿Por que no es planificado?.",
+                  },
+                ]}
+              >
+                <Input.TextArea rows={3} />
+              </Form.Item>
+            </Col>
+          )}
 
           <Col span={24}>
             <Form.Item
@@ -195,7 +213,10 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <InvestmentAreaSelect mode="multiple" onChange={setInvestmentArea} />
+              <InvestmentAreaSelect
+                mode="multiple"
+                onChange={setInvestmentArea}
+              />
             </Form.Item>
           </Col>
 
@@ -213,15 +234,15 @@ const ProjectForm = () => {
               ]}
             >
               <InvestmentSubAreaSelect
-              disabled={!investmentArea}
-              investmentAreaIds={investmentArea}
-               mode="multiple"/>
+                disabled={!investmentArea}
+                investmentAreaIds={investmentArea}
+                mode="multiple"
+              />
             </Form.Item>
           </Col>
 
           <Col span={3}>
             <Form.Item
-              
               hasFeedback
               name="measurement_id"
               label="Unidad de medida"
@@ -232,7 +253,7 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <MeasurementUnitSelect mode={undefined}/>
+              <MeasurementUnitSelect mode={undefined} />
             </Form.Item>
           </Col>
 

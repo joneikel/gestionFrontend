@@ -6,7 +6,7 @@ import MeasurementUnitSelect from "./MeasurementUnitSelect";
 const ImputMeasurementUnit = () => {
 
   return (
-    <Form.List name="measurement_units">
+    <Form.List name="measurement">
       {(fields, { add, remove }) => (
         <>
           {fields.map((field) => (

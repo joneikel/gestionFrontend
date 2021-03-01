@@ -25,7 +25,16 @@ const ProjectForm = () => {
   const [isPlanified, setIsPlanified] = useState(1);
 
   const handleSubmit = async (values: any) => {
+
+    values.measurement_units = values.measurement.map((x: any) => ({ [x.measurement_unit_id]: { proposed_goal: Number(x.proposed_goal), reached_goal: Number(x.reached_goal) } }));
+
+    values.measurement_units = values.measurement_units.reduce((x: any, y: any) => {
+      x = { ...x, ...y };
+      return x;
+    })
+
     console.log(values);
+
     setLoading(true);
     try {
       const response = await axios.post("project", values);
@@ -37,6 +46,7 @@ const ProjectForm = () => {
     } finally {
       setLoading(false);
     }
+    setLoading(false);
   };
 
   const [program, setProgram] = useState<string | undefined>();
@@ -151,7 +161,7 @@ const ProjectForm = () => {
           <Col lg={24} md={24} sm={24} xs={24}>
             <FormItem
               hasFeedback
-              name=""
+              name="status_observation"
               label="Justifique el estatus"
               rules={[
                 {

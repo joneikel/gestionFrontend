@@ -3,12 +3,15 @@ import { Descriptions, Card, Tag } from "antd";
 import { useHistory } from "react-router-dom";
 import ActivityPage from "../../ActivityPage";
 import CustomPageHeader from "../../../components/PageHeader";
-import { Budget, Project } from "../../../models";
+import { Budget, MeasurementUnit, Project } from "../../../models";
 import { moneyFormatter } from "../../../helpers";
+import UpdateProjectStatusModal from "./UpdateProjectStatusModal";
 
 const ProjectDetails = () => {
   const history = useHistory();
   const project = history.location.state as Project;
+
+  console.log(project);
 
   return (
     <Card
@@ -57,13 +60,26 @@ const ProjectDetails = () => {
           ))}
         </Descriptions.Item>
         <Descriptions.Item label="Unidad de medida:">
-          {project.measurement.name}
-        </Descriptions.Item>
-        <Descriptions.Item label="Valor de medida:">
-          {project.measurement_value}
+         {project.measurement_unit.map((x:MeasurementUnit) => (
+            <div style={{marginTop: '4px'}}>
+              <Tag style={{ padding: "2px", width: '75px', textAlign: 'center' }}> {x.name}</Tag>
+              <Tag style={{ padding: "2px", paddingRight: '7px', paddingLeft: '7px'  }}> Propuesta: {x.pivot.proposed_goal} </Tag>
+              <Tag style={{ padding: "2px", paddingRight: '7px', paddingLeft: '7px'  }}> Alcanzada: { x.pivot.reached_goal ? x.pivot.reached_goal : "Por definir" }</Tag>
+              <br />
+            </div>
+          )) } 
         </Descriptions.Item>
         <Descriptions.Item label="Fecha de Inicio:">
           {project.init_date}
+        </Descriptions.Item>
+        <Descriptions.Item label="Status del proyecto:">
+        {project.project_status.name && 
+          <UpdateProjectStatusModal 
+          project_status={project.project_status} 
+          project_id={project.id} 
+          onChange={() => console.log('funcion')} 
+          />
+        }
         </Descriptions.Item>
         <Descriptions.Item label="Fecha de Culminación:">
           {project.end_date ? project.end_date : "Sin culminar"}

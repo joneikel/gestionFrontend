@@ -27,10 +27,9 @@ export type Project = {
   description: string;
   program: Program;
   investment_sub_areas: InvestmentSubArea[];
-  measurement: MeasurementUnit;
   budgets: Budget[];
-  status: ProjectStatus;
-  measurement_value: number;
+  project_status: ProjectStatus;
+  measurement_unit: MeasurementUnit[];
   is_planified: number;
   init_date: Date;
   end_date: Date;
@@ -49,8 +48,9 @@ export type Parroquia = {
 
 export type ProjectStatus = {
   id: string;
-  name: string;
-  is_final: boolean;
+  name?: string;
+  is_final?: boolean;
+  observation?: string;
 };
 
 export type Budget = {
@@ -81,7 +81,17 @@ export type MeasurementUnit = {
   id: string;
   name: string;
   short_name: string;
+  pivot: MeasurementUnitPivot
 };
+
+export type MeasurementUnitPivot = {
+project_id: string,
+measurement_unit_id: string,
+proposed_goal: number,
+reached_goal?: number,
+is_goal_increase: boolean,
+observation?: string
+}
 
 export type Role = {
   id: string;

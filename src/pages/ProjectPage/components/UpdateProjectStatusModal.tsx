@@ -1,4 +1,4 @@
-import { Form, Input, message, Modal, Tag } from 'antd';
+import { Button, Form, Input, message, Modal, Space, Tag } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import { AsyncResource } from 'async_hooks';
 import { AxiosInstance } from 'axios';
@@ -11,29 +11,33 @@ import ProjectStatusSelect from './ProjectStatusSelect';
 const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { project_status: ProjectStatus, project_id: string, onChange: Function }) => {
 
     const axios = useAxios();
-    const [form] = useForm(); 
     const [visible, setVisible] = useState<boolean>(false);
     const [selectedStatus,setSelectedStatus] = useState<string|undefined>();
     const [loading,setLoading] = useState<boolean>(false);
 
     const handleSubmit = async (values:any) => {
         setLoading(true);
-        form.validateFields()
-        .then((v) => {
-            try {
-                const response = UpdateProjectStatus(project_id,axios,values.project_status_id,values.observation);
+        try {
+            axios
+            .patch('/project/update-status', {
+                    project_id: project_id,
+                    project_status_id: values.project_status_id,
+            })
+            .then((new_status) => {
                 message.success("Status actualizado con exito");
-                return response;
+                onChange(new_status.data);
+            });
+                
             } catch (error) {
-                message.error("Ha ocurrido un error");
+                message.error('No se pudo actualizar el status');
+                return console.log(error);
+            } finally {
+                setLoading(false);
+                setVisible(false);
             }
-        }).catch((e) => {
-            console.log(e);
-            message.error('No se pudo actualizar el status');
-        })
-        .finally(() => setLoading(false));
+        }
 
-    }
+
 
 
     return (
@@ -41,12 +45,12 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
             <Modal
                 title="Cambiar status del Proyecto"
                 visible={visible}
-                onCancel={() => setVisible(!visible)} 
-                onOk={() => handleSubmit(form.getFieldsValue(true))}
+                footer={null}
+                destroyOnClose={true}
+                onCancel={() => setVisible(false)}
             >
                 
                 <Form
-                    form={form}
                     onFinish={handleSubmit}
                     >
                     <span>Seleccione el nuevo status</span>
@@ -78,6 +82,22 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
                     >
                         <Input/>
                     </Form.Item>
+                    <Space align='start'>
+                            <Button
+                                color='red'
+                                onClick={() => setVisible(false)}
+                            >
+                                Cancelar
+                            </Button>
+                        <Form.Item>
+                            <Button
+                                htmlType='submit'
+                                type='primary'
+                            >
+                                Guardar
+                            </Button>
+                        </Form.Item>
+                    </Space>
                 </Form>
 
             </Modal>
@@ -88,15 +108,3 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
 }
 
 export default UpdateProjectStatusModal;
-
-async function UpdateProjectStatus(project_id:string,axios:AxiosInstance,project_status_id:string,observation:string){
-    const response = await axios.patch('/project/update-status', {
-        params: {
-            project_id: project_id,
-            project_status_id: project_status_id,
-            observation: observation
-        }
-    });
-
-    return response;
-}

@@ -29,6 +29,7 @@ export type Project = {
   investment_sub_areas: InvestmentSubArea[];
   budgets: Budget[];
   project_status: ProjectStatus;
+  project_status_id: string;
   measurement_unit: MeasurementUnit[];
   is_planified: number;
   init_date: Date;
@@ -55,8 +56,9 @@ export type ProjectStatus = {
 
 export type Budget = {
   id?: string;
-  name?: string;
+  project_id: string;
   value: number;
+  is_budget_increase: boolean;
   dolarvalue?: number;
   petro?: number;
   budget_source: BudgetSource;

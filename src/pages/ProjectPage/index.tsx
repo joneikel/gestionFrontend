@@ -19,7 +19,7 @@ const ProjectPage = () => {
     is_planified: undefined
   });
   const [loading, setLoading] = useState(false);
-  const [projects, setProjects] = useState<Project[] | undefined>();
+  const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
     setLoading(true);
@@ -70,7 +70,7 @@ const ProjectPage = () => {
       render: (project_status: ProjectStatus,record:Project,) => <UpdateProjectStatusModal 
         project_status={project_status} 
         project_id={record.id} 
-        onChange={() => console.log('funcion')} 
+        onChange={updateProject} 
         />
      },
     {
@@ -110,6 +110,12 @@ const ProjectPage = () => {
       ),
     },
   ];
+
+  const updateProject = (newProject: any) => {
+    console.log(newProject);
+    const updateProject = projects.map(project => project.id === newProject.id ? newProject : project);
+    setProjects(updateProject);
+  }
 
   return (
     <Card>

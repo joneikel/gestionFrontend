@@ -46,7 +46,6 @@ const ProjectForm = () => {
     } finally {
       setLoading(false);
     }
-    setLoading(false);
   };
 
   const [program, setProgram] = useState<string | undefined>();

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Descriptions, Card, Tag } from "antd";
 import { useHistory } from "react-router-dom";
 import ActivityPage from "../../ActivityPage";
@@ -6,12 +6,17 @@ import CustomPageHeader from "../../../components/PageHeader";
 import { Budget, MeasurementUnit, Project } from "../../../models";
 import { moneyFormatter } from "../../../helpers";
 import UpdateProjectStatusModal from "./UpdateProjectStatusModal";
+import IncreaseProjectBudgetModal from "./IncreaseProjectBudgetModal";
 
 const ProjectDetails = () => {
   const history = useHistory();
-  const project = history.location.state as Project;
+  const [project,setProject] = useState<Project>(history.location.state as Project);
 
   console.log(project);
+
+  const updateProject = (newProject: Project) => {
+    setProject(newProject);
+  }
 
   return (
     <Card
@@ -77,12 +82,18 @@ const ProjectDetails = () => {
           <UpdateProjectStatusModal 
           project_status={project.project_status} 
           project_id={project.id} 
-          onChange={() => console.log('funcion')} 
+          onChange={updateProject} 
           />
         }
         </Descriptions.Item>
         <Descriptions.Item label="Fecha de Culminación:">
           {project.end_date ? project.end_date : "Sin culminar"}
+        </Descriptions.Item>
+        <Descriptions.Item label="Aumento de presupuesto">
+         <IncreaseProjectBudgetModal
+            project_id={project.id}
+            onChange={updateProject}
+         />
         </Descriptions.Item>
       </Descriptions>
 

@@ -4,41 +4,40 @@ import { PlusOutlined } from "@ant-design/icons";
 import BudgetSourceSelector from './BudgetSourceSelector';
 import { useAxios } from '../../../hooks/useAxios';
 
-const IncreaseProjectBudgetModal = ({project_id,onChange}:{project_id:string,onChange:Function}) => {
+const IncreaseProjectBudgetModal = ({ project_id, onChange }: { project_id: string, onChange: Function }) => {
 
     const axios = useAxios();
-    
+
     const [visible, setVisible] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const handleSubmit = (values:any) => {
+    const handleSubmit = async (values: any) => {
         setLoading(true);
-        try {
-            axios.patch('/budget-increase',{
+            axios
+            .post('project/budget-increase', {
                 project_id: project_id,
-                value: values.value,
+                value: Number(values.value),
                 budget_source_id: values.budget_source_id,
                 observation: values.observation
             }).then((update_project) => {
-                onChange && onChange(update_project.data);
                 message.success("Presupuesto aumentado exitosamente")
-            })
-        } catch (error) {
-            console.log(error);
-            message.error("Hay ocurrido un error");
-        } finally {
-            setLoading(false);
-        } 
+                onChange(update_project.data);
+                setVisible(false);
+            }).catch(error => {
+                message.error("Ha ocurrido un error");
+            }).finally(() => setLoading(false));
     }
 
     return (
         <>
             <Modal
+                title="Añadir aumento de presupuesto"
                 visible={visible}
                 onCancel={() => setVisible(false)}
                 footer={null}
+                destroyOnClose={true}
+                confirmLoading={loading}
             >
-                <h2>Añadir aumento de presupuesto</h2>
                 <Form
                     onFinish={handleSubmit}
                 >
@@ -57,6 +56,7 @@ const IncreaseProjectBudgetModal = ({project_id,onChange}:{project_id:string,onC
                     </Form.Item>
 
                     <Form.Item
+                        hasFeedback
                         name="budget_source_id"
                         key="budget_source_id"
                         rules={[
@@ -66,10 +66,11 @@ const IncreaseProjectBudgetModal = ({project_id,onChange}:{project_id:string,onC
                             }
                         ]}
                     >
-                        <BudgetSourceSelector/>
+                        <BudgetSourceSelector />
                     </Form.Item>
 
                     <Form.Item
+                        hasFeedback
                         name="observation"
                         key="observation"
                         rules={[
@@ -81,7 +82,7 @@ const IncreaseProjectBudgetModal = ({project_id,onChange}:{project_id:string,onC
                     >
                         <Input.TextArea rows={3} placeholder="Justifique el aumento de presupuesto" />
                     </Form.Item>
-                    
+
                     <Space
                         align="start"
                     >
@@ -93,11 +94,11 @@ const IncreaseProjectBudgetModal = ({project_id,onChange}:{project_id:string,onC
 
                         <Form.Item>
                             <Button
-                                htmlType="submit"
-                                type="primary"
+                                htmlType='submit'
+                                type='primary'
                             >
                                 Guardar
-                                </Button>
+                            </Button>
                         </Form.Item>
 
                     </Space>

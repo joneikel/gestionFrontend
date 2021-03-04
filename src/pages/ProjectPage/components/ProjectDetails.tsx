@@ -7,6 +7,7 @@ import { Budget, MeasurementUnit, Project } from "../../../models";
 import { moneyFormatter } from "../../../helpers";
 import UpdateProjectStatusModal from "./UpdateProjectStatusModal";
 import IncreaseProjectBudgetModal from "./IncreaseProjectBudgetModal";
+import IncreaseProjectGoalsModal from "./IncreaseProjectGoalsModal";
 
 const ProjectDetails = () => {
   const history = useHistory();
@@ -66,7 +67,7 @@ const ProjectDetails = () => {
             </>
           ))}
         </Descriptions.Item>
-        <Descriptions.Item label="Unidad de medida:">
+        <Descriptions.Item label="Metas del proyecto:">
           {project.measurement_unit.map((x: MeasurementUnit) => (
             <div style={{ marginTop: '4px' }} >
               <Tag className="information-tag" > {x.name}</Tag>
@@ -75,6 +76,7 @@ const ProjectDetails = () => {
               <br />
             </div>
           ))}
+          <IncreaseProjectGoalsModal/>
         </Descriptions.Item>
         <Descriptions.Item label="Fecha de Inicio:">
           {project.init_date}

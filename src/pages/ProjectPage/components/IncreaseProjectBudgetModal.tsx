@@ -17,6 +17,7 @@ const IncreaseProjectBudgetModal = ({ project_id, onChange }: { project_id: stri
             .post('project/budget-increase', {
                 project_id: project_id,
                 value: Number(values.value),
+                dollar_value: Number(values.dollar_value),
                 budget_source_id: values.budget_source_id,
                 observation: values.observation
             }).then((update_project) => {
@@ -52,7 +53,21 @@ const IncreaseProjectBudgetModal = ({ project_id, onChange }: { project_id: stri
                             }
                         ]}
                     >
-                        <Input placeholder="Valor de presupuesto" />
+                        <Input placeholder="Cantidad en Bs" />
+                    </Form.Item>
+
+                    <Form.Item
+                        hasFeedback
+                        name="dollar_value"
+                        key="dollar_value"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Introduzca el valor en $ del incremento de presupuesto"
+                            }
+                        ]}
+                    >
+                        <Input placeholder="Cantidad en $" />
                     </Form.Item>
 
                     <Form.Item

@@ -1,5 +1,5 @@
-import { Button, Col, Form, Input, Row, Select, message, Progress, Card, InputNumber, Tag } from "antd";
-import React, { useEffect, useState } from "react";
+import { Button, Col, Form, Input, Row, Select, message, Progress, Card } from "antd";
+import React, { useState } from "react";
 import InstitutionsSelect from "../components/InstitutionSelect";
 import MunicipiosSelect from "../components/MunicipioSelect";
 import ParroquiaSelect from "../components/ParroquiaSelect";
@@ -10,8 +10,8 @@ import { useHistory } from "react-router-dom";
 import EcUploader from "../components/EcUploader";
 import CustomPageHeader from "../../../components/PageHeader";
 import { useAvaiableBudget } from "../../../hooks/useAvailableBudget";
-import { moneyFormatter } from "../../../helpers";
 import Checkbox from "antd/lib/checkbox/Checkbox";
+import NumberFormat from "react-number-format";
 
 const ActivityForm = () => {
   const axios = useAxios();
@@ -210,7 +210,12 @@ const ActivityForm = () => {
                 }
               ]}
             >
-              <Input />
+              <NumberFormat 
+                  thousandSeparator={"."} 
+                  decimalScale={2} 
+                  decimalSeparator={","} 
+                  maxLength={21} 
+              />
             </Form.Item>
           </Col>
           <Col lg={8} md={8} sm={24} xs={24}>

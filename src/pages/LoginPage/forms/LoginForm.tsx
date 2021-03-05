@@ -16,7 +16,6 @@ const LoginForm = () => {
     setLoading(true);
     try {
       const response = await axios.post("login", values);
-      message.success("Inicio de sesión exitoso.");
       let loginInformation = {
         name: response.data.data.name,
         access_token: response.data.token,

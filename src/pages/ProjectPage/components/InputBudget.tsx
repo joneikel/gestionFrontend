@@ -29,6 +29,16 @@ const InputBudget = () => {
               <Form.Item
                 hasFeedback
                 {...field}
+                name={[field.name, "dollar_value"]}
+                fieldKey={[field.fieldKey, "dollar_value"]}
+                rules={[{ required: true, message: "Introduzca el valor en $ del presupuesto" }]}
+              >
+                    <Input max={undefined} prefix='$' style={{width: '23vw'}}  />
+              </Form.Item>
+
+              <Form.Item
+                hasFeedback
+                {...field}
                 name={[field.name, "budget_source_id"]}
                 fieldKey={[field.fieldKey, "budget_source_id"]}
                 rules={[{ required: true, message: "Seleccione el tipo de presupuesto" }]}

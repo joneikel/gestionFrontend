@@ -40,7 +40,7 @@ const ImputMeasurementUnit = () => {
                 {...field}
                 name={[field.name, "reached_goal"]}
                 fieldKey={[field.fieldKey, "reached_goal"]}
-                rules={[{ required: true, message: "Introduzca el valor" }]}
+                rules={[{ required: false, message: "Introduzca el valor" }]}
               >
                     <Input 
                     placeholder="Meta alcanzada"

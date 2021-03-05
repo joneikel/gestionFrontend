@@ -196,7 +196,7 @@ const ActivityForm = () => {
                   message: "Debes indicar el presupuesto",
                 },
                 {
-                  pattern: /^\d+$/,
+                  pattern: /^\d+(\.\d{1,2})?$/,
                   message: "Solo puede introducir numeros"
                 },{
                   validator: async (_,value) => {

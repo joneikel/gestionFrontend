@@ -1,8 +1,4 @@
 import { Button, Form, Input, message, Modal, Space, Tag } from 'antd';
-import { useForm } from 'antd/lib/form/Form';
-import { AsyncResource } from 'async_hooks';
-import { AxiosInstance } from 'axios';
-import { AnyNaptrRecord } from 'dns';
 import React, { useState } from 'react';
 import { useAxios } from '../../../hooks/useAxios';
 import { ProjectStatus } from '../../../models';
@@ -17,29 +13,22 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
 
     const handleSubmit = async (values:any) => {
         setLoading(true);
-        try {
+        
             axios
             .patch('/project/update-status', {
                     project_id: project_id,
                     project_status_id: values.project_status_id,
-            })
-            .then((new_status) => {
+            }).then((new_status) => {
                 message.success("Status actualizado con exito");
                 onChange(new_status.data);
-            });
-                
-            } catch (error) {
-                message.error('No se pudo actualizar el status');
-                return console.log(error);
-            } finally {
-                setLoading(false);
                 setVisible(false);
-            }
+                
+            }).catch(() => {
+                message.error("Ha ocurrido un error");
+            }).finally(() => setLoading(false));
+            
         }
-
-
-
-
+        
     return (
         <>
             <Modal
@@ -48,6 +37,7 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
                 footer={null}
                 destroyOnClose={true}
                 onCancel={() => setVisible(false)}
+                confirmLoading={loading}
             >
                 
                 <Form

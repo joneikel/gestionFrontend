@@ -8,6 +8,7 @@ import { moneyFormatter } from "../../../helpers";
 import UpdateProjectStatusModal from "./UpdateProjectStatusModal";
 import IncreaseProjectBudgetModal from "./IncreaseProjectBudgetModal";
 import IncreaseProjectGoalsModal from "./IncreaseProjectGoalsModal";
+import GoalIndicator from "./GoalIndicator";
 
 const ProjectDetails = () => {
   const history = useHistory();
@@ -74,6 +75,7 @@ const ProjectDetails = () => {
               <Tag className="information-tag"> Propuesta: {x.pivot.proposed_goal} </Tag>
               <Tag className="information-tag"> Alcanzada: {x.pivot.reached_goal ? x.pivot.reached_goal : "Por definir"}</Tag>
               <br />
+              <GoalIndicator proposed_goal={x.pivot.proposed_goal} reached_goal={x.pivot.reached_goal || 0} />
             </div>
           ))}
           <IncreaseProjectGoalsModal/>

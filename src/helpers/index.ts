@@ -44,8 +44,8 @@ function formatMoney(
   }
 }
 
-export function moneyFormatter(amount: string) {
-  return formatMoney(amount, 2, ",", ".");
+export function moneyFormatter(amount: string, symbol="Bs. ") {
+  return formatMoney(amount, 2, ",", ".", symbol);
 }
 
 export function downloadFile(

@@ -12,6 +12,7 @@ import CustomPageHeader from "../../../components/PageHeader";
 import { useAvaiableBudget } from "../../../hooks/useAvailableBudget";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import NumberFormat from "react-number-format";
+import { moneyFormatter } from "../../../helpers";
 
 const ActivityForm = () => {
   const axios = useAxios();
@@ -179,7 +180,12 @@ const ActivityForm = () => {
                 }
               ]}
             >
-              <div className="budget-tag">Bs.{availableBudget}</div>
+              <div className="budget-tag">
+
+              {availableBudget && 
+              moneyFormatter(availableBudget.toString())}
+
+              </div>
             </Form.Item>
           </Col>
 

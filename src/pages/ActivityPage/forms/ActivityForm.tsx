@@ -22,6 +22,7 @@ const ActivityForm = () => {
 
   const [availableBudget,loadingAvailableBudget] = useAvaiableBudget(projectId);
 
+
   const [program, setProgram] = useState<string | undefined>();
   const [municipio, setMunicipio] = useState<string | undefined>();
   const [parentInstitution, setParentInstitution] = useState<
@@ -31,12 +32,11 @@ const ActivityForm = () => {
   const [estimatedPopulation, setEstimatedPopulation] = useState<number | undefined>();
   const [population, setPopulation] = useState(false);
 
-  /* useEffect(()=>{
-    form.setFieldsValue({available_budget: availableBudget});
-  },[availableBudget]) */
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
+      const budgetActivity = values.budget_cost.replaceAll(".", "").replaceAll(",", ".")
+      values.budget_cost = budgetActivity;
       const data = buildFormData(values);
       const response = await axios.post('/activity', data, {
         headers: {
@@ -52,7 +52,6 @@ const ActivityForm = () => {
       setLoading(false);
     }
   };
-
   const buildFormData = (values: any): FormData => {
     const data = new FormData();
     const { images } = values;
@@ -196,11 +195,8 @@ const ActivityForm = () => {
                   message: "Debes indicar el presupuesto",
                 },
                 {
-                  pattern: /^\d+(\.\d{1,2})?$/,
-                  message: "Solo puede introducir numeros"
-                },{
                   validator: async (_,value) => {
-                    let fixed_value = Number(value);
+                    const fixed_value = value.replaceAll(".", "").replaceAll(",", ".");
                     if (availableBudget && availableBudget >= fixed_value ){
                       return Promise.resolve();
                     } else {

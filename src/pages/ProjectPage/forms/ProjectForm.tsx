@@ -11,6 +11,7 @@ import CustomPageHeader from "../../../components/PageHeader";
 import InvestmentSubAreaSelect from "../components/InvestmentSubAreaSelect";
 import ImputMeasurementUnit from "../components/ImputMeasurementUnit";
 import FormItem from "antd/lib/form/FormItem";
+import { Budget } from "../../../models";
 
 const ProjectForm = () => {
   const axios = useAxios();
@@ -32,6 +33,12 @@ const ProjectForm = () => {
       x = { ...x, ...y };
       return x;
     })
+    values.budgets = values.budgets.map((budget: any) => {
+      budget.value = Number(budget.value.replaceAll("Bs", "").replaceAll(".", "").replaceAll(",", "."))
+      budget.dollar_value = Number(budget.dollar_value.replaceAll("$", "").replaceAll(".", "").replaceAll(",", "."))
+      return budget;
+    })
+     
 
     console.log(values);
 

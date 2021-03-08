@@ -213,6 +213,7 @@ const ActivityForm = () => {
               ]}
             >
               <NumberFormat 
+                  class="ant-input"
                   thousandSeparator={"."} 
                   decimalScale={2} 
                   decimalSeparator={","} 

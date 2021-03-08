@@ -26,7 +26,7 @@ const ProjectDetails = () => {
             <Typography.Title>{project.name}</Typography.Title>
           </Col>
           <Col span={24}>
-            <Card title="Presupuesto" extra={
+            <Card title="Presupuesto"  extra={
               <IncreaseProjectBudgetModal
                 project_id={project.id}
                 onChange={updateProject}

@@ -1,6 +1,6 @@
-import { Button, Modal } from 'antd';
+import { Button, Modal, Tooltip } from 'antd';
 import React, { useState } from 'react';
-
+import { PlusCircleFilled } from '@ant-design/icons';
 const IncreaseProjectGoalsModal = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -16,11 +16,14 @@ const IncreaseProjectGoalsModal = () => {
             >
 
             </Modal>
-            <Button
-                onClick={() => setVisible(true)}
-            >
-                Expandir metas
-            </Button>
+            <Tooltip title="Incrementar presupuesto">
+                <Button
+                    shape="circle"
+                    type="primary"
+                    icon={<PlusCircleFilled />}
+                    onClick={() => setVisible(true)}
+                />
+            </Tooltip>
         </>
     )
 }

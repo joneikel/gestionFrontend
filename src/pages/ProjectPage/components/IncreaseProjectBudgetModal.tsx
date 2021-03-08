@@ -1,6 +1,6 @@
 import { Button, Form, Input, message, Modal, Space } from 'antd';
 import React, { useState } from 'react';
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusCircleFilled } from "@ant-design/icons";
 import BudgetSourceSelector from './BudgetSourceSelector';
 import { useAxios } from '../../../hooks/useAxios';
 
@@ -13,7 +13,7 @@ const IncreaseProjectBudgetModal = ({ project_id, onChange }: { project_id: stri
 
     const handleSubmit = async (values: any) => {
         setLoading(true);
-            axios
+        axios
             .post('project/budget-increase', {
                 project_id: project_id,
                 value: Number(values.value),
@@ -121,11 +121,11 @@ const IncreaseProjectBudgetModal = ({ project_id, onChange }: { project_id: stri
 
             </Modal>
             <Button
-                size="middle"
+                shape="circle"
+                type="primary"
                 onClick={() => setVisible(true)}
-            >
-                Aumento de presupuesto {<PlusOutlined />}
-            </Button>
+                icon={<PlusCircleFilled />}
+            />
         </>
     )
 }

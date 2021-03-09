@@ -8,27 +8,27 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
 
     const axios = useAxios();
     const [visible, setVisible] = useState<boolean>(false);
-    const [selectedStatus,setSelectedStatus] = useState<string|undefined>();
-    const [loading,setLoading] = useState<boolean>(false);
+    const [selectedStatus, setSelectedStatus] = useState<string | undefined>();
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const handleSubmit = async (values:any) => {
+    const handleSubmit = async (values: any) => {
         setLoading(true);
-        
-            axios
+
+        axios
             .patch('/project/update-status', {
-                    project_id: project_id,
-                    project_status_id: values.project_status_id,
+                project_id: project_id,
+                project_status_id: values.project_status_id,
             }).then((new_status) => {
                 message.success("Status actualizado con exito");
                 onChange(new_status.data);
                 setVisible(false);
-                
+
             }).catch(() => {
                 message.error("Ha ocurrido un error");
             }).finally(() => setLoading(false));
-            
-        }
-        
+
+    }
+
     return (
         <>
             <Modal
@@ -39,10 +39,10 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
                 onCancel={() => setVisible(false)}
                 confirmLoading={loading}
             >
-                
+
                 <Form
                     onFinish={handleSubmit}
-                    >
+                >
                     <span>Seleccione el nuevo status</span>
                     <Form.Item
                         hasFeedback
@@ -50,12 +50,12 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
                         key='project_status_id'
                         rules={[
                             {
-                                required:true,
+                                required: true,
                                 message: 'Debe seleccionar el nuevo status del proyecto'
                             },
                         ]}
                     >
-                        <ProjectStatusSelect onChange={(v:string) => setSelectedStatus(v)} />
+                        <ProjectStatusSelect onChange={(v: string) => setSelectedStatus(v)} />
                     </Form.Item>
                     <span>Observación</span>
                     <Form.Item
@@ -64,20 +64,20 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
                         key='observation'
                         rules={[
                             {
-                                required:true,
+                                required: true,
                                 message: 'Justifique el cambio de status'
                             },
 
                         ]}
                     >
-                        <Input/>
+                        <Input />
                     </Form.Item>
                     <Space align='start'>
-                            <Button
-                                color='red'
-                                onClick={() => setVisible(false)}
-                            >
-                                Cancelar
+                        <Button
+                            color='red'
+                            onClick={() => setVisible(false)}
+                        >
+                            Cancelar
                             </Button>
                         <Form.Item>
                             <Button
@@ -92,7 +92,8 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
 
             </Modal>
             {project_status.is_final ?
-                <Tag className="project-status-tag" color="red" onChange={() => setVisible(!visible)} >{project_status.name}</Tag > : <Tag className="project-status-tag" color="green" onClick={() => setVisible(!visible)} >{project_status.name}</Tag>}
+                <Tag className="project-status-tag" color="red" onChange={() => setVisible(!visible)}>{project_status.name}</Tag > :
+                <Tag className="project-status-tag" color="#40bf22" onClick={() => setVisible(!visible)} >{project_status.name}</Tag>}
         </>
     )
 }

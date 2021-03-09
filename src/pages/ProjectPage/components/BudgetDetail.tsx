@@ -1,7 +1,8 @@
-import { Space, Table, Tooltip, Typography } from "antd";
-import { Bar } from "react-chartjs-2";
+import { Space, Table, Tag, Tooltip, Typography } from "antd";
+import { Bar, Line } from "react-chartjs-2";
 import { moneyFormatter } from "../../../helpers";
 import { Budget, BudgetSource } from "../../../models";
+import moment from 'moment';
 
 const BudgetDetail = ({ budget }: { budget: Budget[] }) => {
 
@@ -23,6 +24,12 @@ const BudgetDetail = ({ budget }: { budget: Budget[] }) => {
       title: "Divisa",
       key: "divisa",
       render: (dollar_value: number) => <Tooltip title="Valor aproximado">≈ {moneyFormatter(dollar_value.toString(), "$ ")}</Tooltip>
+    },
+    {
+      dataIndex: 'created_at',
+      title: "Fecha",
+      key: "date",
+      render: (created_at: string) => moment(created_at).format("L")
     }
   ];
 
@@ -65,16 +72,18 @@ export const BudgetGraph = ({ budget }: { budget: Budget[] }) => {
     datasets: [
       {
         label: 'Bolivares',
+        yAxisID: 'y-axis-1',
         data: budget.map(b => b.value),
         fill: true,
-        backgroundColor: '#038def8a',
+        backgroundColor: '#038def3a',
         borderColor: '#021c52',
       },
       {
         label: 'Dolares',
+        yAxisID: 'y-axis-2',
         data: budget.map(b => b.dollar_value),
         fill: true,
-        backgroundColor: '#11bd068a',
+        backgroundColor: '#11bd063a',
         borderColor: '#075202',
       },
     ],
@@ -86,16 +95,38 @@ export const BudgetGraph = ({ budget }: { budget: Budget[] }) => {
     scales: {
       yAxes: [
         {
+          id: 'y-axis-1',
+          type: 'linear',
+          display: true,
+          position: 'left',
           ticks: {
+            fontColor: "#038def",
             beginAtZero: true,
+            callback: function (value: string, index: number, values: string[]) {
+              return index % 2 === 0 ? moneyFormatter(value, "Bs") : null;
+            }
           },
+        },
+        {
+          id: 'y-axis-2',
+          type: 'linear',
+          display: true,
+          position: 'right',
+          ticks: {
+            fontColor: "#075202",
+            beginAtZero: true,
+            callback: function (value: string, index: number, values: string[]) {
+              return index % 2 === 0 ? moneyFormatter(value, "$") : null;
+            }
+          },
+
         },
       ],
     },
   }
 
   return (
-    <Bar height={200} width={650} data={data} options={options} />
+    <Line height={200} width={650} data={data} options={options} />
   );
 }
 

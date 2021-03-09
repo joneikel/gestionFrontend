@@ -3,6 +3,7 @@ import { Form, Button, Space, Input } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Budget } from "../../../models";
 import BudgetSourceSelector from "./BudgetSourceSelector";
+import NumberFormat from "react-number-format";
 
 const InputBudget = () => {
 
@@ -23,7 +24,16 @@ const InputBudget = () => {
                 fieldKey={[field.fieldKey, "value"]}
                 rules={[{ required: true, message: "Introduzca el valor del presupuesto" }]}
               >
-                    <Input max={undefined} prefix='Bs.' style={{width: '23vw'}}  />
+                 <NumberFormat 
+                  className="ant-input"
+                  thousandSeparator={"."} 
+                  decimalScale={2} 
+                  decimalSeparator={","} 
+                  maxLength={21} 
+                  style={{ width: '23vw'}}
+                  placeholder="Cantidad en Bolivares."
+                  prefix="Bs."
+              />
               </Form.Item>
               <Form.Item
                 hasFeedback
@@ -32,7 +42,16 @@ const InputBudget = () => {
                 fieldKey={[field.fieldKey, "dollar_value"]}
                 rules={[{ required: true, message: "Introduzca el valor en $ del presupuesto" }]}
               >
-                    <Input max={undefined} prefix='$' style={{width: '23vw'}}  />
+                    <NumberFormat 
+                  className="ant-input"
+                  thousandSeparator={"."} 
+                  decimalScale={2} 
+                  decimalSeparator={","} 
+                  maxLength={21} 
+                  style={{ width: '23vw'}}
+                  placeholder="Cantidad en Divisas."
+                  prefix="$."
+              />
               </Form.Item>
 
               <Form.Item

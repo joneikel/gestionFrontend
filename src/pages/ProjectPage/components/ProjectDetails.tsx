@@ -7,7 +7,7 @@ import UpdateProjectStatusModal from "./UpdateProjectStatusModal";
 import IncreaseProjectBudgetModal from "./IncreaseProjectBudgetModal";
 import IncreaseProjectGoalsModal from "./IncreaseProjectGoalsModal";
 import GoalIndicator from "./GoalIndicator";
-import BudgetDetail from "./BudgetDetail";
+import BudgetDetail, { BudgetGraph } from "./BudgetDetail";
 
 const ProjectDetails = () => {
   const history = useHistory();
@@ -26,17 +26,19 @@ const ProjectDetails = () => {
             <Typography.Title>{project.name}</Typography.Title>
           </Col>
           <Col span={24}>
-            <Card title="Presupuesto"  extra={
-              <IncreaseProjectBudgetModal
+            {project.project_status.name &&
+              <UpdateProjectStatusModal
+                project_status={project.project_status}
                 project_id={project.id}
                 onChange={updateProject}
-              />}>
-              <BudgetDetail budget={project.budgets} />
-            </Card>
+              />
+            }
           </Col>
-          <Col span={24}>
-            <Card title="Metas del proyecto" extra={<IncreaseProjectGoalsModal />}>
-              <div style={{ display: "flex", flexFlow: "row" }} >
+          <Col span={12}>
+            <Card
+              headStyle={{ border: 'none' }}
+              title="Metas del proyecto" extra={<IncreaseProjectGoalsModal />}>
+              <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: 'center' }} >
                 {project.measurement_unit.map((unit: MeasurementUnit) => (
                   <div style={{ margin: '0px 10px' }}>
                     <GoalIndicator
@@ -48,18 +50,28 @@ const ProjectDetails = () => {
               </div>
             </Card>
           </Col>
-          <Col>
-            {project.init_date}
+          <Col span={12}>
+            <Row gutter={[10,10]}>
+              <Col span={24}>
+                <Card title="Presupuesto"
+                  headStyle={{ border: 'none' }}
+                  extra={
+                    <IncreaseProjectBudgetModal
+                      project_id={project.id}
+                      onChange={updateProject}
+                    />}>
+                  <BudgetDetail budget={project.budgets} />
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <BudgetGraph budget={project.budgets} />
+                </Card>
+              </Col>
+            </Row>
+
           </Col>
-          <Col>
-            {project.project_status.name &&
-              <UpdateProjectStatusModal
-                project_status={project.project_status}
-                project_id={project.id}
-                onChange={updateProject}
-              />
-            }
-          </Col>
+
           <Col>
             {project.end_date ? project.end_date : "Sin culminar"}
           </Col>

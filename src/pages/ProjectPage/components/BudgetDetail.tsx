@@ -27,32 +27,34 @@ const BudgetDetail = ({ budget }: { budget: Budget[] }) => {
   ];
 
   return (
-    <Space>
-      <Table
-        size="small"
-        columns={cols}
-        dataSource={budget}
-        pagination={false}
-        summary={(pageData) => {
-          const totalBs = pageData.map(b => Number.parseFloat(b.value.toString())).reduce((a, b) => a + b);
-          const totalDollar = pageData.map(b => Number.parseFloat(b.dollar_value?.toString() || "0")).reduce((a, b) => (a || 0) + (b || 0)) || 0;
-          return (
-            <Table.Summary.Row>
-              <Table.Summary.Cell colSpan={1} index={0}>
-                <Typography.Text strong>Total</Typography.Text>
-              </Table.Summary.Cell>
-              <Table.Summary.Cell colSpan={1} index={1}>
-                <Typography.Text strong>{moneyFormatter(totalBs.toString())}</Typography.Text>
-              </Table.Summary.Cell>
-              <Table.Summary.Cell colSpan={1} index={2}>
-                <Typography.Text strong>≈ {moneyFormatter(totalDollar?.toString(), "$ ")}</Typography.Text>
-              </Table.Summary.Cell>
-            </Table.Summary.Row>
-          )
-        }}
-      />
-      <BudgetGraph budget={budget} />
-    </Space>
+    <div>
+        <Table
+          size="small"
+          columns={cols}
+          dataSource={budget}
+          pagination={false}
+          summary={(pageData) => {
+            const totalBs = pageData.map(b => Number.parseFloat(b.value.toString())).reduce((a, b) => a + b);
+            const totalDollar = pageData.map(b => Number.parseFloat(b.dollar_value?.toString() || "0")).reduce((a, b) => (a || 0) + (b || 0)) || 0;
+            return (
+              <Table.Summary.Row>
+                <Table.Summary.Cell colSpan={1} index={0}>
+                  <Typography.Text strong>Total</Typography.Text>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell colSpan={1} index={1}>
+                  <Typography.Text strong>{moneyFormatter(totalBs.toString())}</Typography.Text>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell colSpan={1} index={2}>
+                  <Typography.Text strong>≈ {moneyFormatter(totalDollar?.toString(), "$ ")}</Typography.Text>
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+              )
+            }}
+          />
+        <div style={{display: 'flex', justifyContent:'center', width: '75%'}} className="aurelio">
+        <BudgetGraph budget={budget} />
+        </div>
+      </div>
   )
 }
 

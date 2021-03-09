@@ -26,7 +26,6 @@ const SidebarApp = ({ items }: SidebarAppProps) => {
         </Menu.Item>
         {scopes && mapItems(items, scopes)}
       </Menu>
-
       <Menu style={{ position: "absolute", bottom: "1px" }}>
         <SubMenu
           title={`  ${userState.user?.name.toUpperCase()}`}

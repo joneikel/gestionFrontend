@@ -31,11 +31,21 @@ export type Project = {
   project_status: ProjectStatus;
   project_status_id: string;
   measurement_unit: MeasurementUnit[];
+  timeline: Timeline[];
   is_planified: number;
   init_date: Date;
   end_date: Date;
   total_activities?: number;
 };
+
+export type Timeline = {
+  id: string;
+  previous_value: string;
+  current_value: string;
+  user_id: string;
+  update_type_id: string;
+  observation: string;
+}
 
 export type Municipio = {
   id: string;

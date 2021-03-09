@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Space } from 'antd';
+import { Button, Form, Input, message, Modal, Space, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import { PlusCircleFilled } from "@ant-design/icons";
 import BudgetSourceSelector from './BudgetSourceSelector';
@@ -120,12 +120,15 @@ const IncreaseProjectBudgetModal = ({ project_id, onChange }: { project_id: stri
                 </Form>
 
             </Modal>
-            <Button
-                shape="circle"
-                type="primary"
-                onClick={() => setVisible(true)}
-                icon={<PlusCircleFilled />}
-            />
+            <Tooltip title="Añadir aumento de presupuesto" >
+               <Button
+                    shape="circle"
+                    type="primary"
+                    onClick={() => setVisible(true)}
+                    icon={<PlusCircleFilled />}
+                /> 
+            </Tooltip>
+            
         </>
     )
 }

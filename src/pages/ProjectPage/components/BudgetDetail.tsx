@@ -58,9 +58,6 @@ const BudgetDetail = ({ budget }: { budget: Budget[] }) => {
               )
             }}
           />
-        <div style={{display: 'flex', justifyContent:'center', width: '75%'}} className="aurelio">
-        <BudgetGraph budget={budget} />
-        </div>
       </div>
   )
 }

@@ -10,6 +10,7 @@ import GoalIndicator from "./GoalIndicator";
 import BudgetDetail, { BudgetGraph } from "./BudgetDetail";
 import { useActivities } from "../../../hooks/useActivities";
 import ActivityList from "./ActivityList";
+import ModifyCulminationDateModal from "./ModifyCulminationDateModal";
 
 const ProjectDetails = () => {
   const history = useHistory();
@@ -40,7 +41,7 @@ const ProjectDetails = () => {
           <Col span={12}>
             <Card
               headStyle={{ border: 'none' }}
-              title="metas" extra={<IncreaseProjectGoalsModal />}>
+              title="metas" extra={<IncreaseProjectGoalsModal onChange={updateProject}  selectedUnits={project.measurement_unit.map( x => x.id)} project_id={project.id}  />}>
               <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: 'center' }} >
                 {project.measurement_unit.map((unit: MeasurementUnit) => (
                   <div style={{ margin: '0px 10px' }}>
@@ -81,17 +82,10 @@ const ProjectDetails = () => {
             </Row>
           </Col>
           <Col>
-            {project.end_date ? project.end_date : "Sin culminar"}
-          </Col>
-          <Col>
-            {project.budgets && project.budgets.filter(x => x.is_budget_increase === true).map((budget: Budget) => (
-              <>
-                <Tag className="information-tag">
-                  {moneyFormatter(budget.value.toString())} {budget.budget_source.name}{" "}
-                </Tag>
-                <br />
-              </>
-            ))}
+            {project.end_date ? project.end_date  : "Sin culminar"}<br/>
+            {project.modified_culmination_date ? project.modified_culmination_date : "Sin modificar" }<br/>
+            
+            <ModifyCulminationDateModal onChange={updateProject} project_id={project.id} />
           </Col>
         </Row> : <Progress percent={99.9} type='dashboard' />}
     </>

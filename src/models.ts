@@ -36,6 +36,7 @@ export type Project = {
   init_date: Date;
   end_date: Date;
   total_activities?: number;
+  modified_culmination_date?: Date
 };
 
 export type Timeline = {

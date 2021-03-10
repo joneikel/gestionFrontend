@@ -1,9 +1,9 @@
-import { Button, Modal, Tooltip, Form, Space, message } from 'antd';
+import { Button, Modal, Tooltip, Form, Space, message, Input, DatePicker } from 'antd';
 import React, { useState } from 'react';
 import { PlusCircleFilled } from '@ant-design/icons';
 import ImputMeasurementUnit from './ImputMeasurementUnit';
 import { useAxios } from '../../../hooks/useAxios';
-const IncreaseProjectGoalsModal = ({ selectedUnits, onChange, project_id }: { selectedUnits?: string[], onChange: Function ,project_id: string }) => {
+const ModifyCulminationDateModal = ({ previousDate, onChange, project_id }: { previousDate?: string, onChange: Function ,project_id: string }) => {
 
     const axios = useAxios();
 
@@ -15,17 +15,12 @@ const IncreaseProjectGoalsModal = ({ selectedUnits, onChange, project_id }: { se
 
         console.log(values);
 
-        values.measurement = values.measurement.map((x: any) => ({ [x.measurement_unit_id]: { proposed_goal: Number(x.proposed_goal), reached_goal: Number(x.reached_goal) } }));
-
-        values.measurement = values.measurement.reduce((x: any, y: any) => {
-        x = { ...x, ...y };
-      return x;
-    })
         setLoading(true);
         axios
-            .post('project/goals-increase', {
+            .post('project/modify-culmination-date', {
                 project_id: project_id,
-                measurement: values.measurement
+                modified_culmination_date: values.modified_culmination_date,
+                observation: values.observation
             }).then((update_project) => {
                 message.success("Metas Actualizadas exitosamente")
                 onChange(update_project.data);
@@ -38,7 +33,7 @@ const IncreaseProjectGoalsModal = ({ selectedUnits, onChange, project_id }: { se
     return (
         <>
             <Modal
-                title="Expandir metas del Poyecto"
+                title="Modificar fecha de culminación"
                 visible={visible}
                 footer={null}
                 onCancel={() => setVisible(false)}
@@ -49,17 +44,36 @@ const IncreaseProjectGoalsModal = ({ selectedUnits, onChange, project_id }: { se
                 >
                     <Form.Item
                         hasFeedback
-                        name="measurement"
+                        label="Nueva fecha de culminación"
+                        key="modified_culmination_date"
+                        name="modified_culmination_date"
                         rules={[
                             {
                                 required: true,
                                 message:
-                                    "Debes indicar la unidad de medida",
+                                    "Debes elegir un nueva fecha de culmination",
                             },
                         ]}
                     >
-                        <ImputMeasurementUnit units={selectedUnits} />
+                        <DatePicker />
                     </Form.Item>
+
+                    <Form.Item
+                        hasFeedback
+                        label="Justificación"
+                        name="observation"
+                        key="observation"
+                        rules={[
+                            {
+                                required: true,
+                                message:
+                                    "Justifique el cambio de fecha de culminación",
+                            },
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
+
                     <Space
                         align="start"
                     >
@@ -81,7 +95,7 @@ const IncreaseProjectGoalsModal = ({ selectedUnits, onChange, project_id }: { se
                     </Space>
                 </Form>
             </Modal>
-            <Tooltip title="Añadir nueva meta al proyecto">
+            <Tooltip title="Modificar fecha de culminacion">
                 <Button
                     shape="circle"
                     type="primary"
@@ -94,4 +108,4 @@ const IncreaseProjectGoalsModal = ({ selectedUnits, onChange, project_id }: { se
     )
 }
 
-export default IncreaseProjectGoalsModal;
+export default ModifyCulminationDateModal;

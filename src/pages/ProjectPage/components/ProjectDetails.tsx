@@ -8,10 +8,13 @@ import IncreaseProjectBudgetModal from "./IncreaseProjectBudgetModal";
 import IncreaseProjectGoalsModal from "./IncreaseProjectGoalsModal";
 import GoalIndicator from "./GoalIndicator";
 import BudgetDetail, { BudgetGraph } from "./BudgetDetail";
+import { useActivities } from "../../../hooks/useActivities";
+import ActivityList from "./ActivityList";
 
 const ProjectDetails = () => {
   const history = useHistory();
   const [project, setProject] = useState<Project>(history.location.state as Project);
+  const [activities, loadingActivities] = useActivities({ project_id: project.id });
   const [loading, setLoading] = useState<boolean>(false);
 
   const updateProject = (newProject: Project) => {
@@ -37,7 +40,7 @@ const ProjectDetails = () => {
           <Col span={12}>
             <Card
               headStyle={{ border: 'none' }}
-              title="Metas del proyecto" extra={<IncreaseProjectGoalsModal />}>
+              title="metas" extra={<IncreaseProjectGoalsModal />}>
               <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: 'center' }} >
                 {project.measurement_unit.map((unit: MeasurementUnit) => (
                   <div style={{ margin: '0px 10px' }}>
@@ -51,9 +54,16 @@ const ProjectDetails = () => {
             </Card>
           </Col>
           <Col span={12}>
-            <Row gutter={[10,10]}>
+            <Row gutter={[10, 10]}>
               <Col span={24}>
-                <Card title="Presupuesto"
+                <Card title="actividades"
+                  headStyle={{ border: 'none' }}
+                >
+                  <ActivityList activities={activities} />
+                </Card>
+              </Col>
+              <Col span={24}>
+                <Card title="presupuesto"
                   headStyle={{ border: 'none' }}
                   extra={
                     <IncreaseProjectBudgetModal
@@ -69,9 +79,7 @@ const ProjectDetails = () => {
                 </Card>
               </Col>
             </Row>
-
           </Col>
-
           <Col>
             {project.end_date ? project.end_date : "Sin culminar"}
           </Col>
@@ -84,7 +92,6 @@ const ProjectDetails = () => {
                 <br />
               </>
             ))}
-
           </Col>
         </Row> : <Progress percent={99.9} type='dashboard' />}
     </>

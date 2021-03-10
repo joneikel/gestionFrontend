@@ -1,5 +1,5 @@
-import { Space, Table, Tag, Tooltip, Typography } from "antd";
-import { Bar, Line } from "react-chartjs-2";
+import { Table, Tooltip, Typography } from "antd";
+import { Line } from "react-chartjs-2";
 import { moneyFormatter } from "../../../helpers";
 import { Budget, BudgetSource } from "../../../models";
 import moment from 'moment';

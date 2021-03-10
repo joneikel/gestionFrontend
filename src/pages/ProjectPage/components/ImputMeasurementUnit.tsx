@@ -2,8 +2,9 @@ import React from "react";
 import { Form, Button, Space, Input } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import MeasurementUnitSelect from "./MeasurementUnitSelect";
+import { Project } from "../../../models";
 
-const ImputMeasurementUnit = () => {
+const ImputMeasurementUnit = ({units}:{units?:string[]}) => {
 
   return (
     <Form.List name="measurement">
@@ -22,7 +23,7 @@ const ImputMeasurementUnit = () => {
                 fieldKey={[field.fieldKey, "measurement_unit_id"]}
                 rules={[{ required: true, message: "Selecciona unidad" }]}
               >
-                <MeasurementUnitSelect mode={undefined}/>
+                <MeasurementUnitSelect mode={undefined} selectedUnits={units} />
               </Form.Item>
               <Form.Item
                 hasFeedback

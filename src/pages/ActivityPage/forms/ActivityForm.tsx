@@ -36,7 +36,7 @@ const ActivityForm = () => {
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
-      const budgetActivity = values.budget_cost.replaceAll(".", "").replaceAll(",", ".")
+      const budgetActivity = values.budget_cost.replace(/\./g, "").replace(/\,/g, ".");
       values.budget_cost = budgetActivity;
       const data = buildFormData(values);
       const response = await axios.post('/activity', data, {
@@ -202,7 +202,7 @@ const ActivityForm = () => {
                 },
                 {
                   validator: async (_,value) => {
-                    const fixed_value = value.replaceAll(".", "").replaceAll(",", ".");
+                    const fixed_value = value.replace(/\./g, "").replace(/\,/g, ".");
                     if (availableBudget && availableBudget >= fixed_value ){
                       return Promise.resolve();
                     } else {

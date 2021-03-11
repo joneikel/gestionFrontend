@@ -13,7 +13,8 @@ const ContentApp = () => {
 
   return (
     <div className="main-layout">
-      {user.user?.scopes.length && user.user.scopes.length && <SidebarApp items={routes} />}
+      {user.user?.scopes.length && 
+      <SidebarApp items={routes} />}
       <Content className="container">
         <AppRouter />
       </Content>

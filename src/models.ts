@@ -10,7 +10,7 @@ export type Institution = {
   parent_id?: string;
   sector: Sector;
   mision?: string;
-  vision?: string
+  vision?: string;
 };
 
 export type Program = {
@@ -36,7 +36,7 @@ export type Project = {
   init_date: Date;
   end_date: Date;
   total_activities?: number;
-  modified_culmination_date?: Date
+  modified_culmination_date?: Date;
 };
 
 export type Timeline = {
@@ -46,7 +46,7 @@ export type Timeline = {
   user_id: string;
   update_type_id: string;
   observation: string;
-}
+};
 
 export type Municipio = {
   id: string;
@@ -88,29 +88,28 @@ export type InvestmentArea = {
 export type InvestmentSubArea = {
   id: string;
   name: string;
-}
+};
 
 export type MeasurementUnit = {
   id: string;
   name: string;
   short_name: string;
-  pivot: MeasurementUnitPivot
+  pivot: MeasurementUnitPivot;
 };
 
 export type MeasurementUnitPivot = {
-project_id: string,
-measurement_unit_id: string,
-proposed_goal: number,
-reached_goal?: number,
-is_goal_increase: boolean,
-observation?: string
-}
+  project_id: string;
+  measurement_unit_id: string;
+  proposed_goal: number;
+  reached_goal?: number;
+  is_goal_increase: boolean;
+  observation?: string;
+};
 
 export type Role = {
   id: string;
   name: string;
-  
-}
+};
 
 export type Column = {
   title: string;
@@ -135,7 +134,7 @@ export type Activity = {
   bedefited_population: number;
   latitude?: number;
   longitude?: number;
-  images: string[];
+  images: ActivityImage[];
 };
 
 export type Scope = {
@@ -143,11 +142,20 @@ export type Scope = {
   name: string;
   module_id: string;
   scoppe: string;
-}
+};
 
 export type Module = {
   id: string;
   name: string;
   label: string;
-  scopes?: Scope[]
-}
+  scopes?: Scope[];
+};
+
+export type ActivityImage = {
+  created_at: string;
+  id: string;
+  imageable_id: string;
+  imageable_type: string;
+  path: string;
+  updated_at: string;
+};

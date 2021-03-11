@@ -1,4 +1,4 @@
-import { Button, Modal, Tooltip, Form, Space, message } from 'antd';
+import { Button, Modal, Tooltip, Form, Space, message, Input } from 'antd';
 import React, { useState } from 'react';
 import { PlusCircleFilled } from '@ant-design/icons';
 import ImputMeasurementUnit from './ImputMeasurementUnit';
@@ -25,7 +25,8 @@ const IncreaseProjectGoalsModal = ({ selectedUnits, onChange, project_id }: { se
         axios
             .post('project/goals-increase', {
                 project_id: project_id,
-                measurement: values.measurement
+                measurement: values.measurement,
+                observation: values.observation
             }).then((update_project) => {
                 message.success("Metas Actualizadas exitosamente")
                 onChange(update_project.data);
@@ -53,12 +54,23 @@ const IncreaseProjectGoalsModal = ({ selectedUnits, onChange, project_id }: { se
                         rules={[
                             {
                                 required: true,
-                                message:
-                                    "Debes indicar la unidad de medida",
+                                message:"Debes indicar la unidad de medida",
                             },
                         ]}
                     >
                         <ImputMeasurementUnit units={selectedUnits} />
+                    </Form.Item>
+                    <Form.Item
+                        hasFeedback
+                        name="observation"
+                        rules={[
+                            {
+                                required: true,
+                                message:"Justifique la ampliación de metas",
+                            },
+                        ]}
+                    >
+                        <Input/>
                     </Form.Item>
                     <Space
                         align="start"

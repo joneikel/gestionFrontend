@@ -34,8 +34,8 @@ const ProjectForm = () => {
       return x;
     })
     values.budgets = values.budgets.map((budget: any) => {
-      budget.value = Number(budget.value.replaceAll("Bs", "").replaceAll(".", "").replaceAll(",", "."))
-      budget.dollar_value = Number(budget.dollar_value.replaceAll("$", "").replaceAll(".", "").replaceAll(",", "."))
+      budget.value = Number(budget.value.replace("Bs", "").replace(/\./g, "").replace(/\,/g, "."))
+      budget.dollar_value = Number(budget.dollar_value.replace("$", "").replace(/\./g, "").replace(/\,/g, "."))
       return budget;
     })
      

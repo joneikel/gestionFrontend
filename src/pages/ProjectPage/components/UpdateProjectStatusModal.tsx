@@ -18,6 +18,7 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange }: { pr
             .patch('/project/update-status', {
                 project_id: project_id,
                 project_status_id: values.project_status_id,
+                observation: values.observation
             }).then((new_status) => {
                 message.success("Status actualizado con exito");
                 onChange(new_status.data);

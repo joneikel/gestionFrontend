@@ -37,7 +37,6 @@ const ModifyCulminationDateModal = ({ previousDate, onChange, project_id }: { pr
                 visible={visible}
                 footer={null}
                 onCancel={() => setVisible(false)}
-                width='60vw'
             >
                 <Form
                     onFinish={handleSubmit}

@@ -44,6 +44,7 @@ const IncreaseProjectGoalsModal = ({ selectedUnits, onChange, project_id }: { se
                 footer={null}
                 onCancel={() => setVisible(false)}
                 width='60vw'
+                destroyOnClose={true}
             >
                 <Form
                     onFinish={handleSubmit}

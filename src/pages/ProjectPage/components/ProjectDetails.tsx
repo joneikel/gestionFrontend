@@ -78,7 +78,7 @@ const ProjectDetails = () => {
               </Col>
               <Col span={24}>
                 {activities.length > 0 && (
-                  <ActivityImageGallery activity={activities[0]} />
+                  <ActivityImageGallery activity={activities[2]} />
                 )}
               </Col>
             </Row>

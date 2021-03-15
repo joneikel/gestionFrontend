@@ -128,6 +128,7 @@ export type Column = {
 
 export type Activity = {
   id: string;
+  budget_cost: string;
   name: string;
   project: Project;
   description: string;
@@ -139,7 +140,7 @@ export type Activity = {
   init_date: Date;
   end_date: Date;
   estimated_population: number;
-  bedefited_population: number;
+  benefited_population: number;
   latitude?: number;
   longitude?: number;
   images: ActivityImage[];

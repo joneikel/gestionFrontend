@@ -1,4 +1,4 @@
-import { Col, Row, Tag } from 'antd';
+import { Col, Row, Tag, Space } from 'antd';
 import { AxiosInstance } from 'axios';
 import React, { useEffect, useState } from 'react';
 import MainTable from '../../components/tables/MainTable';
@@ -80,7 +80,7 @@ const ActivityPage = ({ projectId, projectDetails }: { projectId?: string, proje
         </Col>
         <Col span={24}>
           { projectDetails === true ? <MainTable onSearch={() => null} loading={loading} dataSource={activities} columns={columns} /> :
-          activities && activities.length > 0 && activities.map((act) => <ActivityCards activity={act} i={1} />)}
+          activities && activities.length > 0 && <Space>{activities.map((act) => <ActivityCards activity={act} i={1} />)}</Space> }
         </Col>
       </Row>
     </>

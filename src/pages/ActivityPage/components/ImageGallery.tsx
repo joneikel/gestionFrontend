@@ -7,6 +7,7 @@ import "photoswipe/dist/default-skin/default-skin.css";
 
 const ImageGallery = ({ activity }: { activity: Activity }) => {
   const photos = activity.images.map((img) => ({ src: img.id }));
+  console.log(photos);
 
   return (
     <Gallery>

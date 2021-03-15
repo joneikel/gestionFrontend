@@ -36,8 +36,16 @@ export type Project = {
   init_date: Date;
   end_date: Date;
   total_activities?: number;
-  modified_culmination_date?: Date;
+  modified_culmination_dates: ModifiedCulminationDate[];
 };
+
+export type ModifiedCulminationDate = {
+  id: string;
+  modified_date: string;
+  project_id: string;
+  created_at: string;
+  updated_at: string
+}
 
 export type Timeline = {
   id: string;
@@ -120,6 +128,7 @@ export type Column = {
 
 export type Activity = {
   id: string;
+  budget_cost: string;
   name: string;
   project: Project;
   description: string;
@@ -131,7 +140,7 @@ export type Activity = {
   init_date: Date;
   end_date: Date;
   estimated_population: number;
-  bedefited_population: number;
+  benefited_population: number;
   latitude?: number;
   longitude?: number;
   images: ActivityImage[];

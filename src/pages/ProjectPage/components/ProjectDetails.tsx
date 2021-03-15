@@ -114,8 +114,8 @@ const ProjectDetails = () => {
           <Col>
             {project.end_date ? project.end_date : "Sin culminar"}
             <br />
-            {project.modified_culmination_date
-              ? project.modified_culmination_date
+            {project.modified_culmination_dates.length > 0 
+              ? project.modified_culmination_dates[ project.modified_culmination_dates.length - 1 ].modified_date
               : "Sin modificar"}
             <br />
 

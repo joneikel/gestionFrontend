@@ -36,8 +36,16 @@ export type Project = {
   init_date: Date;
   end_date: Date;
   total_activities?: number;
-  modified_culmination_date?: Date;
+  modified_culmination_dates: ModifiedCulminationDate[];
 };
+
+export type ModifiedCulminationDate = {
+  id: string;
+  modified_date: string;
+  project_id: string;
+  created_at: string;
+  updated_at: string
+}
 
 export type Timeline = {
   id: string;

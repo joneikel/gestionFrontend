@@ -12,8 +12,6 @@ const MainTable = ({
     onSearch: Function,
     loading: boolean
 }) => {
-
-
     return (
         <Table
             footer={() => <p>Total {dataSource?.length}</p>}

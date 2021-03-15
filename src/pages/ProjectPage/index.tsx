@@ -119,13 +119,15 @@ const ProjectPage = () => {
 
   return (
     <Card>
-      <ProjectFilters onChange={(f: any) => {
-        setLoading(true);
-        getProjects(axios, f)
-          .then((c: Project[]) => setProjects(c))
-          .catch((e) => console.log(e))
-          .finally(() => setLoading(false));
-      }} />
+      <div style={{padding: '10px 10px 10px 0px'}}>
+        <ProjectFilters onChange={(f: any) => {
+          setLoading(true);
+          getProjects(axios, f)
+            .then((c: Project[]) => setProjects(c))
+            .catch((e) => console.log(e))
+            .finally(() => setLoading(false));
+        }} />
+      </div>
       <MainTable
         loading={loading}
         columns={columns}

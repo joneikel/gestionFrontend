@@ -1,12 +1,11 @@
-import React, { ReactNode } from "react";
 import { Col, Layout, Row, Avatar, Dropdown, Menu, Button } from "antd";
 import UserContainer from "../unstated/UserContainer";
 const { Header } = Layout;
 
-const HeaderApp = ({ children }: { children: ReactNode }) => {
+const HeaderApp = () => {
 
   const userState = UserContainer.useContainer();
-  
+
   return (
     <Header className="header">
       <Row align="bottom" justify="start" style={{ width: "100%" }}>
@@ -16,13 +15,9 @@ const HeaderApp = ({ children }: { children: ReactNode }) => {
           </h1>
         </Col>
         <Col span={1} >
-          <Dropdown placement="bottomCenter" overlay={<AvatarItems/>}>
+          <Dropdown placement="bottomCenter" overlay={<AvatarItems />}>
             <Avatar size={40}>{userState.user?.name.toUpperCase()} </Avatar>
-            </Dropdown>
-          
-        </Col>
-        <Col span={24}>
-          {children}
+          </Dropdown>
         </Col>
       </Row>
     </Header>
@@ -38,9 +33,9 @@ const AvatarItems = () => {
   return (
     <Menu>
       <Menu.Item >
-        <Button onClick={() => userState.logout()}>Cerrar sesión</Button>
+        <Button type="link" onClick={() => userState.logout()}>Cerrar sesión</Button>
       </Menu.Item>
     </Menu>
   )
-    
+
 }

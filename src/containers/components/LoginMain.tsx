@@ -20,11 +20,11 @@ import dgi from '../../assets/bg/dgi.png';
 const LoginMain = () => {
   return (
     <Layout>
-      <Layout.Sider width="20vw">
+      <Layout.Sider width="25vw">
         <LoginForm />
-        <Image style={{position: 'absolute', bottom: "20px", left: "10px"}} src={dgi} width={75} />
+        <Image style={{ position: 'absolute', bottom: "20px", left: "10px" }} src={dgi} width={75} />
       </Layout.Sider>
-      <Layout.Content style={{height: "100vh", width: '80vw'}} className="login-background">
+      <Layout.Content style={{ height: "100vh", width: '80vw' }} className="login-background">
         <LoginBackground />
       </Layout.Content>
     </Layout>
@@ -34,7 +34,7 @@ const LoginMain = () => {
 const LoginBackground = () => {
   return (
     <>
-    <Particles
+      <Particles
         id="tsparticles"
         options={{
           background: {
@@ -99,34 +99,11 @@ const LoginBackground = () => {
           },
           detectRetina: true,
         }
-      }      
+        }
       />
-    <div className="login-background">
-      <h2 className="tracking-in-expand title-text">GESTIÓN DE PROYECTOS</h2>
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: 30, top: 15}} src={deporte1}></img>
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: 10, top: 175}} src={deporte2}></img>
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: "15%", top: '35%'}} src={vial1}></img>
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: "65%", top: '60%'}} src={servicios1}></img>
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: "7%", bottom: '5%'}} src={salud1}></img>
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: "50%", bottom: '10%'}} src={cultura1}></img>
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: "65%", bottom: '45%'}} src={tecnologia1}></img>        
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: "50%", bottom: '40%'}} src={siembra1}></img>
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: "30%", bottom: '8%'}} src={ganado1}></img>                                
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: "55%", bottom: '70%'}} src={siembra3}></img>                                        
-      <img className="slide-in-blurred-bottom" 
-        style={{borderRadius: 140, position: 'absolute', width: 140, right: "30%", bottom: '75%'}} src={siembra2}></img>                                
-      <img style={{position: 'absolute', width: 350, left: "50%", top: '30%'}} src={logo}></img>
-    </div>
+      <div className="login-background">
+        <h2 className="tracking-in-expand title-text">GESTIÓN DE PROYECTOS</h2>
+     </div>
     </>
   )
 }

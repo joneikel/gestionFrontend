@@ -11,7 +11,7 @@ import {
   SettingOutlined,
   UserSwitchOutlined,
   BlockOutlined,
-  EyeOutlined
+  EyeOutlined,
 } from "@ant-design/icons";
 import { useScopeProps } from '../../hooks/useScope';
 
@@ -103,6 +103,13 @@ export const routes: SidebarItem[] = [
         children: [],
       }
     ],
+  },
+  {
+    scope:"statistics:menu",
+    label: "Mapa",
+    icon: null,
+    link: "/mapa",
+    children: [],
   },
   {
     scope:"statistics:menu",

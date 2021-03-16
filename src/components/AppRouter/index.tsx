@@ -6,6 +6,7 @@ import Unauthorized from "../errors/unauthorized";
 import PageNotFound from "../errors/not-found";
 import ProtectedComponent from "./ProtectedComponent";
 import EditScopes from "../../pages/RolesPage/forms/EditScopes";
+import MapPage from "../../pages/MapPage";
 
 const ActivityForm = React.lazy(
   () => import("../../pages/ActivityPage/forms/ActivityForm")
@@ -61,6 +62,7 @@ const AppRouter = () => {
   return (
     <Suspense fallback={<EcLoading />}>
       <Switch>
+
         <Route exact path="/dashboard" component={() => <Dash />} />
         
         <Route
@@ -251,6 +253,14 @@ const AppRouter = () => {
             </ProtectedComponent>
           }
         />  
+        
+        <Route
+          exact
+          path="/mapa"
+          component={() => 
+              <MapPage />
+          }
+        />
 
         <Route exact path="/no-autorizado" component={() => <Unauthorized />} />
         <Route exact path="* *" component={() => <PageNotFound />} /> 

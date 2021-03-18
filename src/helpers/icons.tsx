@@ -21,17 +21,17 @@ export const ServiciosPublicosIcon = (props: any) => <Icon component={serviciosP
 export const SocialIcon = (props: any) => <Icon component={social} {...props} />;
 export const TecnologiaIcon = (props: any) => <Icon component={tecnologia} {...props} />;
 
-export function getIconByAreaCode(code: number) {
+export function getIconByAreaCode(code?: string) {
     const fontSize = { fontSize: 12 };
-    if (code === 1) return <SaludIcon style={fontSize} />;
-    else if (code === 2) return <EconomiaIcon style={fontSize} />;
-    else if (code === 3) return <SocialIcon style={fontSize} />;
-    else if (code === 4) return <EducacionIcon style={fontSize} />;
-    else if (code === 5) return <CulturaIcon style={fontSize} />;
-    else if (code === 6) return <DeportesIcon style={fontSize} />;
-    else if (code === 7) return <TecnologiaIcon style={fontSize} />;
-    else if (code === 9) return <SeguridadIcon style={fontSize} />;
-    else if (code === 10) return <ServiciosPublicosIcon style={fontSize} />;
-    else if (code === 11) return <PoliticaIcon style={fontSize} />;
+    if (code === "E005") return <SaludIcon style={fontSize} />;
+    else if (code === "E001") return <EconomiaIcon style={fontSize} />;
+    else if (code === "E003") return <SocialIcon style={fontSize} />;
+    else if (code === "E004") return <EducacionIcon style={fontSize} />;
+    else if (code === "E005") return <CulturaIcon style={fontSize} />;
+    else if (code === "E006") return <DeportesIcon style={fontSize} />;
+    else if (code === "E007") return <TecnologiaIcon style={fontSize} />;
+    else if (code === "E009") return <SeguridadIcon style={fontSize} />;
+    else if (code === "E010") return <ServiciosPublicosIcon style={fontSize} />;
+    else if (code === "E011") return <PoliticaIcon style={fontSize} />;
     else return <EconomiaIcon style={fontSize} />;
 }

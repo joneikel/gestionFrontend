@@ -6,22 +6,24 @@ import {
   useMap,
   SVGOverlay,
   Marker,
-  Tooltip
+  Tooltip,
 } from "react-leaflet";
 import { useActivities } from "../../hooks/useActivities";
 import { guaricoJSON } from "./guarico_municipios";
 import MunicipalityInfo from "./MunicipalityInfo";
-import L from 'leaflet';
+import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
+
+export const defaultMarker = L.icon({
+  iconUrl: icon,
+  iconSize: [30, 50],
+});
+
 const MapPage = () => {
-
-  const newicon = L.icon({
-    iconUrl: icon,
-    iconSize: [30, 50]
-  })
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [selectedMunicipalityCode, setSelectedMunicipalityCode] = useState<string | undefined>();
+  const [selectedMunicipalityCode, setSelectedMunicipalityCode] = useState<
+    string | undefined
+  >();
 
   const [activities, loadingActivities] = useActivities({});
 
@@ -44,20 +46,36 @@ const MapPage = () => {
         <TileLayer url="https://mt2.google.com/vt/lyrs=r&x={x}&y={y}&z={z}" />
         <MunicipalityInfo
           municipalityCode={selectedMunicipalityCode}
-          isOpen={isSidebarOpen} onClose={() => {
+          isOpen={isSidebarOpen}
+          onClose={() => {
             setIsSidebarOpen(false);
             setSelectedMunicipalityCode(undefined);
-          }} />
-        <GeoJSONGuarico onFeatureDblClick={(e: any, code: string) => {
-          setIsSidebarOpen(true);
-          setSelectedMunicipalityCode(code);
-        }} />
+          }}
+        />
+        <GeoJSONGuarico
+        geoJson={guaricoJSON}
+          onFeatureDblClick={(e: any, code: string) => {
+            setIsSidebarOpen(true);
+            setSelectedMunicipalityCode(code);
+          }}
+        />
         <MapLabels features={guaricoJSON} />
-        {activities.filter((act) => act.lat && act.lng && act.parroquia.municipio.code === selectedMunicipalityCode)
+        {activities
+          .filter(
+            (act) =>
+              act.lat &&
+              act.lng &&
+              act.parroquia.municipio.code === selectedMunicipalityCode
+          )
           .map(({ lat, lng, name }) => {
-            return lat && lng && <Marker icon={newicon} position={{ lat, lng }}>
-              <Tooltip>{name}</Tooltip>
-            </Marker>
+            return (
+              lat &&
+              lng && (
+                <Marker icon={defaultMarker} position={{ lat, lng }}>
+                  <Tooltip>{name}</Tooltip>
+                </Marker>
+              )
+            );
           })}
       </MapContainer>
     </>
@@ -65,38 +83,47 @@ const MapPage = () => {
 };
 
 const MapLabels = ({ features }: { features: any[] }) => {
-
   const map = useMap();
   const onClick = useCallback(
     (event) => map.setView(event.sourceTarget.feature.properties.CENTER),
     [map]
-  )
+  );
 
   return guaricoJSON.features.map((feat: any) => {
     return (
       <SVGOverlay
-        attributes={{ stroke: 'red' }}
+        attributes={{ stroke: "red" }}
         bounds={[
           [feat.properties.CENTER.lat - 0.1, feat.properties.CENTER.lng],
-          [feat.properties.CENTER.lat, feat.properties.CENTER.lng + 1]
-        ]}>
+          [feat.properties.CENTER.lat, feat.properties.CENTER.lng + 1],
+        ]}
+      >
         <text
           onClick={() => console.log(feat)}
-          style={{ WebkitTextStroke: '1px white' }}
+          style={{ WebkitTextStroke: "1px white" }}
           fontSize="12px"
           width="100%"
           height="100%"
           x="1%"
           y="60%"
-          stroke="black">
+          stroke="black"
+        >
           {feat.properties.NAME_2}
         </text>
       </SVGOverlay>
-    )
-  })
-}
+    );
+  });
+};
 
-const GeoJSONGuarico = ({ onFeatureDblClick }: { onFeatureDblClick: Function }) => {
+export const GeoJSONGuarico = ({
+  onFeatureDblClick,
+  geoJson,
+  opacity
+}: {
+  onFeatureDblClick?: Function;
+  geoJson: any,
+  opacity?: number
+}) => {
   const map = useMap();
 
   const onClick = useCallback(
@@ -109,10 +136,17 @@ const GeoJSONGuarico = ({ onFeatureDblClick }: { onFeatureDblClick: Function }) 
 
   const onDblClick = useCallback(
     (event) => {
-      map.setView([event.sourceTarget.feature.properties.CENTER.lat, event.sourceTarget.feature.properties.CENTER.lng + .5], 9.5);
-      onFeatureDblClick(event, event.sourceTarget.feature.properties.CODE);
-    }, [map, onFeatureDblClick]
-  )
+      map.setView(
+        [
+          event.sourceTarget.feature.properties.CENTER.lat,
+          event.sourceTarget.feature.properties.CENTER.lng + 0.5,
+        ],
+        9.5
+      );
+      onFeatureDblClick && onFeatureDblClick(event, event.sourceTarget.feature.properties.CODE);
+    },
+    [map, onFeatureDblClick]
+  );
 
   return (
     <GeoJSON
@@ -124,12 +158,12 @@ const GeoJSONGuarico = ({ onFeatureDblClick }: { onFeatureDblClick: Function }) 
         return {
           color: feat.properties.fill,
           fillColor: feat.properties.fill,
-          fillOpacity: 0.4,
+          fillOpacity: opacity || 0.4,
           weight: 0.2,
           fillRule: "evenodd",
         };
       }}
-      data={guaricoJSON}
+      data={geoJson}
     />
   );
 };

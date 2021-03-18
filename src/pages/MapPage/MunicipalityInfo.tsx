@@ -3,7 +3,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { AxiosInstance } from "axios";
 import { useEffect, useState } from "react";
 import { useAxios } from "../../hooks/useAxios";
-import { Municipio } from "../../models";
+import { Institution, Municipio } from "../../models";
 import { getIconByAreaCode } from "../../helpers/icons";
 
 const MunicipalityInfo = ({
@@ -72,17 +72,18 @@ const MunicipalityInfo = ({
 const ActivityCounterWithIcon = ({ count }: {
   count: {
     activity_count: number
-    area_code: number
-    area_name: string
+    parent?: Institution
+    parent_id: string
   }
 }) => {
   return <Card>
-    <Space direction="horizontal" style={{ width: '100%' }}>
-      <div>{getIconByAreaCode(count.area_code)}</div>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>{getIconByAreaCode(count.parent?.code)}</div>
       <div>
         <Typography.Title>{count.activity_count}</Typography.Title>
       </div>
-    </Space>
+    </div>
+    <p style={{backgroundColor: '#ccc', borderRadius: 4, padding: 2}}>{count.parent?.name}</p>
   </Card>
 }
 

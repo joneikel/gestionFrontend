@@ -11,6 +11,7 @@ export type Institution = {
   sector: Sector;
   mision?: string;
   vision?: string;
+  code: string;
 };
 
 export type Program = {

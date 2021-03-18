@@ -8,6 +8,7 @@ export function useActivities({
   municipio_id,
   parroquia_id,
   gobernador,
+  municipio_code,
 }: ActivityFiltersParams): [Activity[], boolean] {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(false);
@@ -23,12 +24,20 @@ export function useActivities({
           municipio_id,
           parroquia_id,
           gobernador,
+          municipio_code,
         },
       })
       .then((resp) => setActivities(resp.data))
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
-  }, [project_id, institution_id, municipio_id, parroquia_id, gobernador]);
+  }, [
+    project_id,
+    institution_id,
+    municipio_id,
+    parroquia_id,
+    gobernador,
+    municipio_code,
+  ]);
   return [activities, loading];
 }
 
@@ -38,4 +47,5 @@ export type ActivityFiltersParams = {
   municipio_id?: string;
   parroquia_id?: string;
   gobernador?: string;
+  municipio_code?: string;
 };

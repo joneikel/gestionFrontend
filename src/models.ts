@@ -44,8 +44,8 @@ export type ModifiedCulminationDate = {
   modified_date: string;
   project_id: string;
   created_at: string;
-  updated_at: string
-}
+  updated_at: string;
+};
 
 export type Timeline = {
   id: string;
@@ -59,6 +59,7 @@ export type Timeline = {
 export type Municipio = {
   id: string;
   name: string;
+  code: string;
 };
 export type Parroquia = {
   id: string;
@@ -141,8 +142,8 @@ export type Activity = {
   end_date: Date;
   estimated_population: number;
   benefited_population: number;
-  latitude?: number;
-  longitude?: number;
+  lat?: number;
+  lng?: number;
   images: ActivityImage[];
 };
 

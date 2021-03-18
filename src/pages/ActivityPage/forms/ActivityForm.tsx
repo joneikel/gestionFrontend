@@ -13,15 +13,16 @@ import { useAvaiableBudget } from "../../../hooks/useAvailableBudget";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import NumberFormat from "react-number-format";
 import { moneyFormatter } from "../../../helpers";
+import CoordinatesInput from "./CoordinatesInput";
 
 const ActivityForm = () => {
   const axios = useAxios();
   const history = useHistory();
-  const [form] =  Form.useForm();
+  const [form] = Form.useForm();
 
-  const [projectId,setProjectId] = useState<string|undefined>(undefined);
+  const [projectId, setProjectId] = useState<string | undefined>(undefined);
 
-  const [availableBudget,loadingAvailableBudget] = useAvaiableBudget(projectId);
+  const [availableBudget, loadingAvailableBudget] = useAvaiableBudget(projectId);
 
 
   const [program, setProgram] = useState<string | undefined>();
@@ -38,6 +39,9 @@ const ActivityForm = () => {
     try {
       const budgetActivity = values.budget_cost.replace(/\./g, "").replace(/\,/g, ".");
       values.budget_cost = budgetActivity;
+      console.log(values);
+      values.lat = values.geolocation.lat;
+      values.lng = values.geolocation.lng;
       const data = buildFormData(values);
       const response = await axios.post('/activity', data, {
         headers: {
@@ -182,8 +186,8 @@ const ActivityForm = () => {
             >
               <div className="budget-tag">
 
-              {availableBudget && 
-              moneyFormatter(availableBudget.toString())}
+                {availableBudget &&
+                  moneyFormatter(availableBudget.toString())}
 
               </div>
             </Form.Item>
@@ -201,23 +205,23 @@ const ActivityForm = () => {
                   message: "Debes indicar el presupuesto",
                 },
                 {
-                  validator: async (_,value) => {
+                  validator: async (_, value) => {
                     const fixed_value = value.replace(/\./g, "").replace(/\,/g, ".");
-                    if (availableBudget && availableBudget >= fixed_value ){
+                    if (availableBudget && availableBudget >= fixed_value) {
                       return Promise.resolve();
                     } else {
                       return Promise.reject('Presupuesto excedido');
                     }
-                  } 
+                  }
                 }
               ]}
             >
-              <NumberFormat 
-                  class="ant-input"
-                  thousandSeparator={"."} 
-                  decimalScale={2} 
-                  decimalSeparator={","} 
-                  maxLength={21} 
+              <NumberFormat
+                class="ant-input"
+                thousandSeparator={"."}
+                decimalScale={2}
+                decimalSeparator={","}
+                maxLength={21}
               />
             </Form.Item>
           </Col>
@@ -311,67 +315,79 @@ const ActivityForm = () => {
             </Form.Item>
           </Col>
           <Col lg={3} md={3} sm={24} xs={24}>
-          <Checkbox
-                  onChange={(e) => setPopulation(e.target.checked)}
-                >
-                  No aplica
+            <Checkbox
+              onChange={(e) => setPopulation(e.target.checked)}
+            >
+              No aplica
                 </Checkbox>
           </Col>
-          
+
           {population === false && (
-          <Col lg={10} md={10} sm={24} xs={24}>
+            <Col lg={10} md={10} sm={24} xs={24}>
+              <Form.Item
+                hasFeedback
+                name="estimated_population"
+                label="Poblacion Estimada"
+                rules={[
+                  {
+                    required: true,
+                    message: "Debes indicar poblacion estimada de la actividad",
+                  },
+                  {
+                    pattern: /^\d+$/,
+                    message: "Solo puede introducir numeros"
+                  }
+                ]}
+              >
+                <Input onChange={e => setEstimatedPopulation(Number(e.target.value))} />
+              </Form.Item>
+            </Col>
+          )}
+          {population === false && (
+            <Col lg={11} md={11} sm={24} xs={24}>
+              <Form.Item
+                hasFeedback
+                name="benefited_population"
+                label="Poblacion Beneficiada"
+                rules={[
+                  {
+                    required: true,
+                    message: "Debes indicar poblacion benefiada de la actividad",
+                  },
+                  {
+                    pattern: /^\d+$/,
+                    message: "Solo puede introducir numeros"
+                  }, {
+                    validator: async (_, value) => {
+                      let benefitedPoulation = Number(value);
+                      let estimatedPopulation1 = Number(estimatedPopulation)
+
+                      if (estimatedPopulation1 >= benefitedPoulation) {
+                        return Promise.resolve();
+                      } else {
+                        return Promise.reject('Poblacion excedida');
+                      }
+                    }
+                  }
+
+                ]}
+              >
+                <Input />
+
+              </Form.Item>
+            </Col>)}
+          <Col span={24} style={{ height: 300, width: '100%' }}>
             <Form.Item
               hasFeedback
-              name="estimated_population"
-              label="Poblacion Estimada"
-              rules={[
-                {
-                  required: true,
-                  message: "Debes indicar poblacion estimada de la actividad",
-                },
-                {
-                  pattern: /^\d+$/,
-                  message: "Solo puede introducir numeros"
-                }
-              ]}
+              name="geolocation"
+              label="Geolocalización"
+
             >
-              <Input onChange={e => setEstimatedPopulation(Number(e.target.value))}/>
+              <div style={{ height: 300, width: '100%' }}>
+                <CoordinatesInput onChange={(latlng: any) => form.setFieldsValue({ geolocation: latlng })} />
+              </div>
             </Form.Item>
           </Col>
-            )}
-          { population === false && (
-          <Col lg={11} md={11} sm={24} xs={24}>
-            <Form.Item
-              hasFeedback
-              name="benefited_population"
-              label="Poblacion Beneficiada"
-              rules={[
-                {
-                  required: true,
-                  message: "Debes indicar poblacion benefiada de la actividad",
-                },
-                {
-                  pattern: /^\d+$/,
-                  message: "Solo puede introducir numeros"
-                },{
-                  validator: async (_,value) => {
-                    let benefitedPoulation = Number(value);
-                    let estimatedPopulation1 = Number(estimatedPopulation)
-                    
-                    if (estimatedPopulation1 >= benefitedPoulation ){
-                      return Promise.resolve();
-                    } else {
-                      return Promise.reject('Poblacion excedida');
-                    }
-                  }   
-                }
-                
-              ]}
-            >
-              <Input />
-      
-            </Form.Item>
-          </Col>)}
           <Col span={24}>
             <Form.Item
               hasFeedback

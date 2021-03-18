@@ -7,7 +7,6 @@ import "photoswipe/dist/default-skin/default-skin.css";
 
 const ImageGallery = ({ activity }: { activity: Activity }) => {
   const photos = activity.images.map((img) => ({ src: img.id }));
-  console.log(photos);
 
   return (
     <Gallery>
@@ -21,7 +20,8 @@ const ImageGallery = ({ activity }: { activity: Activity }) => {
         >
           {({ ref, open }) => {
             return <img
-              style={{margin: 5}}
+              alt="s"
+              style={{ margin: 5 }}
               key={photo.src}
               ref={ref as MutableRefObject<HTMLImageElement>}
               width="50px"

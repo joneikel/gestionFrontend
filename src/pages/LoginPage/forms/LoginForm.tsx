@@ -33,8 +33,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div style={{ width: '100%', height: '100vh', background: "#fff", padding: '10px 10px' }}>
-      <h3>Inicio de sesión</h3>
+    <div style={{ width: '100%', height: '60vh', background: "#fff", padding: '10px 10px' }}>
+      <h3 className="login-title" >Inicio de sesión</h3>
       <Divider />
       <Form layout="vertical" onFinish={handleSubmit}>
         <Row>

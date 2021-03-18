@@ -9,23 +9,31 @@ import { makeImage } from "../../../hooks/makeImage";
 const ActivityCards = ({ activity, i }: { activity: Activity; i: number }) => {
   return (
     <Card
-      style={{ margin: '15px' }}
-      className="base-card activity-card shadow-drop-center"
-      cover={<img height="235" alt="actividad" src={makeImage(activity.images[0].id)} />}
+      style={{ margin: '15px', width: '300  px'}}
+      className="base-card activity-card "
+      cover={<div className="activity-card-image-div"><img className="activity-card-image"  alt="actividad" src={makeImage(activity.images[0].id)} /></div>}
     >
       <Card.Meta
-        avatar={
-          <Button size="large" className="activity-card-avatar">
+        title={
+          <div className="card-element" >
+            <span className="card-title" >
             {activity.name}
-          </Button>
+          </span>
+          </div>
+          }
+        avatar={
+          <Avatar size="large" className="activity-card-avatar">
+            Icon
+          </Avatar>
         }
-        description={<div className="description-text">
-          Parroquia: {activity.parroquia.name}<br />
-          Sector: {activity.address}<br />
-          Inversión: {moneyFormatter(activity.budget_cost)}<br />
-          Beneficiados: {activity.benefited_population}<br />
-
-        </div>}
+        description={
+        <div className="card-element" >
+          <span className="description-text">
+          {activity.parroquia.name}<br/>
+          {activity.address}
+        </span>
+        </div>
+        }
       ></Card.Meta>
       <div className="card-footer">
         <Tag color="#2961c4">{moment(activity.init_date).format("L")}</Tag>
@@ -47,8 +55,3 @@ const ActivityCards = ({ activity, i }: { activity: Activity; i: number }) => {
 };
 
 export default ActivityCards;
-
-const images = [
-  "https://ultimasnoticias.com.ve/wp-content/uploads/2020/09/plan-de-vacunacion-guarico-2.jpg",
-  "https://4.bp.blogspot.com/-GWqZfnPw3M8/XNmkiR8mLcI/AAAAAAAA1uI/oTjoiloZ3IUJa_eatq_EBNgYBqat9QIvgCLcBGAs/s640/D6dXQ9cWAAA7Gbh-1.jpg",
-];

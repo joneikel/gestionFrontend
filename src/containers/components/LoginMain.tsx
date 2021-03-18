@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Layout } from "antd";
+import { Image, Layout, Card } from "antd";
 import LoginForm from "../../pages/LoginPage/forms/LoginForm";
 import deporte1 from '../../assets/bg/deporte.png';
 import deporte2 from '../../assets/bg/deporte2.png';
@@ -20,11 +20,17 @@ import dgi from '../../assets/bg/dgi.png';
 const LoginMain = () => {
   return (
     <Layout>
-      <Layout.Sider width="25vw">
-        <LoginForm />
-        <Image style={{ position: 'absolute', bottom: "20px", left: "10px" }} src={dgi} width={75} />
-      </Layout.Sider>
-      <Layout.Content style={{ height: "100vh", width: '80vw' }} className="login-background">
+      <div className="login-card-div" >
+        <Card
+          className="login-card"
+        >
+          <LoginForm />
+          <Image style={{ position: 'absolute', bottom: "20px", left: "10px" }} src={dgi} width={75} />
+        </Card>
+      </div>
+
+
+      <Layout.Content style={{ height: "100vh", width: '100vw' }} className="login-background">
         <LoginBackground />
       </Layout.Content>
     </Layout>
@@ -103,7 +109,30 @@ const LoginBackground = () => {
       />
       <div className="login-background">
         <h2 className="tracking-in-expand title-text">GESTIÓN DE PROYECTOS</h2>
-     </div>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '75%', top: '67.5%' }} src={deporte1}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '77%', top: '27%' }} src={deporte2}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "68%", top: '13.5%' }} src={vial1}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "80%", top: '49.5%' }} src={servicios1}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "40.5%", top: '64%' }} src={salud1}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "35%", top: '46.5%' }} src={cultura1}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "37%", top: '27%' }} src={tecnologia1}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "47%", top: '13.5%' }} src={siembra1}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "57%", top: '10.5%' }} src={ganado1}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "65%", top: '76.5%' }} src={siembra3}></img>
+        <img className="slide-in-blurred-bottom"
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "52%", top: '76.5%' }} src={siembra2}></img>
+        <img style={{ position: 'absolute', width: '18vw', left: "53%", top: '34%' }} src={logo}></img>
+      </div>
     </>
   )
 }

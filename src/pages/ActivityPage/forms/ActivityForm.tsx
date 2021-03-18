@@ -21,6 +21,9 @@ const ActivityForm = () => {
   const [form] = Form.useForm();
 
   const [projectId, setProjectId] = useState<string | undefined>(undefined);
+  const [noAplica,setNoAplica] = useState<boolean>(true);
+
+  console.log(noAplica);
 
   const [availableBudget, loadingAvailableBudget] = useAvaiableBudget(projectId);
 
@@ -316,7 +319,11 @@ const ActivityForm = () => {
           </Col>
           <Col lg={3} md={3} sm={24} xs={24}>
             <Checkbox
-              onChange={(e) => setPopulation(e.target.checked)}
+
+              onChange={(e) => {
+                setPopulation(e.target.checked);
+                setNoAplica(!noAplica);
+              }}
             >
               No aplica
                 </Checkbox>
@@ -330,7 +337,7 @@ const ActivityForm = () => {
                 label="Poblacion Estimada"
                 rules={[
                   {
-                    required: true,
+                    required: noAplica,
                     message: "Debes indicar poblacion estimada de la actividad",
                   },
                   {
@@ -351,7 +358,7 @@ const ActivityForm = () => {
                 label="Poblacion Beneficiada"
                 rules={[
                   {
-                    required: true,
+                    required: noAplica,
                     message: "Debes indicar poblacion benefiada de la actividad",
                   },
                   {

@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import { defaultMarker, GeoJSONGuarico } from "../../MapPage";
+import { guaricoJSON } from "../../MapPage/guarico_municipios";
 
 const CoordinatesInput = ({ value, onChange }: { value?: { lat: number, lng: number }, onChange?: Function }) => {
 
@@ -8,8 +10,9 @@ const CoordinatesInput = ({ value, onChange }: { value?: { lat: number, lng: num
     const EventHandler = () => {
         const map = useMapEvents({
             click: (e) => {
-                onChange && onChange({ lat: e.latlng.lat, lng: e.latlng.lng });
-                setValue({ lat: e.latlng.lat, lng: e.latlng.lng });
+                const {lat, lng} = e.latlng;
+                onChange && onChange({ lat, lng });
+                setValue({ lat, lng });
             },
             load: () => {
                 map.locate();
@@ -30,6 +33,8 @@ const CoordinatesInput = ({ value, onChange }: { value?: { lat: number, lng: num
             >
                 <TileLayer url="https://mt2.google.com/vt/lyrs=r&x={x}&y={y}&z={z}" />
                 <EventHandler />
+                <Marker icon={defaultMarker} position={_value} />
+                <GeoJSONGuarico opacity={0.05} geoJson={guaricoJSON} />
             </MapContainer>
         </>
     );

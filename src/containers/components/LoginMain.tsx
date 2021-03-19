@@ -110,27 +110,27 @@ const LoginBackground = () => {
       <div className="login-background">
         <h2 className="tracking-in-expand title-text">GESTIÓN DE PROYECTOS</h2>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '75%', top: '67.5%' }} src={deporte1}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '30%', top: '14%' }} src={deporte1}></img>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '77%', top: '27%' }} src={deporte2}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '87%', top: '76%' }} src={deporte2}></img>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "68%", top: '13.5%' }} src={vial1}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "26%", top: '46%' }} src={vial1}></img>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "80%", top: '49.5%' }} src={servicios1}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "52%", top: '10%' }} src={servicios1}></img>
         <img className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "40.5%", top: '64%' }} src={salud1}></img>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "35%", top: '46.5%' }} src={cultura1}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "28%", top: '82%' }} src={cultura1}></img>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "37%", top: '27%' }} src={tecnologia1}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "76%", top: '18%' }} src={tecnologia1}></img>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "47%", top: '13.5%' }} src={siembra1}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "74%", top: '63%' }} src={siembra1}></img>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "57%", top: '10.5%' }} src={ganado1}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "85%", top: '44%' }} src={ganado1}></img>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "65%", top: '76.5%' }} src={siembra3}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "57%", top: '77%' }} src={siembra3}></img>
         <img className="slide-in-blurred-bottom"
-          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "52%", top: '76.5%' }} src={siembra2}></img>
+          style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "90%", top: '12%' }} src={siembra2}></img>
         <img style={{ position: 'absolute', width: '18vw', left: "53%", top: '34%' }} src={logo}></img>
       </div>
     </>

@@ -45,6 +45,7 @@ const MunicipalityInfo = ({
         height: "100%",
         zIndex: 500,
         backgroundColor: "#fff",
+        overflowY: 'scroll'
       }}
     >
       {loading ? <Spin tip="cargando" /> : <Row>

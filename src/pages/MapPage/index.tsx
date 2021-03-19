@@ -12,10 +12,12 @@ import { useActivities } from "../../hooks/useActivities";
 import { guaricoJSON } from "./guarico_municipios";
 import MunicipalityInfo from "./MunicipalityInfo";
 import L from "leaflet";
-import icon from "leaflet/dist/images/marker-icon.png";
+import salud from '../../assets/svg-icons/salud.svg';
+import { Institution } from "../../models";
+import { getSvgIconByAreaCode } from "../../helpers/icons";
 
 export const defaultMarker = L.icon({
-  iconUrl: icon,
+  iconUrl: salud,
   iconSize: [30, 50],
 });
 
@@ -53,7 +55,7 @@ const MapPage = () => {
           }}
         />
         <GeoJSONGuarico
-        geoJson={guaricoJSON}
+          geoJson={guaricoJSON}
           onFeatureDblClick={(e: any, code: string) => {
             setIsSidebarOpen(true);
             setSelectedMunicipalityCode(code);
@@ -67,11 +69,11 @@ const MapPage = () => {
               act.lng &&
               act.parroquia.municipio.code === selectedMunicipalityCode
           )
-          .map(({ lat, lng, name }) => {
+          .map(({ lat, lng, name, project }) => {
             return (
               lat &&
               lng && (
-                <Marker icon={defaultMarker} position={{ lat, lng }}>
+                <Marker icon={makeMarker({ institution: project.program.institution })} position={{ lat, lng }}>
                   <Tooltip>{name}</Tooltip>
                 </Marker>
               )
@@ -167,5 +169,12 @@ export const GeoJSONGuarico = ({
     />
   );
 };
+
+export const makeMarker = ({ institution }: { institution: Institution }) => {
+  return L.icon({
+    iconUrl: getSvgIconByAreaCode(institution.parent ? institution.parent.code : institution.code),
+    iconSize: [30, 50],
+  });
+}
 
 export default MapPage;

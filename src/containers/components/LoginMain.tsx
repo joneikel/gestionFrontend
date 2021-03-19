@@ -22,7 +22,7 @@ const LoginMain = () => {
     <Layout>
       <div className="login-card-div" >
         <Card
-          className="login-card"
+          className="floating-element"
         >
           <LoginForm />
           <Image style={{ position: 'absolute', bottom: "20px", left: "10px" }} src={dgi} width={75} />

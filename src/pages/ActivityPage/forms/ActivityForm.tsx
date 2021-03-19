@@ -33,6 +33,8 @@ const ActivityForm = () => {
   const [parentInstitution, setParentInstitution] = useState<
     string | undefined
   >();
+
+  const [institution,setInstitution] = useState<string | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const [estimatedPopulation, setEstimatedPopulation] = useState<number | undefined>();
   const [population, setPopulation] = useState(false);
@@ -107,7 +109,7 @@ const ActivityForm = () => {
               <InstitutionsSelect
                 disabled={!parentInstitution}
                 parentId={parentInstitution}
-                onChange={setParentInstitution}
+                onChange={setInstitution}
               />
             </Form.Item>
           </Col>
@@ -124,6 +126,8 @@ const ActivityForm = () => {
               ]}
             >
               <ProgramSelect
+                disabled={!institution}
+                institutionId={institution}
                 onChange={setProgram}
               />
             </Form.Item>

@@ -11,7 +11,7 @@ type SidebarAppProps = { items: Array<SidebarItem> };
 
 const SidebarApp = ({ items }: SidebarAppProps) => {
     return (
-        <Sider width={200} breakpoint="lg" collapsedWidth="0" className="site-layout-background">
+        <Sider width={200} breakpoint="lg" collapsedWidth="0" className="site-layout-background floating-element">
           <Menu
             mode="inline"
             defaultSelectedKeys={["0"]}

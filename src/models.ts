@@ -23,6 +23,26 @@ export type Program = {
   institution: Institution;
 };
 
+export type Activity = {
+  id: string;
+  budget_cost: string;
+  name: string;
+  project: Project;
+  description: string;
+  municipio: Municipio;
+  parroquia: Parroquia;
+  gobernador: boolean;
+  conclusion: string;
+  address: string;
+  init_date: Date;
+  end_date: Date;
+  estimated_population: number;
+  benefited_population: number;
+  lat?: number;
+  lng?: number;
+  images: ActivityImage[];
+};
+
 export type Project = {
   id: string;
   name: string;
@@ -91,14 +111,17 @@ export type BudgetSource = {
   name: string;
 };
 
+
 export type InvestmentArea = {
   id: string;
   name: string;
+  code: string;
 };
 
 export type InvestmentSubArea = {
   id: string;
   name: string;
+  investment_area: InvestmentArea;
 };
 
 export type MeasurementUnit = {
@@ -127,26 +150,6 @@ export type Column = {
   dataIndex: string;
   key: string;
   render: JSX.Element;
-};
-
-export type Activity = {
-  id: string;
-  budget_cost: string;
-  name: string;
-  project: Project;
-  description: string;
-  municipio: Municipio;
-  parroquia: Parroquia;
-  gobernador: boolean;
-  conclusion: string;
-  address: string;
-  init_date: Date;
-  end_date: Date;
-  estimated_population: number;
-  benefited_population: number;
-  lat?: number;
-  lng?: number;
-  images: ActivityImage[];
 };
 
 export type Scope = {

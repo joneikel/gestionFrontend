@@ -8,7 +8,7 @@ const ContentApp = () => {
 
   return (
     <div className="main-layout">
-      <Content className="container">
+      <Content className="container login-background">
         <AppRouter />
       </Content>
     </div>

@@ -1,4 +1,5 @@
-import { Avatar, Button, Card, Tag } from "antd";
+import { Avatar, Button, Card, Tag, Tooltip } from "antd";
+import { EnvironmentTwoTone } from "@ant-design/icons";
 import React from "react";
 import { Activity } from "../../../models";
 import moment from "moment";
@@ -9,34 +10,37 @@ import { getIconByAreaCode } from "../../../helpers/icons";
 
 const ActivityCards = ({ activity, i }: { activity: Activity; i: number }) => {
 
-  const main_area_code = `E0${activity.project.investment_sub_areas[0].investment_area.code}`; 
+  const main_area_code = `E0${activity.project.investment_sub_areas[0].investment_area.code}`;
   console.log(main_area_code);
   return (
     <Card
-      style={{ margin: '15px', width: '300  px'}}
+      style={{ margin: '15px', width: '300  px' }}
       className="base-card activity-card floating-element"
-      cover={<div className="activity-card-image-div"><img className="activity-card-image"  alt="actividad" src={makeImage(activity.images[0].id)} /></div>}
+      cover={<div className="activity-card-image-div"><img className="activity-card-image" alt="actividad" src={makeImage(activity.images[0].id)} /></div>}
     >
       <Card.Meta
         title={
           <div className="card-element" >
             <span className="card-title" >
-            {activity.name}
-          </span>
+              <Tooltip title={ activity.name.length > 30 ? activity.name : ''} >
+                {activity.name.substr(0,30)}{ activity.name.length > 30 ? '...' : ''}
+              </Tooltip>
+              
+            </span>
           </div>
-          }
+        }
         avatar={
           <Avatar size={64} className="activity-card-avatar">
             {getIconByAreaCode(main_area_code)}
           </Avatar>
         }
         description={
-        <div className="card-element" >
-          <span className="description-text">
-          {activity.parroquia.name}<br/>
-          {activity.address}
-        </span>
-        </div>
+          <div className="card-element" >
+            <span className="description-text">
+            <EnvironmentTwoTone /> {activity.parroquia.name}<br />
+              {activity.address}
+            </span>
+          </div>
         }
       ></Card.Meta>
       <div className="card-footer">

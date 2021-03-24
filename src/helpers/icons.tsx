@@ -8,6 +8,8 @@ import { seguridad } from '../assets/icons/seguridad';
 import { serviciosPublicos } from '../assets/icons/serviciosPublicos';
 import { social } from '../assets/icons/social';
 import { tecnologia } from '../assets/icons/tecnologia';
+import {planning} from '../assets/icons/planning';
+
 import Icon from '@ant-design/icons';
 import saludSvg from '../assets/svg-icons/salud.svg';
 import educacionSvg from '../assets/svg-icons/educacion.svg';
@@ -18,6 +20,8 @@ import seguridadSvg from '../assets/svg-icons/seguridad.svg';
 import serviciosPublicosSvg from '../assets/svg-icons/serviciosPublicos.svg';
 import socialSvg from '../assets/svg-icons/social.svg';
 import politicaSvg from '../assets/svg-icons/politica.svg';
+import economiaSvg from '../assets/svg-icons/economia.svg';
+import planningSvg from '../assets/svg-icons/planning.svg';
 
 export const CulturaIcon = (props: any) => <Icon component={cultura} {...props} />;
 export const DeportesIcon = (props: any) => <Icon component={deportes} {...props} />;
@@ -29,25 +33,27 @@ export const SeguridadIcon = (props: any) => <Icon component={seguridad} {...pro
 export const ServiciosPublicosIcon = (props: any) => <Icon component={serviciosPublicos} {...props} />;
 export const SocialIcon = (props: any) => <Icon component={social} {...props} />;
 export const TecnologiaIcon = (props: any) => <Icon component={tecnologia} {...props} />;
+export const PlanningIcon = (props: any) => <Icon component={planning} {...props} />;
 
 export function getIconByAreaCode(code?: string) {
     const fontSize = { fontSize: 12 };
     if (code === "E005") return <SaludIcon style={fontSize} />;
-    else if (code === "E001") return <EconomiaIcon style={fontSize} />;
-    else if (code === "E003") return <SocialIcon style={fontSize} />;
-    else if (code === "E004") return <EducacionIcon style={fontSize} />;
-    else if (code === "E005") return <CulturaIcon style={fontSize} />;
-    else if (code === "E006") return <DeportesIcon style={fontSize} />;
+    else if (code === "E001") return <PlanningIcon style={fontSize} />;
+    else if (code === "E002") return <EconomiaIcon style={fontSize} />;
+    else if (code === "E004") return <SocialIcon style={fontSize} />;
+    else if (code === "E005") return <SaludIcon style={fontSize} />;
+    else if (code === "E006") return <SeguridadIcon style={fontSize} />;
     else if (code === "E007") return <TecnologiaIcon style={fontSize} />;
     else if (code === "E009") return <SeguridadIcon style={fontSize} />;
-    else if (code === "E010") return <ServiciosPublicosIcon style={fontSize} />;
+    else if (code === "E003") return <ServiciosPublicosIcon style={fontSize} />;
     else if (code === "E011") return <PoliticaIcon style={fontSize} />;
     else return <EconomiaIcon style={fontSize} />;
 }
 
 export function getSvgIconByAreaCode(code?: string) {
     if (code === "E005") return saludSvg;
-    else if (code === "E001") return educacionSvg;
+    else if (code === "E001") return planningSvg;
+    else if (code === "E002") return economiaSvg;
     else if (code === "E003") return culturaSvg;
     else if (code === "E004") return deportesSvg;
     else if (code === "E005") return tecnologiaSvg;

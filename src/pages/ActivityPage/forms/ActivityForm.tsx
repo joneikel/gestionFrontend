@@ -321,13 +321,14 @@ const ActivityForm = () => {
               <Input type="date" />
             </Form.Item>
           </Col>
-          <Col lg={3} md={3} sm={24} xs={24}>
+          <Col lg={3} md={3}>
             <Checkbox
 
               onChange={(e) => {
                 setPopulation(e.target.checked);
                 setNoAplica(!noAplica);
               }}
+
             >
               No aplica
                 </Checkbox>

@@ -77,15 +77,17 @@ const ActivityCounterWithIcon = ({ count }: {
     parent_id: string
   }
 }) => {
-  return <Card>
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>{getIconByAreaCode(count.parent?.code)}</div>
-      <div>
-        <Typography.Title>{count.activity_count}</Typography.Title>
+  return (
+    <Card>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div  className="map-card-icon" >{getIconByAreaCode(count.parent?.code)}</div>
+        <div>
+          <Typography.Title>{count.activity_count}</Typography.Title>
+        </div>
       </div>
-    </div>
-    <p style={{backgroundColor: '#ccc', borderRadius: 4, padding: 2}}>{count.parent?.name}</p>
-  </Card>
+      <p style={{ backgroundColor: '#ccc', borderRadius: 4, padding: 2 }}>{count.parent?.name}</p>
+    </Card>
+  )
 }
 
 export default MunicipalityInfo;

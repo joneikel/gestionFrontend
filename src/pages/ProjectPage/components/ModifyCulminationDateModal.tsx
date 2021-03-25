@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { PlusCircleFilled } from '@ant-design/icons';
 import ImputMeasurementUnit from './ImputMeasurementUnit';
 import { useAxios } from '../../../hooks/useAxios';
-const ModifyCulminationDateModal = ({ previousDate, onChange, project_id }: { previousDate?: string, onChange: Function ,project_id: string }) => {
+const ModifyCulminationDateModal = ({ previousDate, onChange, project_id, culmination_date }: { previousDate?: string, onChange: Function ,project_id: string, culmination_date?:string|Date }) => {
 
     const axios = useAxios();
 
@@ -96,12 +96,13 @@ const ModifyCulminationDateModal = ({ previousDate, onChange, project_id }: { pr
             </Modal>
             <Tooltip title="Modificar fecha de culminacion">
                 <Button
-                    shape="circle"
                     type="primary"
-                    icon={<PlusCircleFilled />}
+                
                     onClick={() => setVisible(true)}
                     loading={loading}
-                />
+                >
+                    Culminación: {culmination_date}
+                </Button>
             </Tooltip>
         </>
     )

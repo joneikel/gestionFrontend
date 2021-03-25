@@ -23,6 +23,10 @@ const ProjectDetails = () => {
   });
   const [loading, setLoading] = useState<boolean>(false);
 
+  const culmination_date = project.modified_culmination_dates.length > 0
+    ? project.modified_culmination_dates[project.modified_culmination_dates.length - 1].modified_date
+    : project.end_date ? project.end_date : "Sin culminar";
+
   const updateProject = (newProject: Project) => {
     setProject(newProject);
   };
@@ -42,6 +46,11 @@ const ProjectDetails = () => {
                 onChange={updateProject}
               />
             )}
+            { culmination_date && <ModifyCulminationDateModal
+              culmination_date={culmination_date}
+              onChange={updateProject}
+              project_id={project.id}
+            />}
           </Col>
           <Col span={12}>
             <Row gutter={[10, 10]}>
@@ -104,30 +113,17 @@ const ProjectDetails = () => {
                   <BudgetDetail budget={project.budgets} />
                 </Card>
               </Col>
-              <Col>
+              <Col span={24} >
                 <Card className="floating-element">
                   <BudgetGraph budget={project.budgets} />
                 </Card>
               </Col>
             </Row>
           </Col>
-          <Col>
-            {project.end_date ? project.end_date : "Sin culminar"}
-            <br />
-            {project.modified_culmination_dates.length > 0 
-              ? project.modified_culmination_dates[ project.modified_culmination_dates.length - 1 ].modified_date
-              : "Sin modificar"}
-            <br />
-
-            <ModifyCulminationDateModal
-              onChange={updateProject}
-              project_id={project.id}
-            />
-          </Col>
         </Row>
       ) : (
-        <Progress percent={99.9} type="dashboard" />
-      )}
+          <Progress percent={99.9} type="dashboard" />
+        )}
     </>
   );
 };

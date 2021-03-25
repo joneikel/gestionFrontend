@@ -1,7 +1,8 @@
-import { Button, Col, Form, Input, message, Row } from "antd";
+import { Button, Card, Col, Form, Input, message, Row } from "antd";
 import React, { useState } from "react";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
+import CustomPageHeader from "../../../components/PageHeader";
 
 const ExecutiveInstitutionForm = () => {
 
@@ -26,9 +27,8 @@ const ExecutiveInstitutionForm = () => {
     }};
     
     return (
-        <>
-        <h1>Nueva Secretaría Ejectutiva</h1><br/>
-        <Form layout="vertical" onFinish={handleSubmit}>
+        <Card title={<CustomPageHeader title="Nueva Secretaría Ejectutiva" />} className="floating-element">
+            <Form layout="vertical" onFinish={handleSubmit}>
             <Row gutter={10}>
                 <Col span={12}>
                     <Form.Item
@@ -55,7 +55,7 @@ const ExecutiveInstitutionForm = () => {
 
             </Row>
         </Form>
-        </>
+        </Card>
     );
 }
 

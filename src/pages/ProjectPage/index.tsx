@@ -118,7 +118,7 @@ const ProjectPage = () => {
   }
 
   return (
-    <Card>
+    <Card className="floating-element">
       <div style={{padding: '10px 10px 10px 0px'}}>
         <ProjectFilters onChange={(f: any) => {
           setLoading(true);

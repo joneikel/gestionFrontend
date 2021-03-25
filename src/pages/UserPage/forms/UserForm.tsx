@@ -36,7 +36,7 @@ const UserForm = () => {
   }
 
   return (
-    <Card title={<CustomPageHeader title="Nuevo usuario" />}>
+    <Card title={<CustomPageHeader title="Nuevo usuario" />} className="floating-element">
       <Form layout="vertical" onFinish={handleSubmit}>
         <Row gutter={10}>
 

@@ -388,7 +388,7 @@ const ActivityForm = () => {
 
               </Form.Item>
             </Col>)}
-          <Col span={24} style={{ height: 300, width: '100%' }}>
+          <Col span={24} style={{ height: 375, width: '100%' }}>
             <Form.Item
               hasFeedback
               name="geolocation"

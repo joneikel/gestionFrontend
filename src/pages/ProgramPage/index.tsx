@@ -34,7 +34,7 @@ const ProgramPage = () => {
   ];
 
   return (
-    <Card>
+    <Card className="floating-element">
       <MainTable
         loading={loading}
         columns={columns}

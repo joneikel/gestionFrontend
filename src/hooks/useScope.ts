@@ -58,4 +58,6 @@ export type useScopeProps =
  |"statistics:delete"
  |"statistics:update"
  |"statistics:read"
+ |"map:menu"
+ |"map:read"
 ;

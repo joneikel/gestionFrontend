@@ -105,7 +105,7 @@ export const routes: SidebarItem[] = [
     ],
   },
   {
-    scope: "statistics:menu",
+    scope: "map:menu",
     label: "Mapa",
     icon: null,
     link: "/mapa",

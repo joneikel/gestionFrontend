@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, message, Modal, Row } from "antd";
+import { Button, Card, Col, Form, Input, message, Modal, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
 import { useAxios } from "../../../hooks/useAxios";
@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { AxiosInstance } from "axios";
 import { useForm } from "antd/lib/form/Form";
 import UserContainer from "../../../unstated/UserContainer";
+import CustomPageHeader from "../../../components/PageHeader";
 
 const MisionAndVisionForm = () => {
     const axios = useAxios();
@@ -34,10 +35,9 @@ const MisionAndVisionForm = () => {
     };
 
     return (
-        <>
-            <h1>Actualizar Misión y Visión</h1>
-            <br />
-            <Form
+        
+            <Card title={<CustomPageHeader title="Actualizar Misión y Visión" />} className="floating-element">
+               <Form
                 form={form}
                 layout="vertical"
                 onFinish={handleSubmit}
@@ -107,8 +107,9 @@ const MisionAndVisionForm = () => {
                         </Form.Item>
                     </Col>
                 </Row>
-            </Form>
-        </>
+            </Form> 
+            </Card>
+            
     );
 };
 

@@ -1,10 +1,11 @@
-import { Button, Col, Form, Input, message, Row } from "antd";
+import { Button, Card, Col, Form, Input, message, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
 import { useAxios } from "../../../hooks/useAxios";
 import { useParams } from "react-router-dom";
 import { AxiosInstance } from "axios";
 import { useForm } from "antd/lib/form/Form";
+import CustomPageHeader from "../../../components/PageHeader";
 
 const InstitutionForm = () => {
   const axios = useAxios();
@@ -38,11 +39,9 @@ const InstitutionForm = () => {
     }
   };
 
-  return (
-    <>
-      <h1>Nueva Secretaría</h1>
-      <br />
-      <Form form={form} layout="vertical" onFinish={handleSubmit}>
+  return ( 
+      <Card title={<CustomPageHeader title="Nueva Secretaría" />} className="floating-element">
+        <Form form={form} layout="vertical" onFinish={handleSubmit}>
         <Row gutter={10}>
           <Col span={12}>
             <Form.Item
@@ -115,7 +114,7 @@ const InstitutionForm = () => {
           </Col>
         </Row>
       </Form>
-    </>
+      </Card>
   );
 };
 

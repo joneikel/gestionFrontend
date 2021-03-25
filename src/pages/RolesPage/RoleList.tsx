@@ -33,7 +33,7 @@ const RoleList = () => {
   ];
 
   return (
-      <Table
+      <Table 
         columns={columns}
         dataSource={roles}
         loading={loading}

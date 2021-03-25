@@ -30,7 +30,7 @@ const ScopeForm = () => {
 };
 
   return (
-    <Card title={<CustomPageHeader title="Nuevo Scope" />}>
+    <Card title={<CustomPageHeader title="Nuevo Scope" />} className="floating-element">
       <Form layout="vertical" onFinish={handleSubmit}>
         <Row gutter={10} >
 

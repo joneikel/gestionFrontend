@@ -27,7 +27,7 @@ const RolesForm = () => {
   };
   
     return (
-      <Card title={<CustomPageHeader title="Nuevo Rol" />}>
+      <Card title={<CustomPageHeader title="Nuevo Rol" />} className="floating-element">
         <Form layout="vertical" onFinish={handleSubmit}>
           <Row gutter={10} >
   

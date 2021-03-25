@@ -46,7 +46,7 @@ const ProjectDetails = () => {
           <Col span={12}>
             <Row gutter={[10, 10]}>
               <Col span={24}>
-                <Card
+                <Card className="floating-element"
                   headStyle={{ border: "none" }}
                   title="metas"
                   extra={
@@ -86,12 +86,12 @@ const ProjectDetails = () => {
           <Col span={12}>
             <Row gutter={[10, 10]}>
               <Col span={24}>
-                <Card title="actividades" headStyle={{ border: "none" }}>
+                <Card title="actividades" headStyle={{ border: "none" }} className="floating-element">
                   <ActivityList activities={activities} />
                 </Card>
               </Col>
               <Col span={24}>
-                <Card
+                <Card className="floating-element"
                   title="presupuesto"
                   headStyle={{ border: "none" }}
                   extra={
@@ -105,7 +105,7 @@ const ProjectDetails = () => {
                 </Card>
               </Col>
               <Col>
-                <Card>
+                <Card className="floating-element">
                   <BudgetGraph budget={project.budgets} />
                 </Card>
               </Col>

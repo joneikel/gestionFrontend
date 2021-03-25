@@ -27,7 +27,7 @@ const ModuleForm = () => {
   };
   
     return (
-      <Card title={<CustomPageHeader title="Nuevo Módulo" />}>
+      <Card title={<CustomPageHeader title="Nuevo Módulo" />} className="floating-element">
         <Form layout="vertical" onFinish={handleSubmit}>
           <Row gutter={10} >
   

@@ -58,7 +58,7 @@ const ProjectForm = () => {
   const [program, setProgram] = useState<string | undefined>();
 
   return (
-    <Card title={<CustomPageHeader title="Nuevo proyecto" />}>
+    <Card title={<CustomPageHeader title="Nuevo proyecto" />} className="floating-element">
       <Form layout="vertical" onFinish={handleSubmit}>
         <Row gutter={10}>
           <Col lg={12} md={12} sm={24} xs={24}>

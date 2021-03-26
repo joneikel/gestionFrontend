@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAxios } from "../../hooks/useAxios";
 import { Institution, Municipio } from "../../models";
 import { getIconByAreaCode } from "../../helpers/icons";
+import { Link } from "react-router-dom";
 
 const MunicipalityInfo = ({
   isOpen,
@@ -33,12 +34,13 @@ const MunicipalityInfo = ({
   useEffect(() => {
     if (municipalityCode) {
       setLoading(true);
-      {
-        countPPA(institutionCodes, municipalityCode, axios)
-          .then((counters) => setCounters(counters))
-          .catch((err) => console.log(err))
-          .finally(() => setLoading(false));
-      }
+      countPPA(institutionCodes, municipalityCode, axios)
+        .then((counters) => {
+          setCounters(counters);
+          setMunicipio(counters[0].data.municipio);
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     }
   }, [municipalityCode]);
 
@@ -95,6 +97,7 @@ const ActivityCounterWithIcon = ({
     projects: number;
     activities: number;
     institution: Institution;
+    municipio: Municipio;
   };
 }) => {
   return (
@@ -106,12 +109,16 @@ const ActivityCounterWithIcon = ({
           alignItems: "center",
         }}
       >
-        <div>
-          <Typography.Text>Programa: {count.programs}</Typography.Text>
+        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          <div><Typography.Text>Programas: <b>{count.programs}</b></Typography.Text></div>
           <br />
-          <Typography.Text>Proyecto: {count.projects}</Typography.Text>
+          <div>
+            <Link to={`/listar-proyectos`}>
+              Proyectos: <b>{count.projects}</b>
+            </Link>
+          </div>
           <br />
-          <Typography.Text>Act.: {count.activities}</Typography.Text>
+          <div><Typography.Text>Act: <b>{count.activities}</b></Typography.Text></div>
         </div>
       </div>
       <div className="map-card-icon">
@@ -132,7 +139,13 @@ async function countPPA(
   axios: AxiosInstance
 ) {
   const requests = institutionIds.map((institutionId: string) =>
-    axios.get(`count-activities/${institutionId}/${municipioId}`)
+    axios.get<{
+      programs: number;
+      projects: number;
+      activities: number;
+      institution: Institution;
+      municipio: Municipio;
+    }>(`count-activities/${institutionId}/${municipioId}`)
   );
   return Promise.all(requests);
 }

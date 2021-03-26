@@ -108,7 +108,7 @@ const LoginBackground = () => {
         }
       />
       <div className="login-background">
-        <h2 className="tracking-in-expand title-text">GESTIÓN DE PROYECTOS</h2>
+        <h2 className="tracking-in-expand title-text"></h2>
         <img className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '30%', top: '14%' }} src={deporte1}></img>
         <img className="slide-in-blurred-bottom"

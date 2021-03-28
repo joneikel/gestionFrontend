@@ -1,11 +1,9 @@
-import React from "react";
 import { Image, Layout, Card } from "antd";
 import LoginForm from "../../pages/LoginPage/forms/LoginForm";
 import deporte1 from '../../assets/bg/deporte.png';
 import deporte2 from '../../assets/bg/deporte2.png';
 import vial1 from '../../assets/bg/vial.png';
 import salud1 from '../../assets/bg/medicos.png';
-import mapaShape from '../../assets/bg/shape_guarico.svg';
 import servicios1 from '../../assets/bg/agua.png';
 import cultura1 from '../../assets/bg/cultura.png';
 import logo from '../../assets/bg/logo.png';
@@ -108,30 +106,31 @@ const LoginBackground = () => {
         }
       />
       <div className="login-background">
-        <h2 className="tracking-in-expand title-text"></h2>
-        <img className="slide-in-blurred-bottom"
+        <h2 className="tracking-in-expand title-text">SICSA</h2>
+        <h6 className="tracking-in-expand subtitle-text">Sistema Integrado de Control y Seguimiento de Actividades</h6>
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '30%', top: '14%' }} src={deporte1}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '87%', top: '76%' }} src={deporte2}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '10vw', left: "35%", top: '79%' }} src={vial1}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "52%", top: '6%' }} src={servicios1}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "60.5%", top: '78%' }} src={salud1}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "26%", top: '60%' }} src={cultura1}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '10vw', left: "70%", top: '25%' }} src={tecnologia1}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '7vw', left: "70%", top: '64%' }} src={siembra1}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "85%", top: '44%' }} src={ganado1}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '7vw', left: "40%", top: '45%' }} src={siembra3}></img>
-        <img className="slide-in-blurred-bottom"
+        <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "90%", top: '12%' }} src={siembra2}></img>
-        <img style={{ position: 'absolute', width: '18vw', left: "53%", top: '34%' }} src={logo}></img>
+        <img alt="" style={{ position: 'absolute', width: '18vw', left: "53%", top: '34%' }} src={logo}></img>
       </div>
     </>
   )

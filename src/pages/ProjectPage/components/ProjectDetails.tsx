@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Tag, Progress, Col, Row, Typography } from "antd";
+import { Card, Tag, Progress, Col, Row, Typography, Empty } from "antd";
 import { useHistory } from "react-router-dom";
 import { Budget, MeasurementUnit, Project } from "../../../models";
 import { moneyFormatter } from "../../../helpers";
@@ -77,9 +77,13 @@ const ProjectDetails = () => {
                 </Card>
               </Col>
               <Col span={24}>
-                {activities.length > 0 && (
-                  <ActivityImageGallery activity={activities[0]} />
-                )}
+                <Card
+                className="floating-element"
+                title="memoria fotografica" headStyle={{border:"none"}}>
+                  {activities.length > 0 ? (
+                    <ActivityImageGallery images={activities.map(act => act.images[0])} />
+                  ) : <Empty description="No ha cargado imagenes" />}
+                </Card>
               </Col>
             </Row>
           </Col>
@@ -104,7 +108,7 @@ const ProjectDetails = () => {
                   <BudgetDetail budget={project.budgets} />
                 </Card>
               </Col>
-              <Col>
+              <Col span={24}> 
                 <Card className="floating-element">
                   <BudgetGraph budget={project.budgets} />
                 </Card>

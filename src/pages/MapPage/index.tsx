@@ -15,6 +15,7 @@ import L from "leaflet";
 import salud from '../../assets/svg-icons/salud.svg';
 import { Institution } from "../../models";
 import { getSvgIconByAreaCode } from "../../helpers/icons";
+import ProjectListModal from "../ProjectPage/components/ProjectListModal";
 
 export const defaultMarker = L.icon({
   iconUrl: salud,
@@ -23,6 +24,7 @@ export const defaultMarker = L.icon({
 
 const MapPage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [projectModal, setProjectModal] = useState<onProjectClickProps>({isOpen: false});
   const [selectedMunicipalityCode, setSelectedMunicipalityCode] = useState<
     string | undefined
   >();
@@ -47,6 +49,7 @@ const MapPage = () => {
       >
         <TileLayer url="https://mt2.google.com/vt/lyrs=r&x={x}&y={y}&z={z}" />
         <MunicipalityInfo
+          onProjectsClick={({institution_id, municipio_id}) => setProjectModal({isOpen: true, institution_id, municipio_id})}
           municipalityCode={selectedMunicipalityCode}
           isOpen={isSidebarOpen}
           onClose={() => {
@@ -54,6 +57,10 @@ const MapPage = () => {
             setSelectedMunicipalityCode(undefined);
           }}
         />
+        <ProjectListModal 
+          isOpen={projectModal.isOpen}
+          filters={{institution_id: projectModal.institution_id, municipio_id: projectModal.municipio_id}}
+          onClose={() => setProjectModal({isOpen: false})}/>
         <GeoJSONGuarico
           geoJson={guaricoJSON}
           onFeatureDblClick={(e: any, code: string) => {
@@ -175,6 +182,12 @@ export const makeMarker = ({ institution }: { institution: Institution }) => {
     iconUrl: getSvgIconByAreaCode(institution.parent ? institution.parent.code : institution.code),
     iconSize: [30, 50],
   });
+}
+
+export type onProjectClickProps = {
+  isOpen: boolean,
+  municipio_id?: string,
+  institution_id?: string
 }
 
 export default MapPage;

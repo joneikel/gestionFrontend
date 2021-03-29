@@ -11,10 +11,12 @@ const MunicipalityInfo = ({
   isOpen,
   onClose,
   municipalityCode,
+  onProjectsClick,
 }: {
   isOpen: boolean;
   onClose: Function;
   municipalityCode?: string;
+  onProjectsClick: ({institution_id, municipio_id}:{institution_id:string, municipio_id:string}) => void
 }) => {
   const axios = useAxios();
   const [municipio, setMunicipio] = useState<Municipio | undefined>();
@@ -80,7 +82,7 @@ const MunicipalityInfo = ({
           {counters.length > 0 &&
             counters.map((c: any, i: number) => (
               <Col span={24}>
-                <ActivityCounterWithIcon key={i} count={c.data} />
+                <ActivityCounterWithIcon onProjectsClick={onProjectsClick} key={i} count={c.data} />
               </Col>
             ))}
         </Row>
@@ -91,7 +93,9 @@ const MunicipalityInfo = ({
 
 const ActivityCounterWithIcon = ({
   count,
+  onProjectsClick
 }: {
+  onProjectsClick: ({institution_id, municipio_id}:{institution_id:string, municipio_id:string}) => void,
   count: {
     programs: number;
     projects: number;
@@ -113,7 +117,10 @@ const ActivityCounterWithIcon = ({
           <div><Typography.Text>Programas: <b>{count.programs}</b></Typography.Text></div>
           <br />
           <div>
-            <Link to={`/listar-proyectos`}>
+            <Link to="#" onClick={() => onProjectsClick({
+               municipio_id: count.municipio.id,
+               institution_id: count.institution.id
+            })} type="link">
               Proyectos: <b>{count.projects}</b>
             </Link>
           </div>

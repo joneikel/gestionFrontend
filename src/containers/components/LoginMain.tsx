@@ -106,8 +106,8 @@ const LoginBackground = () => {
         }
       />
       <div className="login-background">
-        <h2 className="tracking-in-expand title-text">SICSA</h2>
-        <h6 className="tracking-in-expand subtitle-text">Sistema Integrado de Control y Seguimiento de Actividades</h6>
+        <h2 className="tracking-in-expand title-text"></h2>
+        <h6 className="tracking-in-expand subtitle-text"></h6>
         <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: '30%', top: '14%' }} src={deporte1}></img>
         <img alt="" className="slide-in-blurred-bottom"

@@ -1,17 +1,22 @@
 import { Button, Card, Col, Row, Select } from "antd";
 import React, { useState } from "react";
+import UserContainer from "../../../unstated/UserContainer";
 import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
 import InvestmentAreaSelect from "./InvesmentAreaSelect";
 import ProjectStatusSelect from "./ProjectStatusSelect";
 
-const ProjectFilters = ({ onChange }: { onChange: Function }) => {
+const ProjectFilters = ({ onChange, default_institution }: { onChange: Function, default_institution?: string }) => {
+  
+  const {user} = UserContainer.useContainer();
+  const isAdmin = user?.role.name === "super_admin";
+  
   const [filters, setFilters] = useState<{
     institution_id?: string;
     investment_areas?: string[];
     project_status_id?: string;
     is_planified?: number;
   }>({
-    institution_id: undefined,
+    institution_id: default_institution,
     investment_areas: undefined,
     project_status_id: undefined,
     is_planified: undefined,
@@ -22,11 +27,12 @@ const ProjectFilters = ({ onChange }: { onChange: Function }) => {
   };
 
   return (
-    <Row gutter={10}>
-      <Col span={5}>
+    <Row gutter={[10,10]}>
+      <Col span={10}>
         <InstitutionsSelect
           value={filters.institution_id}
-          onlyParent
+          onlyParent={ isAdmin ? true : undefined }
+          parentId={ isAdmin ? undefined : user?.institution.id}
           onChange={(institution_id: string) => {
             handleChange({ ...filters, institution_id });
             setFilters({ ...filters, institution_id });
@@ -71,13 +77,13 @@ const ProjectFilters = ({ onChange }: { onChange: Function }) => {
           type="primary"
           onClick={() => {
             setFilters({
-              institution_id: undefined,
+              institution_id: default_institution,
               investment_areas: undefined,
               project_status_id: undefined,
               is_planified: undefined,
             });
             handleChange({
-              institution_id: undefined,
+              institution_id: default_institution,
               investment_areas: undefined,
               project_status_id: undefined,
               is_planified: undefined,

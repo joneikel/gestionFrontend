@@ -205,7 +205,7 @@ const ActivityForm = () => {
               hasFeedback
               name="budget_cost"
               dependencies={['available_budget']}
-              label="Consto de la actividad"
+              label="Costo de la actividad"
               rules={[
                 {
                   required: true,

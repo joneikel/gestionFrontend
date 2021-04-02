@@ -17,6 +17,7 @@ import salud from '../../assets/svg-icons/salud.svg';
 import { Institution } from "../../models";
 import { getSvgIconByAreaCode } from "../../helpers/icons";
 import ProjectListModal from "../ProjectPage/components/ProjectListModal";
+import { Popover } from "antd";
 
 export const defaultMarker = L.icon({
   iconUrl: salud,
@@ -64,7 +65,7 @@ const MapPage = () => {
           filters={{ institution_id: projectModal.institution_id, municipio_id: projectModal.municipio_id }}
           onClose={() => setProjectModal({ isOpen: false })} />
         <GeoJSONGuarico
-          opacity={0.8}
+          opacity={0.5}
           geoJson={guaricoJSON}
           onFeatureDblClick={(e: any, code: string) => {
             setIsSidebarOpen(true);
@@ -105,26 +106,28 @@ export const MapLabels = ({ features }: { features: any[] }) => {
     <>
       {features.length > 0 && features.map((feat: any) => {
         return (
-          <SVGOverlay
-            attributes={{ stroke: "red" }}
-            bounds={[
-              [feat.properties.CENTER.lat - 0.1, feat.properties.CENTER.lng],
-              [feat.properties.CENTER.lat, feat.properties.CENTER.lng + 1],
-            ]}
-          >
-            <text
-              onClick={() => console.log(feat)}
-              style={{ WebkitTextStroke: "1px white" }}
-              fontSize="12px"
-              width="100%"
-              height="100%"
-              x="1%"
-              y="60%"
-              stroke="black"
+          <Popover content="Hello">
+            <SVGOverlay
+              attributes={{ stroke: "red" }}
+              bounds={[
+                [feat.properties.CENTER.lat - 0.1, feat.properties.CENTER.lng],
+                [feat.properties.CENTER.lat, feat.properties.CENTER.lng + 1],
+              ]}
             >
-              {feat.properties.NAME_2}
-            </text>
-          </SVGOverlay>
+              <text
+                onClick={() => console.log(feat)}
+                style={{ WebkitTextStroke: "1px white" }}
+                fontSize="12px"
+                width="100%"
+                height="100%"
+                x="1%"
+                y="60%"
+                stroke="black"
+              >
+                {feat.properties.NAME_2}
+              </text>
+            </SVGOverlay>
+          </Popover>
         );
       })}
     </>

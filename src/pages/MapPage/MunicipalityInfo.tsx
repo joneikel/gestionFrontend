@@ -16,7 +16,7 @@ const MunicipalityInfo = ({
   isOpen: boolean;
   onClose: Function;
   municipalityCode?: string;
-  onProjectsClick: ({institution_id, municipio_id}:{institution_id:string, municipio_id:string}) => void
+  onProjectsClick: ({ institution_id, municipio_id }: { institution_id: string, municipio_id: string }) => void
 }) => {
   const axios = useAxios();
   const [municipio, setMunicipio] = useState<Municipio | undefined>();
@@ -48,16 +48,15 @@ const MunicipalityInfo = ({
 
   return (
     <div
+      onWheelCapture={e => {
+        e.stopPropagation();
+      }}
       className="map-sidebar"
       style={{
+        display: loading ? 'grid' : 'inherit',
+        placeContent: loading ? 'center' : 'inherit',
         padding: isOpen ? 10 : 0,
-        position: "absolute",
-        right: "0px",
         width: isOpen ? "300px" : "0px",
-        height: "100%",
-        zIndex: 500,
-        backgroundColor: "#fff",
-        overflowY: "scroll",
       }}
     >
       {loading ? (
@@ -95,7 +94,7 @@ const ActivityCounterWithIcon = ({
   count,
   onProjectsClick
 }: {
-  onProjectsClick: ({institution_id, municipio_id}:{institution_id:string, municipio_id:string}) => void,
+  onProjectsClick: ({ institution_id, municipio_id }: { institution_id: string, municipio_id: string }) => void,
   count: {
     programs: number;
     projects: number;
@@ -118,8 +117,8 @@ const ActivityCounterWithIcon = ({
           <br />
           <div>
             <Link to="#" onClick={() => onProjectsClick({
-               municipio_id: count.municipio.id,
-               institution_id: count.institution.id
+              municipio_id: count.municipio.id,
+              institution_id: count.institution.id
             })} type="link">
               Proyectos: <b>{count.projects}</b>
             </Link>

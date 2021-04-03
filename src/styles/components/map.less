@@ -1,11 +1,32 @@
 .map-sidebar {
-    transition: width .5s;
-    box-shadow: rgba(0, 0, 0, 0.47) -2px 0px 8px;
-    height: 100%;
-    z-index: 500;
-    background-color: #fff;
-    overflow-y: scroll;
-    cursor: default;
-    position: absolute;
-    right: 0px;
+  transition: width 0.5s;
+  box-shadow: rgba(0, 0, 0, 0.47) -2px 0px 8px;
+  height: 100%;
+  z-index: 500;
+  background-color: #fff;
+  overflow-y: scroll;
+  cursor: default;
+  position: absolute;
+  right: 0px;
+}
+
+.map-filter-container {
+  transition: height 0.5s, width 0.6s;
+  background-color: #fff;
+  cursor: default;
+  z-index: 500;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  border: 1px solid #ccc;
+  .filters {
+      padding: 20px;
+  }
+}
+
+.map-filter-toggle {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 499;
 }

@@ -6,6 +6,7 @@ import { useAxios } from "../../hooks/useAxios";
 import { Institution, Municipio } from "../../models";
 import { getIconByAreaCode } from "../../helpers/icons";
 import { Link } from "react-router-dom";
+import { useMap } from "react-leaflet";
 
 const MunicipalityInfo = ({
   isOpen,
@@ -22,6 +23,7 @@ const MunicipalityInfo = ({
   const [municipio, setMunicipio] = useState<Municipio | undefined>();
   const [counters, setCounters] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const map = useMap();
 
   const institutionCodes = [
     "E001",
@@ -51,12 +53,18 @@ const MunicipalityInfo = ({
       onWheelCapture={e => {
         e.stopPropagation();
       }}
+      onMouseOver={e => {
+        map.dragging.disable();
+      }}
+      onMouseLeave={e => {
+        map.dragging.enable();
+      }}
       className="map-sidebar"
       style={{
         display: loading ? 'grid' : 'inherit',
         placeContent: loading ? 'center' : 'inherit',
         padding: isOpen ? 10 : 0,
-        width: isOpen ? "300px" : "0px",
+        width: isOpen ? "25%" : "0px",
       }}
     >
       {loading ? (

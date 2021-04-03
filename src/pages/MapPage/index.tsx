@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -18,6 +18,7 @@ import { Institution } from "../../models";
 import { getSvgIconByAreaCode } from "../../helpers/icons";
 import ProjectListModal from "../ProjectPage/components/ProjectListModal";
 import { Popover } from "antd";
+import MapFilters, { MapFilterToggle } from "./MapFilters";
 
 export const defaultMarker = L.icon({
   iconUrl: salud,
@@ -27,6 +28,7 @@ export const defaultMarker = L.icon({
 const MapPage = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isBottombarOpen, setIsBottombarOpen] = useState(false);
   const [projectModal, setProjectModal] = useState<onProjectClickProps>({ isOpen: false });
   const [selectedMunicipalityCode, setSelectedMunicipalityCode] = useState<
     string | undefined
@@ -37,6 +39,7 @@ const MapPage = () => {
   return (
     <>
       <MapContainer
+        id="map-container"
         doubleClickZoom={false}
         minZoom={8}
         /*maxBounds={[
@@ -51,6 +54,11 @@ const MapPage = () => {
         zoom={8.3}
       >
         <TileLayer url="https://mt2.google.com/vt/lyrs=r&x={x}&y={y}&z={z}" />
+        <MapFilters
+          onClose={() => setIsBottombarOpen(false)}
+          isSidebarOpen={isSidebarOpen}
+          isOpen={isBottombarOpen} />
+        <MapFilterToggle isOpen={isBottombarOpen} onClick={() => setIsBottombarOpen(!isBottombarOpen)} />
         <MunicipalityInfo
           onProjectsClick={({ institution_id, municipio_id }) => setProjectModal({ isOpen: true, institution_id, municipio_id })}
           municipalityCode={selectedMunicipalityCode}

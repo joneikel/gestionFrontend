@@ -16,7 +16,7 @@ const ActivityCards = ({ activity, i }: { activity: Activity; i: number }) => {
     <Card
       style={{ margin: '15px', width: '300  px' }}
       className="base-card activity-card floating-element"
-      cover={<div className="activity-card-image-div"><img className="activity-card-image" alt="actividad" src={makeImage(activity.images[0].id)} /></div>}
+      cover={<div className="activity-card-image-div"><img className="activity-card-image" alt="actividad" src={makeImage(activity.images[0]?.id)} /></div>}
     >
       <Card.Meta
         title={

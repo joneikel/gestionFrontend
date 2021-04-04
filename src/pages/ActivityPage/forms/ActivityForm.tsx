@@ -404,13 +404,7 @@ const ActivityForm = () => {
             <Form.Item
               hasFeedback
               name="images"
-              label="Memoria fotografica"
-              rules={[
-                {
-                  required: true,
-                  message: "Debes indicar poblacion benefiada de la actividad",
-                },
-              ]}
+              label="Memoria fotográfica"
             >
               <EcUploader />
             </Form.Item>

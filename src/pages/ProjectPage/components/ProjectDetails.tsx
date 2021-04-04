@@ -12,8 +12,13 @@ import { useActivities } from "../../../hooks/useActivities";
 import ActivityList from "./ActivityList";
 import ModifyCulminationDateModal from "./ModifyCulminationDateModal";
 import ActivityImageGallery from "../../ActivityPage/components/ImageGallery";
+import UserContainer from "../../../unstated/UserContainer";
 
 const ProjectDetails = () => {
+
+  const { user } = UserContainer.useContainer();
+  const updateAuthorization = user?.scopes.includes("projects:update") ? true : false;
+
   const history = useHistory();
   const [project, setProject] = useState<Project>(
     history.location.state as Project
@@ -35,13 +40,12 @@ const ProjectDetails = () => {
             <Typography.Title>{project.name}</Typography.Title>
           </Col>
           <Col span={24}>
-            {project.project_status.name && (
-              <UpdateProjectStatusModal
-                project_status={project.project_status}
-                project_id={project.id}
-                onChange={updateProject}
-              />
-            )}
+            <UpdateProjectStatusModal
+              authorization={updateAuthorization}
+              project_status={project.project_status}
+              project_id={project.id}
+              onChange={updateProject}
+            />
           </Col>
           <Col span={12}>
             <Row gutter={[10, 10]}>
@@ -50,7 +54,7 @@ const ProjectDetails = () => {
                   headStyle={{ border: "none" }}
                   title="metas"
                   extra={
-                    <IncreaseProjectGoalsModal
+                    updateAuthorization && <IncreaseProjectGoalsModal
                       onChange={updateProject}
                       selectedUnits={project.measurement_unit.map((x) => x.id)}
                       project_id={project.id}
@@ -78,8 +82,8 @@ const ProjectDetails = () => {
               </Col>
               <Col span={24}>
                 <Card
-                className="floating-element"
-                title="memoria fotografica" headStyle={{border:"none"}}>
+                  className="floating-element"
+                  title="memoria fotografica" headStyle={{ border: "none" }}>
                   {activities.length > 0 ? (
                     <ActivityImageGallery images={activities.map(act => act.images[0])} />
                   ) : <Empty description="No ha cargado imagenes" />}
@@ -99,7 +103,7 @@ const ProjectDetails = () => {
                   title="presupuesto"
                   headStyle={{ border: "none" }}
                   extra={
-                    <IncreaseProjectBudgetModal
+                    updateAuthorization && <IncreaseProjectBudgetModal
                       project_id={project.id}
                       onChange={updateProject}
                     />
@@ -108,7 +112,7 @@ const ProjectDetails = () => {
                   <BudgetDetail budget={project.budgets} />
                 </Card>
               </Col>
-              <Col span={24}> 
+              <Col span={24}>
                 <Card className="floating-element">
                   <BudgetGraph budget={project.budgets} />
                 </Card>
@@ -118,20 +122,20 @@ const ProjectDetails = () => {
           <Col>
             {project.end_date ? project.end_date : "Sin culminar"}
             <br />
-            {project.modified_culmination_dates.length > 0 
-              ? project.modified_culmination_dates[ project.modified_culmination_dates.length - 1 ].modified_date
+            {project.modified_culmination_dates.length > 0
+              ? project.modified_culmination_dates[project.modified_culmination_dates.length - 1].modified_date
               : "Sin modificar"}
             <br />
 
-            <ModifyCulminationDateModal
+            {updateAuthorization && <ModifyCulminationDateModal
               onChange={updateProject}
               project_id={project.id}
-            />
+            />}
           </Col>
         </Row>
       ) : (
-        <Progress percent={99.9} type="dashboard" />
-      )}
+          <Progress percent={99.9} type="dashboard" />
+        )}
     </>
   );
 };

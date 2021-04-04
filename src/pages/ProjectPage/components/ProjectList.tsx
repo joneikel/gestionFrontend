@@ -7,6 +7,7 @@ import MainTable from "../../../components/tables/MainTable";
 import { downloadFileFromLink, moneyFormatter } from "../../../helpers";
 import { baseURL, useAxios } from "../../../hooks/useAxios";
 import { Budget, Project, ProjectStatus } from "../../../models";
+import UserContainer from "../../../unstated/UserContainer";
 import UpdateProjectStatusModal from "./UpdateProjectStatusModal";
 
 const ProjectList = ({
@@ -18,6 +19,8 @@ const ProjectList = ({
   const history = useHistory();
   const [projects, setProjects] = useState<Project[]>([]);
   const axios = useAxios();
+  const { user } = UserContainer.useContainer();
+  const updateAuthorization = user?.scopes.includes("projects:update") ? true : false;
 
   useEffect(() => {
     setLoading(true);
@@ -73,6 +76,7 @@ const ProjectList = ({
       key: "project_status",
       render: (project_status: ProjectStatus, record: Project) => (
         <UpdateProjectStatusModal
+          authorization={updateAuthorization}
           project_status={project_status}
           project_id={record.id}
           onChange={updateProject}
@@ -128,10 +132,10 @@ const ProjectList = ({
 };
 
 async function getProjects(axios: AxiosInstance, params: any): Promise<Project[]> {
-    const response = await axios.get("/project", {
-      params
-    });
-    return response.data;
-  }
+  const response = await axios.get("/project", {
+    params
+  });
+  return response.data;
+}
 
 export default ProjectList;

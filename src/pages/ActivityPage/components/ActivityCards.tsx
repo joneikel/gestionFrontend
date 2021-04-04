@@ -7,16 +7,18 @@ import { downloadFileFromLink, moneyFormatter } from "../../../helpers";
 import { PrinterFilled } from "@ant-design/icons";
 import { makeImage } from "../../../hooks/makeImage";
 import { getIconByAreaCode } from "../../../helpers/icons";
+import logo from '../../../assets/bg/logo.png';
 
 const ActivityCards = ({ activity, i }: { activity: Activity; i: number }) => {
 
   const main_area_code = `E0${activity.project.investment_sub_areas[0].investment_area.code}`;
+  const hasImages = activity.images[0]?.id ? true : false;
   console.log(main_area_code);
   return (
     <Card
       style={{ margin: '15px', width: '300  px' }}
       className="base-card activity-card floating-element"
-      cover={<div className="activity-card-image-div"><img className="activity-card-image" alt="actividad" src={makeImage(activity.images[0]?.id)} /></div>}
+      cover={<div className="activity-card-image-div"><img className="activity-card-image" alt="actividad" src={ hasImages ? makeImage(activity.images[0]?.id) : logo } /></div>}
     >
       <Card.Meta
         title={

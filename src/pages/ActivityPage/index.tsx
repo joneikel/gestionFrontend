@@ -1,4 +1,4 @@
-import { Col, Row, Tag, Space } from 'antd';
+import { Col, Row, Tag, Space, Empty } from 'antd';
 import { AxiosInstance } from 'axios';
 import React, { useEffect, useState } from 'react';
 import MainTable from '../../components/tables/MainTable';
@@ -7,6 +7,7 @@ import { Activity, Parroquia, Project } from '../../models';
 import UserContainer from '../../unstated/UserContainer';
 import ActivityCards from './components/ActivityCards';
 import Filters from './components/ActivityFilters';
+import LoadingCards from './components/LoadingCards';
 
 const ActivityPage = ({ projectId, projectDetails }: { projectId?: string, projectDetails?: boolean }) => {
 
@@ -16,6 +17,7 @@ const ActivityPage = ({ projectId, projectDetails }: { projectId?: string, proje
 
   const [loading, setLoading] = useState(false);
   const [activities, setActivities] = useState<Activity[] | undefined>();
+  const activitiesToShow = activities && activities.length > 0 ? true : false;
   const [filters, setFilters] = useState({
     institution_id: default_institution,
     municipio_id: undefined,
@@ -84,8 +86,16 @@ const ActivityPage = ({ projectId, projectDetails }: { projectId?: string, proje
             }} />
         </Col>
         <Col span={24}>
-          {projectDetails === true ? <MainTable onSearch={() => null} loading={loading} dataSource={activities} columns={columns} /> :
-            activities && activities.length > 0 && <Space>{activities.map((act) => <ActivityCards activity={act} i={1} />)}</Space>}
+          {
+            projectDetails === true ?
+              <MainTable onSearch={() => null} loading={loading} dataSource={activities} columns={columns} /> :
+              loading ? <LoadingCards /> :
+                activitiesToShow ? <div style={{width: '100%'}} ><Space>{activities?.map((act) => <ActivityCards activity={act} i={1} />)}</Space></div> :
+                  <Empty
+                  style={{marginTop: '100px'}} 
+                  description="No se encontraron actividades." />
+
+          }
         </Col>
       </Row>
     </>

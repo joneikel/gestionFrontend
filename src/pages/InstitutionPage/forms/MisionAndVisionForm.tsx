@@ -16,7 +16,6 @@ const MisionAndVisionForm = () => {
 
 
 
-    const [parentInstitution, setParentInstitution] = useState<string | undefined>(userState.user?.institution.parent_id);
     const [loading, setLoading] = useState<boolean>(false);
 
     const handleSubmit = async (values: any) => {
@@ -41,7 +40,7 @@ const MisionAndVisionForm = () => {
                 form={form}
                 layout="vertical"
                 onFinish={handleSubmit}
-                initialValues={userState.user?.institution.mision && userState.user?.institution.vision ? {
+                initialValues={ userState.user?.institution?.mision && userState.user?.institution.vision ? {
                     mision: userState.user?.institution.mision,
                     vision: userState.user?.institution.vision
                 } : {}}>
@@ -59,7 +58,7 @@ const MisionAndVisionForm = () => {
                             ]}
                         >
                             <div className="mision-vision-form-field" >
-                                {userState.user?.institution.name.toUpperCase()}
+                                {userState.user?.institution?.name.toUpperCase()}
                             </div>
                         </Form.Item>
                     </Col>
@@ -102,7 +101,7 @@ const MisionAndVisionForm = () => {
                                 loading={loading}
                                 onClick={() => setVisible(!visible)}
                             >
-                                {userState.user?.institution.mision && userState.user?.institution.vision ? "Actualizar" : "Guardar"}
+                                {userState.user?.institution?.mision && userState.user?.institution?.vision ? "Actualizar" : "Guardar"}
                             </Button>
                         </Form.Item>
                     </Col>

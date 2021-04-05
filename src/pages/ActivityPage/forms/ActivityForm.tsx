@@ -21,7 +21,7 @@ const ActivityForm = () => {
   const [form] = Form.useForm();
 
   const [projectId, setProjectId] = useState<string | undefined>(undefined);
-  const [noAplica,setNoAplica] = useState<boolean>(true);
+  const [noAplica, setNoAplica] = useState<boolean>(true);
 
   console.log(noAplica);
 
@@ -34,7 +34,7 @@ const ActivityForm = () => {
     string | undefined
   >();
 
-  const [institution,setInstitution] = useState<string | undefined>();
+  const [institution, setInstitution] = useState<string | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const [estimatedPopulation, setEstimatedPopulation] = useState<number | undefined>();
   const [population, setPopulation] = useState(false);
@@ -67,7 +67,10 @@ const ActivityForm = () => {
     const { images } = values;
     delete values["images"];
     Object.keys(values).forEach(key => {
-      data.set(key, values[key]);
+      if(values[key]!== undefined){
+        return data.set(key, values[key]);
+      }
+      
     });
     images?.forEach((image: any) => {
       data.append("images[]", image.originFileObj);
@@ -83,11 +86,11 @@ const ActivityForm = () => {
             <Form.Item
               hasFeedback
               name="parentInstitution"
-              label="Secretaria Ejecutiva"
+              label="Secretaría Ejecutiva"
               rules={[
                 {
                   required: true,
-                  message: "Debes seleccionar secretaria ejecutiva.",
+                  message: "Debes seleccionar secretaría ejecutiva.",
                 },
               ]}
             >
@@ -98,11 +101,11 @@ const ActivityForm = () => {
             <Form.Item
               hasFeedback
               name="institutionId"
-              label="Institucion"
+              label="Institución"
               rules={[
                 {
                   required: true,
-                  message: "Debes seleccionar secretaria ejecutiva.",
+                  message: "Debes seleccionar secretaría ejecutiva.",
                 },
               ]}
             >
@@ -163,11 +166,11 @@ const ActivityForm = () => {
             <Form.Item
               hasFeedback
               name="description"
-              label="Descripcion"
+              label="Descripción"
               rules={[
                 {
                   required: true,
-                  message: "Debes indicar descripcion de la actividad",
+                  message: "Debes indicar descripción de la actividad",
                 },
               ]}
             >
@@ -236,7 +239,7 @@ const ActivityForm = () => {
             <Form.Item
               hasFeedback
               name="gobernador"
-              label="Asistio el Gobernador"
+              label="Asistió el Gobernador"
               rules={[{ required: true, message: "Debes indicar" }]}
             >
               <Select>
@@ -310,13 +313,7 @@ const ActivityForm = () => {
             <Form.Item
               hasFeedback
               name="end_date"
-              label="Fecha de Culminacion"
-              rules={[
-                {
-                  required: true,
-                  message: "Debes indicar fecha de culminacion de la actividad",
-                },
-              ]}
+              label="Fecha de Culminación"
             >
               <Input type="date" />
             </Form.Item>
@@ -339,11 +336,11 @@ const ActivityForm = () => {
               <Form.Item
                 hasFeedback
                 name="estimated_population"
-                label="Poblacion Estimada"
+                label="Población Estimada"
                 rules={[
                   {
                     required: noAplica,
-                    message: "Debes indicar poblacion estimada de la actividad",
+                    message: "Debes indicar población estimada de la actividad",
                   },
                   {
                     pattern: /^\d+$/,
@@ -360,24 +357,22 @@ const ActivityForm = () => {
               <Form.Item
                 hasFeedback
                 name="benefited_population"
-                label="Poblacion Beneficiada"
+                label="Población Beneficiada"
                 rules={[
-                  {
-                    required: noAplica,
-                    message: "Debes indicar poblacion benefiada de la actividad",
-                  },
                   {
                     pattern: /^\d+$/,
                     message: "Solo puede introducir numeros"
                   }, {
                     validator: async (_, value) => {
+                       value = value ? value : 0; 
+                      console.log(value);
                       let benefitedPoulation = Number(value);
                       let estimatedPopulation1 = Number(estimatedPopulation)
 
                       if (estimatedPopulation1 >= benefitedPoulation) {
                         return Promise.resolve();
                       } else {
-                        return Promise.reject('Poblacion excedida');
+                        return Promise.reject('Población excedida');
                       }
                     }
                   }
@@ -404,13 +399,7 @@ const ActivityForm = () => {
             <Form.Item
               hasFeedback
               name="images"
-              label="Memoria fotografica"
-              rules={[
-                {
-                  required: true,
-                  message: "Debes indicar poblacion benefiada de la actividad",
-                },
-              ]}
+              label="Memoria fotográfica"
             >
               <EcUploader />
             </Form.Item>

@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Space, Tag } from 'antd';
+import { Button, Form, Input, message, Modal, Space, Tag, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import { useAxios } from '../../../hooks/useAxios';
 import { ProjectStatus } from '../../../models';
@@ -92,9 +92,12 @@ const UpdateProjectStatusModal = ({ project_status, project_id, onChange, author
                 </Form>
 
             </Modal>
-            {project_status.is_final ?
+            <Tooltip title="Actualizar status del proyecto">
+                {project_status.is_final ?
                 <Tag className="project-status-tag" color="red" onChange={() => setVisible(!visible)}>{project_status.name}</Tag > :
                 <Tag className="project-status-tag" color="#40bf22" onClick={() => setVisible(!visible)} >{project_status.name}</Tag>}
+            </Tooltip>
+            
         </>
     )
 }

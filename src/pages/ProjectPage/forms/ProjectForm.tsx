@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ProgramSelect from "../../ActivityPage/components/ProgramSelect";
 import { useAxios } from "../../../hooks/useAxios";
 import { useHistory } from "react-router-dom";
+import moment from 'moment';
 import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
 import ProjectStatusSelect from "../components/ProjectStatusSelect";
 import InputBudget from "../components/InputBudget";
@@ -21,6 +22,7 @@ const ProjectForm = () => {
   const [parentInstitution, setParentInstitution] = useState<
     string | undefined
   >();
+  const [initDate, setInitDate] = useState<moment.Moment | undefined>();
   const [institution, setInstitution] = useState<string | undefined>();
   const [investmentArea, setInvestmentArea] = useState<string[] | undefined>();
   const [isPlanified, setIsPlanified] = useState(1);
@@ -302,7 +304,7 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <Input type="date" />
+              <Input type="date" onChange={(e) => setInitDate(moment(e.currentTarget.value))} />
             </Form.Item>
           </Col>
 
@@ -314,7 +316,17 @@ const ProjectForm = () => {
               rules={[
                 {
                   required: false,
-                },
+                },{
+                  validator: async (_, value) => {
+                    let end_date = moment(value);
+                     
+                    if (initDate && initDate?.diff(end_date) < 0 || value === undefined ) {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject('Fecha de culminación no puede ser anterior a la de inicio');
+                    }
+                  }
+                }
               ]}
             >
               <Input type="date" />

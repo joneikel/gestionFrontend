@@ -26,7 +26,13 @@ const ProjectDetails = () => {
   const [activities, loadingActivities] = useActivities({
     project_id: project.id,
   });
+  console.log(activities);  
+  const hasImages = activities.length > 0 && activities[0].images?.length > 0 ? true : false;
   const [loading, setLoading] = useState<boolean>(false);
+
+  const culmination_date = project.modified_culmination_dates.length > 0
+    ? project.modified_culmination_dates[project.modified_culmination_dates.length - 1].modified_date
+    : project.end_date ? project.end_date : "Sin culminar";
 
   const updateProject = (newProject: Project) => {
     setProject(newProject);
@@ -83,8 +89,8 @@ const ProjectDetails = () => {
               <Col span={24}>
                 <Card
                   className="floating-element"
-                  title="memoria fotografica" headStyle={{ border: "none" }}>
-                  {activities.length > 0 ? (
+                  title="memoria fotográfica" headStyle={{ border: "none" }}>
+                  { hasImages ? (
                     <ActivityImageGallery images={activities.map(act => act.images[0])} />
                   ) : <Empty description="No ha cargado imagenes" />}
                 </Card>

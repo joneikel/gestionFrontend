@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button, Space, Input } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import MeasurementUnitSelect from "./MeasurementUnitSelect";
 import { Project } from "../../../models";
 
-const ImputMeasurementUnit = ({units}:{units?:string[]}) => {
+const ImputMeasurementUnit = ({ units }: { units?: string[] }) => {
+
+  const [proposedGoals, setProposedGoals] = useState<Number[]>([]);
+  console.log(proposedGoals);
 
   return (
     <Form.List name="measurement">
       {(fields, { add, remove }) => (
         <>
-          {fields.map((field) => (
+          {fields.map((field, i) => (
             <Space
               key={field.key}
-              style={{ display: "flex", marginBottom: 8}}
+              style={{ display: "flex", marginBottom: 8 }}
               align="baseline"
             >
               <Form.Item
@@ -32,23 +35,44 @@ const ImputMeasurementUnit = ({units}:{units?:string[]}) => {
                 fieldKey={[field.fieldKey, "proposed_goal"]}
                 rules={[{ required: true, message: "Introduzca el valor" }]}
               >
-                    <Input 
-                    placeholder="Meta propuesta"
-                    style={{width: '18vw'}}  />
+                <Input
+                  onChange={(e)=> {
+                    let modifiedGoals = proposedGoals;
+                    modifiedGoals[i] = Number(e.target.value);
+                    setProposedGoals(modifiedGoals);
+                  }}
+                  placeholder="Meta propuesta"
+                  style={{ width: '18vw' }} />
               </Form.Item>
               <Form.Item
                 hasFeedback
                 {...field}
                 name={[field.name, "reached_goal"]}
                 fieldKey={[field.fieldKey, "reached_goal"]}
-                rules={[{ required: false, message: "Introduzca el valor" }]}
+                rules={[{ 
+                  required: false, 
+                  message: "Introduzca el valor" 
+                },{
+                  validator: async (_, value) => {
+                     value = value ? value : 0; 
+                    console.log(value);
+                    let reached_goal = Number(value);
+                    let proposed_goal = Number(proposedGoals[i])
+
+                    if (proposed_goal >= reached_goal) {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject('Meta alcanzada excede meta propuesta');
+                    }
+                  }
+                }]}
               >
-                    <Input 
-                    placeholder="Meta alcanzada"
-                    style={{width: '18vw'}}  />
+                <Input
+                  placeholder="Meta alcanzada"
+                  style={{ width: '18vw' }} />
               </Form.Item>
               <MinusCircleOutlined onClick={() => remove(field.name)} />
-            
+
             </Space>
           ))}
           <Form.Item>

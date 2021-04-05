@@ -16,7 +16,7 @@ const MunicipiosSelect = ({
   };
 
   return (
-    <Select onChange={handleChange} loading={loadingMunicipios} placeholder="Municipio" >
+    <Select style={{width: '100%'}} onChange={handleChange} loading={loadingMunicipios} placeholder="Municipio" >
       {municipios.map((municipio) => (
         <Select.Option value={municipio.id} key={municipio.id}>
           {municipio.name}

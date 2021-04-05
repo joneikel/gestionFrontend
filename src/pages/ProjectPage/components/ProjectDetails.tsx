@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Tag, Progress, Col, Row, Typography } from "antd";
+import { Card, Tag, Progress, Col, Row, Typography, Empty } from "antd";
 import { useHistory } from "react-router-dom";
 import { Budget, MeasurementUnit, Project } from "../../../models";
 import { moneyFormatter } from "../../../helpers";
@@ -12,8 +12,13 @@ import { useActivities } from "../../../hooks/useActivities";
 import ActivityList from "./ActivityList";
 import ModifyCulminationDateModal from "./ModifyCulminationDateModal";
 import ActivityImageGallery from "../../ActivityPage/components/ImageGallery";
+import UserContainer from "../../../unstated/UserContainer";
 
 const ProjectDetails = () => {
+
+  const { user } = UserContainer.useContainer();
+  const updateAuthorization = user?.scopes.includes("projects:update") ? true : false;
+
   const history = useHistory();
   const [project, setProject] = useState<Project>(
     history.location.state as Project
@@ -39,6 +44,7 @@ const ProjectDetails = () => {
             <Typography.Title>{project.name}</Typography.Title>
           </Col>
           <Col span={24}>
+<<<<<<< HEAD
             {project.project_status.name && (
               <UpdateProjectStatusModal
                 project_status={project.project_status}
@@ -51,6 +57,14 @@ const ProjectDetails = () => {
               onChange={updateProject}
               project_id={project.id}
             />}
+=======
+            <UpdateProjectStatusModal
+              authorization={updateAuthorization}
+              project_status={project.project_status}
+              project_id={project.id}
+              onChange={updateProject}
+            />
+>>>>>>> 7f5ebe07124ddec19b95948a5192b4c78bd02d9f
           </Col>
           <Col span={12}>
             <Row gutter={[10, 10]}>
@@ -59,7 +73,7 @@ const ProjectDetails = () => {
                   headStyle={{ border: "none" }}
                   title="metas"
                   extra={
-                    <IncreaseProjectGoalsModal
+                    updateAuthorization && <IncreaseProjectGoalsModal
                       onChange={updateProject}
                       selectedUnits={project.measurement_unit.map((x) => x.id)}
                       project_id={project.id}
@@ -86,9 +100,13 @@ const ProjectDetails = () => {
                 </Card>
               </Col>
               <Col span={24}>
-                {activities.length > 0 && (
-                  <ActivityImageGallery activity={activities[0]} />
-                )}
+                <Card
+                  className="floating-element"
+                  title="memoria fotografica" headStyle={{ border: "none" }}>
+                  {activities.length > 0 ? (
+                    <ActivityImageGallery images={activities.map(act => act.images[0])} />
+                  ) : <Empty description="No ha cargado imagenes" />}
+                </Card>
               </Col>
             </Row>
           </Col>
@@ -104,7 +122,7 @@ const ProjectDetails = () => {
                   title="presupuesto"
                   headStyle={{ border: "none" }}
                   extra={
-                    <IncreaseProjectBudgetModal
+                    updateAuthorization && <IncreaseProjectBudgetModal
                       project_id={project.id}
                       onChange={updateProject}
                     />
@@ -113,13 +131,33 @@ const ProjectDetails = () => {
                   <BudgetDetail budget={project.budgets} />
                 </Card>
               </Col>
+<<<<<<< HEAD
               <Col span={24} >
+=======
+              <Col span={24}>
+>>>>>>> 7f5ebe07124ddec19b95948a5192b4c78bd02d9f
                 <Card className="floating-element">
                   <BudgetGraph budget={project.budgets} />
                 </Card>
               </Col>
             </Row>
           </Col>
+<<<<<<< HEAD
+=======
+          <Col>
+            {project.end_date ? project.end_date : "Sin culminar"}
+            <br />
+            {project.modified_culmination_dates.length > 0
+              ? project.modified_culmination_dates[project.modified_culmination_dates.length - 1].modified_date
+              : "Sin modificar"}
+            <br />
+
+            {updateAuthorization && <ModifyCulminationDateModal
+              onChange={updateProject}
+              project_id={project.id}
+            />}
+          </Col>
+>>>>>>> 7f5ebe07124ddec19b95948a5192b4c78bd02d9f
         </Row>
       ) : (
           <Progress percent={99.9} type="dashboard" />

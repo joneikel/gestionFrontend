@@ -18,6 +18,7 @@ export type useScopeProps =
  |"users:delete"
  |"users:update"
  |"users:read"
+ |"users:executive"
  |"institutions:menu"
  |"institutions:create"
  |"institutions:delete"

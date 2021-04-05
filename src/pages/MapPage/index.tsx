@@ -1,20 +1,19 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import {
   MapContainer,
   TileLayer,
-  GeoJSON,
-  useMap,
-  SVGOverlay,
-  Marker,
-  Tooltip,
 } from "react-leaflet";
-import { useActivities } from "../../hooks/useActivities";
 import { guaricoJSON } from "./guarico_municipios";
 import MunicipalityInfo from "./MunicipalityInfo";
 import L from "leaflet";
 import salud from '../../assets/svg-icons/salud.svg';
 import { Institution } from "../../models";
 import { getSvgIconByAreaCode } from "../../helpers/icons";
+import ProjectListModal from "../ProjectPage/components/ProjectListModal";
+import MapFilters, { MapFiltersOpts, MapFilterToggle } from "./MapFilters";
+import MapLabels from "./MapLabels";
+import GeoJSONGuarico from "./GEOJson";
+import MapActivities from "./MapActivities";
 
 export const defaultMarker = L.icon({
   iconUrl: salud,
@@ -22,16 +21,21 @@ export const defaultMarker = L.icon({
 });
 
 const MapPage = () => {
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isBottombarOpen, setIsBottombarOpen] = useState(false);
+  const [projectModal, setProjectModal] = useState<onProjectClickProps>({ isOpen: false });
   const [selectedMunicipalityCode, setSelectedMunicipalityCode] = useState<
     string | undefined
   >();
-
-  const [activities, loadingActivities] = useActivities({});
+  const [checkedIntitutions, setCheckedInstitutions] = useState<ActivityCardData[]>([]);
+  const [filters, setFilters] = useState<MapFiltersOpts>();
 
   return (
     <>
       <MapContainer
+        id="map-container"
+        zoomControl={false}
         doubleClickZoom={false}
         minZoom={8}
         /*maxBounds={[
@@ -46,135 +50,62 @@ const MapPage = () => {
         zoom={8.3}
       >
         <TileLayer url="https://mt2.google.com/vt/lyrs=r&x={x}&y={y}&z={z}" />
+        <MapFilters
+          onChange={setFilters}
+          onClose={() => setIsBottombarOpen(false)}
+          isSidebarOpen={isSidebarOpen}
+          isOpen={isBottombarOpen} />
+        <MapFilterToggle isOpen={isBottombarOpen} onClick={() => setIsBottombarOpen(!isBottombarOpen)} />
         <MunicipalityInfo
+          checkedIntitutions={checkedIntitutions}
+          onLoad={(data) => setCheckedInstitutions([data, ...checkedIntitutions])}
+          onUnload={({ institution_id, municipio_id }) => setCheckedInstitutions(checkedIntitutions.filter(a => {
+            return !(a.municipio_id === municipio_id && a.institution_id === institution_id)
+          }
+          ))}
+          onProjectsClick={({ institution_id, municipio_id }) => setProjectModal({ isOpen: true, institution_id, municipio_id })}
           municipalityCode={selectedMunicipalityCode}
           isOpen={isSidebarOpen}
           onClose={() => {
+            console.log(checkedIntitutions);
             setIsSidebarOpen(false);
             setSelectedMunicipalityCode(undefined);
           }}
         />
+        <ProjectListModal
+          isOpen={projectModal.isOpen}
+          filters={{ institution_id: projectModal.institution_id, municipio_id: projectModal.municipio_id }}
+          onClose={() => setProjectModal({ isOpen: false })} />
         <GeoJSONGuarico
+          opacity={0.5}
           geoJson={guaricoJSON}
           onFeatureDblClick={(e: any, code: string) => {
             setIsSidebarOpen(true);
             setSelectedMunicipalityCode(code);
           }}
         />
-        <MapLabels features={guaricoJSON} />
-        {activities
-          .filter(
-            (act) =>
-              act.lat &&
-              act.lng &&
-              act.parroquia.municipio.code === selectedMunicipalityCode
-          )
-          .map(({ lat, lng, name, project }) => {
-            return (
-              lat &&
-              lng && (
-                <Marker icon={makeMarker({ institution: project.program.institution })} position={{ lat, lng }}>
-                  <Tooltip>{name}</Tooltip>
-                </Marker>
-              )
-            );
-          })}
+        <MapLabels features={guaricoJSON.features} />
+        <MapActivities filters={filters} muncipalityCode={selectedMunicipalityCode} checkedIntitutions={checkedIntitutions} />
       </MapContainer>
     </>
   );
 };
 
-const MapLabels = ({ features }: { features: any[] }) => {
-  const map = useMap();
-  const onClick = useCallback(
-    (event) => map.setView(event.sourceTarget.feature.properties.CENTER),
-    [map]
-  );
-
-  return guaricoJSON.features.map((feat: any) => {
-    return (
-      <SVGOverlay
-        attributes={{ stroke: "red" }}
-        bounds={[
-          [feat.properties.CENTER.lat - 0.1, feat.properties.CENTER.lng],
-          [feat.properties.CENTER.lat, feat.properties.CENTER.lng + 1],
-        ]}
-      >
-        <text
-          onClick={() => console.log(feat)}
-          style={{ WebkitTextStroke: "1px white" }}
-          fontSize="12px"
-          width="100%"
-          height="100%"
-          x="1%"
-          y="60%"
-          stroke="black"
-        >
-          {feat.properties.NAME_2}
-        </text>
-      </SVGOverlay>
-    );
-  });
-};
-
-export const GeoJSONGuarico = ({
-  onFeatureDblClick,
-  geoJson,
-  opacity
-}: {
-  onFeatureDblClick?: Function;
-  geoJson: any,
-  opacity?: number
-}) => {
-  const map = useMap();
-
-  const onClick = useCallback(
-    (event) => {
-      //map.setView([event.sourceTarget.feature.properties.CENTER.lat, event.sourceTarget.feature.properties.CENTER.lng + .5], 9.5);
-      //onFeatureDblClick(event);
-    },
-    [map]
-  );
-
-  const onDblClick = useCallback(
-    (event) => {
-      map.setView(
-        [
-          event.sourceTarget.feature.properties.CENTER.lat,
-          event.sourceTarget.feature.properties.CENTER.lng + 0.5,
-        ],
-        9.5
-      );
-      onFeatureDblClick && onFeatureDblClick(event, event.sourceTarget.feature.properties.CODE);
-    },
-    [map, onFeatureDblClick]
-  );
-
-  return (
-    <GeoJSON
-      eventHandlers={{
-        click: onClick,
-        dblclick: onDblClick,
-      }}
-      style={(feat: any) => {
-        return {
-          color: feat.properties.fill,
-          fillColor: feat.properties.fill,
-          fillOpacity: opacity || 0.4,
-          weight: 0.2,
-          fillRule: "evenodd",
-        };
-      }}
-      data={geoJson}
-    />
-  );
-};
 
 export const makeMarker = ({ institution }: { institution: Institution }) => {
   return L.icon({
     iconUrl: getSvgIconByAreaCode(institution.parent ? institution.parent.code : institution.code),
     iconSize: [30, 50],
+    className: "map-marker-animation"
   });
+}
+
+export type ActivityCardData = { municipio_id: string, institution_id: string };
+
+export type onProjectClickProps = {
+  isOpen: boolean,
+  municipio_id?: string,
+  institution_id?: string
 }
 
 export default MapPage;

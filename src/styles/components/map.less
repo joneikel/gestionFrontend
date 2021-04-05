@@ -1,4 +1,58 @@
 .map-sidebar {
-    transition: width .5s;
-    box-shadow: rgba(0, 0, 0, 0.47) -2px 0px 8px;
+  transition: width 0.5s;
+  box-shadow: rgba(0, 0, 0, 0.47) -2px 0px 8px;
+  height: 100%;
+  z-index: 500;
+  background-color: #fff;
+  overflow-y: scroll;
+  cursor: default;
+  position: absolute;
+  right: 0px;
+}
+
+.map-filter-container {
+  transition: height 0.5s, width 0.6s;
+  background-color: #fff;
+  cursor: default;
+  z-index: 500;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  border: 1px solid #ccc;
+  .filters {
+    padding: 20px;
+  }
+}
+
+.map-filter-toggle {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 499;
+}
+
+.loading-map-activities-spinner {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 499;
+  .ant-spin-dot-item {
+    background-color: @accent;
+  }
+}
+
+.map-marker-animation {
+  -webkit-animation: scale-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: scale-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+
+@keyframes scale-in-bottom {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

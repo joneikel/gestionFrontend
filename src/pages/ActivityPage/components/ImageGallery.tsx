@@ -1,38 +1,30 @@
-import { Gallery, Item } from "react-photoswipe-gallery";
-import { Activity } from "../../../models";
+import { ActivityImage } from "../../../models";
 import { makeImage } from "../../../hooks/makeImage";
-import { MutableRefObject } from "react";
-import "photoswipe/dist/photoswipe.css";
-import "photoswipe/dist/default-skin/default-skin.css";
+import { Carousel, Image } from "antd";
 
-const ImageGallery = ({ activity }: { activity: Activity }) => {
-  const photos = activity.images.map((img) => ({ src: img.id }));
-
+const ImageGallery = ({ images }: { images: ActivityImage[] }) => {
+  const photos = images.map((img) => ({ src: img.id }));
+  
   return (
-    <Gallery>
+    <Carousel 
+      arrows
+      autoplay
+      style={{width: '300px'}}>
       {photos.map((photo) => (
-        <Item
+        <div
+          key={photo.src}
           id={photo.src}
-          original={makeImage(photo.src)}
-          thumbnail={makeImage(photo.src)}
-          width="50px"
-          height="50px"
+          style={{width: '100%'}}
         >
-          {({ ref, open }) => {
-            return <img
+            <Image
               alt="s"
-              style={{ margin: 5 }}
               key={photo.src}
-              ref={ref as MutableRefObject<HTMLImageElement>}
-              width="50px"
-              height="50px"
-              onClick={() => open()}
+              width="100%"
               src={makeImage(photo.src)}
             />
-          }}
-        </Item>
+        </div>
       ))}
-    </Gallery>
+    </Carousel>
   );
 };
 

@@ -40,7 +40,13 @@ export const routes: SidebarItem[] = [
         icon: <PlusCircleOutlined />,
         link: "/nueva-secretaria",
         children: [],
-      },
+      },{
+        scope: "institutions:update",
+        label: "Misión y visión",
+        icon: <PlusCircleOutlined />,
+        link: "/mision-vision",
+        children: [],
+      }
     ],
   }, {
     scope: "programs:menu",

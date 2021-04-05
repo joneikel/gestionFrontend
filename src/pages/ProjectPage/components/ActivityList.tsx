@@ -1,5 +1,7 @@
-import { List, Avatar, Tag } from 'antd';
+import { List, Avatar, Tag, Image } from 'antd';
+import { makeImage } from '../../../hooks/makeImage';
 import { Activity } from '../../../models';
+import logo from '../../../assets/bg/logo.png';
 
 const ActivityList = ({ activities }: { activities: Activity[] }) => {
   return (
@@ -9,7 +11,9 @@ const ActivityList = ({ activities }: { activities: Activity[] }) => {
       renderItem={item => (
         <List.Item>
           <List.Item.Meta
-            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+            avatar={<Avatar>
+              <Image src={item.images.length > 0 ? makeImage(item.images[0].id) : logo} />
+            </Avatar>}
             title={<a href={`/actividad/${item.id}`}>{item.name}</a>}
             description={<>
               <Tag>{item.parroquia.municipio.name}</Tag>

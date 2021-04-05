@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
-import { defaultMarker, GeoJSONGuarico, MapLabels } from "../../MapPage";
+import { defaultMarker } from "../../MapPage";
 import { guaricoJSON } from "../../MapPage/guarico_municipios";
+import MapLabels from "../../MapPage/MapLabels";
 
 const CoordinatesInput = ({ value, onChange }: { value?: { lat: number, lng: number }, onChange?: Function }) => {
 

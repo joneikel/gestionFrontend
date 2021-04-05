@@ -13,6 +13,7 @@ export type Institution = {
   vision?: string;
   code: string;
   parent?: Institution;
+  short_name?: string;
 };
 
 export type Program = {

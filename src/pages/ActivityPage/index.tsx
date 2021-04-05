@@ -90,7 +90,7 @@ const ActivityPage = ({ projectId, projectDetails }: { projectId?: string, proje
             projectDetails === true ?
               <MainTable onSearch={() => null} loading={loading} dataSource={activities} columns={columns} /> :
               loading ? <LoadingCards /> :
-                activitiesToShow ? <Space>{activities?.map((act) => <ActivityCards activity={act} i={1} />)}</Space> :
+                activitiesToShow ? <div style={{width: '100%'}} ><Space>{activities?.map((act) => <ActivityCards activity={act} i={1} />)}</Space></div> :
                   <Empty
                   style={{marginTop: '100px'}} 
                   description="No se encontraron actividades." />

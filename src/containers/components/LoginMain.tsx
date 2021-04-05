@@ -14,11 +14,13 @@ import ganado1 from '../../assets/bg/ganaderia.png';
 import siembra2 from '../../assets/bg/siembra2.png';
 import siembra3 from '../../assets/bg/maiz.png';
 import dgi from '../../assets/bg/dgi.png';
+import logoSicsa from '../../assets/logo.png';
 
 const LoginMain = () => {
   return (
     <Layout>
       <div className="login-card-div" >
+        <img className="logo-sicsa" width="200" src={logoSicsa}></img>
         <Card
           className="floating-element"
         >
@@ -130,7 +132,7 @@ const LoginBackground = () => {
           style={{ borderRadius: 140, position: 'absolute', width: '7vw', left: "40%", top: '45%' }} src={siembra3}></img>
         <img alt="" className="slide-in-blurred-bottom"
           style={{ borderRadius: 140, position: 'absolute', width: '8vw', left: "90%", top: '12%' }} src={siembra2}></img>
-        <img alt="" style={{ position: 'absolute', width: '18vw', left: "53%", top: '34%' }} src={logo}></img>
+{/*         <img alt="" style={{ position: 'absolute', width: '18vw', left: "53%", top: '34%' }} src={logo}></img> */}
       </div>
     </>
   )

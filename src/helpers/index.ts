@@ -1,5 +1,6 @@
 import { message } from "antd";
 import { AxiosInstance } from "axios";
+import moment from 'moment';
 
 export function uuidv4() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -110,3 +111,15 @@ export const months = [
   "Noviembre",
   "Diciembre"
 ];
+
+export function getBeginAndEndOfMonths(dateRange: [number, number]) {
+  const year = moment().format('Y');
+  const initMonth = dateRange[0] > 9 ? dateRange[0] : `0${dateRange[0]}`;
+  const endMonth =  dateRange[1] > 9 ? dateRange[1] : `0${dateRange[1]}`;
+  const begin = `01-${initMonth}-${year}`;
+  const monthEnd = `${year}-${endMonth}-01`;
+  console.log(begin, monthEnd);
+  const end = moment(monthEnd).clone().endOf('month').format('DD-MM-YYYY'); 
+  console.log([begin, end]);
+  return [begin, end];
+}

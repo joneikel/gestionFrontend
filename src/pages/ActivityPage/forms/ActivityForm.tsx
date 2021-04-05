@@ -1,5 +1,6 @@
 import { Button, Col, Form, Input, Row, Select, message, Progress, Card } from "antd";
 import React, { useState } from "react";
+import moment from 'moment';
 import InstitutionsSelect from "../components/InstitutionSelect";
 import MunicipiosSelect from "../components/MunicipioSelect";
 import ParroquiaSelect from "../components/ParroquiaSelect";
@@ -16,13 +17,14 @@ import { moneyFormatter } from "../../../helpers";
 import CoordinatesInput from "./CoordinatesInput";
 
 const ActivityForm = () => {
+
   const axios = useAxios();
   const history = useHistory();
   const [form] = Form.useForm();
 
   const [projectId, setProjectId] = useState<string | undefined>(undefined);
   const [noAplica, setNoAplica] = useState<boolean>(true);
-
+  const [initDate, setInitDate] = useState<moment.Moment | undefined>();
   console.log(noAplica);
 
   const [availableBudget, loadingAvailableBudget] = useAvaiableBudget(projectId);
@@ -67,10 +69,10 @@ const ActivityForm = () => {
     const { images } = values;
     delete values["images"];
     Object.keys(values).forEach(key => {
-      if(values[key]!== undefined){
+      if (values[key] !== undefined) {
         return data.set(key, values[key]);
       }
-      
+
     });
     images?.forEach((image: any) => {
       data.append("images[]", image.originFileObj);
@@ -305,7 +307,7 @@ const ActivityForm = () => {
                 },
               ]}
             >
-              <Input type="date" />
+              <Input type="date" onChange={(e) => setInitDate(moment(e.currentTarget.value))} />
             </Form.Item>
           </Col>
 
@@ -314,6 +316,22 @@ const ActivityForm = () => {
               hasFeedback
               name="end_date"
               label="Fecha de Culminación"
+              rules={[
+                {
+                  required: true,
+                  message: "Debes indicar fecha de culminación de la actividad"
+                }, {
+                  validator: async (_, value) => {
+                    let end_date = moment(value);
+
+                    if ( initDate && initDate?.diff(end_date) < 0 || value === undefined ) {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject('Fecha de culminación no puede ser anterior a la de inicio');
+                    }
+                  }
+                }
+              ]}
             >
               <Input type="date" />
             </Form.Item>
@@ -364,7 +382,7 @@ const ActivityForm = () => {
                     message: "Solo puede introducir numeros"
                   }, {
                     validator: async (_, value) => {
-                       value = value ? value : 0; 
+                      value = value ? value : 0;
                       console.log(value);
                       let benefitedPoulation = Number(value);
                       let estimatedPopulation1 = Number(estimatedPopulation)

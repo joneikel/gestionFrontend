@@ -26,6 +26,8 @@ const ProjectDetails = () => {
   const [activities, loadingActivities] = useActivities({
     project_id: project.id,
   });
+  console.log(activities);  
+  const hasImages = activities.length > 0 && activities[0].images?.length > 0 ? true : false;
   const [loading, setLoading] = useState<boolean>(false);
 
   const culmination_date = project.modified_culmination_dates.length > 0
@@ -44,27 +46,12 @@ const ProjectDetails = () => {
             <Typography.Title>{project.name}</Typography.Title>
           </Col>
           <Col span={24}>
-<<<<<<< HEAD
-            {project.project_status.name && (
-              <UpdateProjectStatusModal
-                project_status={project.project_status}
-                project_id={project.id}
-                onChange={updateProject}
-              />
-            )}
-            { culmination_date && <ModifyCulminationDateModal
-              culmination_date={culmination_date}
-              onChange={updateProject}
-              project_id={project.id}
-            />}
-=======
             <UpdateProjectStatusModal
               authorization={updateAuthorization}
               project_status={project.project_status}
               project_id={project.id}
               onChange={updateProject}
             />
->>>>>>> 7f5ebe07124ddec19b95948a5192b4c78bd02d9f
           </Col>
           <Col span={12}>
             <Row gutter={[10, 10]}>
@@ -102,8 +89,8 @@ const ProjectDetails = () => {
               <Col span={24}>
                 <Card
                   className="floating-element"
-                  title="memoria fotografica" headStyle={{ border: "none" }}>
-                  {activities.length > 0 ? (
+                  title="memoria fotográfica" headStyle={{ border: "none" }}>
+                  { hasImages ? (
                     <ActivityImageGallery images={activities.map(act => act.images[0])} />
                   ) : <Empty description="No ha cargado imagenes" />}
                 </Card>
@@ -131,19 +118,13 @@ const ProjectDetails = () => {
                   <BudgetDetail budget={project.budgets} />
                 </Card>
               </Col>
-<<<<<<< HEAD
-              <Col span={24} >
-=======
               <Col span={24}>
->>>>>>> 7f5ebe07124ddec19b95948a5192b4c78bd02d9f
                 <Card className="floating-element">
                   <BudgetGraph budget={project.budgets} />
                 </Card>
               </Col>
             </Row>
           </Col>
-<<<<<<< HEAD
-=======
           <Col>
             {project.end_date ? project.end_date : "Sin culminar"}
             <br />
@@ -157,7 +138,6 @@ const ProjectDetails = () => {
               project_id={project.id}
             />}
           </Col>
->>>>>>> 7f5ebe07124ddec19b95948a5192b4c78bd02d9f
         </Row>
       ) : (
           <Progress percent={99.9} type="dashboard" />

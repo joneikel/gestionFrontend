@@ -4,12 +4,15 @@ import React from "react";
 import { Activity } from "../../../models";
 import moment from "moment";
 import { downloadFileFromLink, moneyFormatter } from "../../../helpers";
-import { PrinterFilled } from "@ant-design/icons";
+import { PrinterFilled, EditFilled } from "@ant-design/icons";
 import { makeImage } from "../../../hooks/makeImage";
 import { getIconByAreaCode } from "../../../helpers/icons";
 import logo from '../../../assets/bg/logo.png';
+import { useHistory } from "react-router";
 
 const ActivityCards = ({ activity, i }: { activity: Activity; i: number }) => {
+
+  const history = useHistory()
 
   const main_area_code = `E0${activity.project.investment_sub_areas[0].investment_area.code}`;
   const hasImages = activity.images[0]?.id ? true : false;
@@ -58,6 +61,12 @@ const ActivityCards = ({ activity, i }: { activity: Activity; i: number }) => {
               "pdf"
             )
           }
+        />
+        <Button
+          type="primary"
+          icon={<EditFilled />}
+          size="small"
+          onClick={() => history.push("/editar-actividad",activity)}
         />
       </div>
     </Card>

@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row, Select, message, Progress, Card } from "antd";
+import { Button, Col, Form, Input, Row, Select, message, Progress, Card, Space } from "antd";
 import React, { useState } from "react";
 import moment from 'moment';
 import InstitutionsSelect from "../components/InstitutionSelect";
@@ -15,30 +15,49 @@ import Checkbox from "antd/lib/checkbox/Checkbox";
 import NumberFormat from "react-number-format";
 import { moneyFormatter } from "../../../helpers";
 import CoordinatesInput from "./CoordinatesInput";
+import ImageDeleter from "../components/ImageDeleter";
+import { ActivityImage } from "../../../models";
 
 const ActivityForm = () => {
 
   const axios = useAxios();
   const history = useHistory();
+
+  const _activity: any = history.location.state;
+  const hasImages = _activity?.images[0]?.id ? true : false;
+
   const [form] = Form.useForm();
 
-  const [projectId, setProjectId] = useState<string | undefined>(undefined);
+  const [projectId, setProjectId] = useState<
+    string | undefined>(_activity ? _activity.project_id : undefined);
   const [noAplica, setNoAplica] = useState<boolean>(true);
-  const [initDate, setInitDate] = useState<moment.Moment | undefined>();
-  console.log(noAplica);
 
+  const [initDate, setInitDate] = useState<
+  moment.Moment | undefined>(_activity ? moment(_activity.init_date) : undefined );
+  console.log(initDate);
+  
+
+  const initial_coordinates = _activity?.lat && _activity?.lng ? { lat: Number(_activity.lat), lng: Number(_activity.lng) } : undefined;
+  
   const [availableBudget, loadingAvailableBudget] = useAvaiableBudget(projectId);
 
+  const [program, setProgram] = useState<
+    string | undefined>(_activity ? _activity.project.program_id : undefined);
 
-  const [program, setProgram] = useState<string | undefined>();
-  const [municipio, setMunicipio] = useState<string | undefined>();
+  const [municipio, setMunicipio] = useState<
+    string | undefined>(_activity ? _activity.parroquia.municipio_id : undefined);
+
+  const parroquia = _activity ? _activity.parroquia_id : undefined ;
+
   const [parentInstitution, setParentInstitution] = useState<
-    string | undefined
-  >();
+    string | undefined>(_activity ? _activity.project.program.institution.parent_id : undefined);
 
-  const [institution, setInstitution] = useState<string | undefined>();
+  const [institution, setInstitution] = useState<
+    string | undefined>(_activity ? _activity.project.program.institution_id : undefined);
+
   const [loading, setLoading] = useState<boolean>(false);
-  const [estimatedPopulation, setEstimatedPopulation] = useState<number | undefined>();
+  const [estimatedPopulation, setEstimatedPopulation] = useState<
+  number | undefined>( _activity ? _activity.estimated_population : undefined);
   const [population, setPopulation] = useState(false);
 
   const handleSubmit = async (values: any) => {
@@ -50,16 +69,16 @@ const ActivityForm = () => {
       values.lat = values.geolocation.lat;
       values.lng = values.geolocation.lng;
       const data = buildFormData(values);
-      const response = await axios.post('/activity', data, {
+      const response = await axios.post(`/activity${_activity ? `-update/${_activity.id}` : ""}`, data, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
       });
-      message.success("Actividad creada exitosamente");
+      message.success(`Actividad ${ _activity ? "actualizada" : "creada"} exitosamente`);
       history.push('/listar-actividades');
       return response;
     } catch (error) {
-      message.error("No se ha podido crear la actividad");
+      message.error(`No se ha podido ${ _activity ? "actualizar" : "crear"} la actividad`);
     } finally {
       setLoading(false);
     }
@@ -82,7 +101,32 @@ const ActivityForm = () => {
 
   return (
     <Card title={<CustomPageHeader title="Nueva actividad" />}>
-      <Form layout="vertical" onFinish={handleSubmit} form={form} >
+      <Form
+        layout="vertical"
+        onFinish={handleSubmit}
+        form={form}
+        initialValues={
+          _activity ? {
+            name: _activity.name,
+            address: _activity.address,
+            benefited_population: _activity.benefited_population,
+            budget_cost: Number(_activity.budget_cost).toString(),
+            conclusion: _activity.conclusion,
+            description: _activity.description,
+            init_date: initDate  && initDate.format("YYYY-MM-DD"),
+            end_date: _activity.end_date,
+            estimated_population: estimatedPopulation,
+            geolocation: { lat: _activity.lat, lng: _activity.lng },
+            municipio_id: municipio,
+            parroquia_id: parroquia,
+            parentInstitution: parentInstitution,
+            institutionId: institution,
+            project_id: projectId,
+            program_id: program,
+            gobernador: _activity.gobernador === true ? "SI" : "NO",
+          } : {}
+        }
+      >
         <Row gutter={10}>
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
@@ -96,7 +140,10 @@ const ActivityForm = () => {
                 },
               ]}
             >
-              <InstitutionsSelect onlyParent onChange={setParentInstitution} />
+              <InstitutionsSelect
+                initial_value={parentInstitution}
+                onlyParent
+                onChange={setParentInstitution} />
             </Form.Item>
           </Col>
           <Col lg={12} md={12} sm={24} xs={24}>
@@ -112,6 +159,7 @@ const ActivityForm = () => {
               ]}
             >
               <InstitutionsSelect
+                initial_value={institution}
                 disabled={!parentInstitution}
                 parentId={parentInstitution}
                 onChange={setInstitution}
@@ -131,6 +179,7 @@ const ActivityForm = () => {
               ]}
             >
               <ProgramSelect
+                initial_value={program}
                 disabled={!institution}
                 institutionId={institution}
                 onChange={setProgram}
@@ -146,7 +195,11 @@ const ActivityForm = () => {
                 { required: true, message: "Debes seleccionar el proyecto." },
               ]}
             >
-              <ProjectSelect disabled={!program} programId={program} onChange={setProjectId} />
+              <ProjectSelect
+                initial_value={projectId}
+                disabled={!program}
+                programId={program}
+                onChange={setProjectId} />
             </Form.Item>
           </Col>
           <Col span={24}>
@@ -242,9 +295,11 @@ const ActivityForm = () => {
               hasFeedback
               name="gobernador"
               label="Asistió el Gobernador"
-              rules={[{ required: true, message: "Debes indicar" }]}
+              rules={[{ required: true, message: "Debes indicar si el gobernador asistió/asistirá a esta actividad" }]}
             >
-              <Select>
+              <Select
+                defaultValue={_activity ? _activity.gobernador === true ? "SI" : "NO" : undefined}
+              >
                 <Select.Option value={"SI"}>Si</Select.Option>
                 <Select.Option value={"NO"}>No</Select.Option>
               </Select>
@@ -262,7 +317,9 @@ const ActivityForm = () => {
                 },
               ]}
             >
-              <MunicipiosSelect onChange={setMunicipio} />
+              <MunicipiosSelect
+                initial_value={municipio}
+                onChange={setMunicipio} />
             </Form.Item>
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
@@ -277,7 +334,9 @@ const ActivityForm = () => {
                 },
               ]}
             >
-              <ParroquiaSelect disabled={!municipio} municipio_id={municipio} />
+              <ParroquiaSelect
+                initial_value={parroquia}
+                disabled={!municipio} municipio_id={municipio} />
             </Form.Item>
           </Col>
           <Col lg={12} md={12} sm={24} xs={24}>
@@ -324,7 +383,7 @@ const ActivityForm = () => {
                   validator: async (_, value) => {
                     let end_date = moment(value);
 
-                    if ( initDate && initDate?.diff(end_date) < 0 || value === undefined ) {
+                    if (initDate && initDate?.diff(end_date) < 0 || value === undefined) {
                       return Promise.resolve();
                     } else {
                       return Promise.reject('Fecha de culminación no puede ser anterior a la de inicio');
@@ -409,30 +468,43 @@ const ActivityForm = () => {
 
             >
               <div style={{ height: 300, width: '100%' }}>
-                <CoordinatesInput onChange={(latlng: any) => form.setFieldsValue({ geolocation: latlng })} />
+                <CoordinatesInput
+                  activity_institution={parentInstitution}
+                  value={initial_coordinates}
+                  onChange={(latlng: any) => form.setFieldsValue({ geolocation: latlng })} />
               </div>
             </Form.Item>
           </Col>
+          {hasImages && <Col span={24} >
+            <Form.Item
+              name="stock_images"
+              label="Memoria fotográfica"
+            >
+              <ImageDeleter images={_activity.images.map((image: ActivityImage) => image)} />
+            </Form.Item>
+
+          </Col>}
           <Col span={24}>
             <Form.Item
               hasFeedback
+
               name="images"
-              label="Memoria fotográfica"
+              label="Cargar memoria fotográfica"
             >
               <EcUploader />
             </Form.Item>
           </Col>
           <Col span={24}>
             <Form.Item>
-              <Button type="primary" htmlType="submit" loading={loading} >
-                Registrar
+              <Button type="primary" htmlType="submit" loading={loading} disabled={!availableBudget} >
+                {_activity ? "Editar" : "Registrar"}
               </Button>
             </Form.Item>
             {loading && <Progress percent={99.9} type='line' status='active' />}
           </Col>
         </Row>
       </Form>
-    </Card>
+    </Card >
   );
 };
 export default ActivityForm;

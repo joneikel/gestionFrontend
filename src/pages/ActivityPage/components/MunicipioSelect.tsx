@@ -5,9 +5,11 @@ import { useMunicipios } from "../../../hooks/useMunicipios";
 const MunicipiosSelect = ({
   value,
   onChange,
+  initial_value
 }: {
   value?: string;
   onChange?: Function;
+  initial_value?: string
 }) => {
   const [municipios, loadingMunicipios] = useMunicipios();
 
@@ -16,7 +18,7 @@ const MunicipiosSelect = ({
   };
 
   return (
-    <Select style={{width: '100%'}} onChange={handleChange} loading={loadingMunicipios} placeholder="Municipio" >
+    <Select defaultValue={initial_value} style={{width: '100%'}} onChange={handleChange} loading={loadingMunicipios} placeholder="Municipio" >
       {municipios.map((municipio) => (
         <Select.Option value={municipio.id} key={municipio.id}>
           {municipio.name}

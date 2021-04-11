@@ -8,13 +8,15 @@ const InstitutionsSelect = ({
   value,
   onChange,
   disabled,
-  onlyParent
+  onlyParent,
+  initial_value
 }: {
   parentId?: string;
   value?: string;
   onChange?: Function;
   disabled?: boolean;
   onlyParent?: boolean;
+  initial_value?: string
 }) => {
 
   const userState = UserContainer.useContainer();
@@ -27,6 +29,7 @@ const InstitutionsSelect = ({
 
   return (
       <Select
+      defaultValue={ initial_value }
       showSearch
       filterOption={true}
       optionFilterProp='label'

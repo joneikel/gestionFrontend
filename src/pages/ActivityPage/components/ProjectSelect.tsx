@@ -6,12 +6,14 @@ const ProjectSelect = ({
   programId,
   value,
   onChange,
-  disabled
+  disabled,
+  initial_value
 }: {
   programId?: string;
   value?: string;
   onChange?: Function;
   disabled?: boolean;
+  initial_value?: string;
 }) => {
   const [projects, loadingProjects] = useProjects(programId);
 
@@ -20,7 +22,7 @@ const ProjectSelect = ({
   };
 
   return (
-    <Select disabled={disabled} onChange={handleChange} loading={loadingProjects}>
+    <Select defaultValue={initial_value} disabled={disabled} onChange={handleChange} loading={loadingProjects}>
       {projects.map((projects) => (
         <Select.Option value={projects.id} key={projects.id}>
           {projects.name}

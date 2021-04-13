@@ -64,18 +64,18 @@ const AppRouter = () => {
       <Switch>
 
         <Route exact path="/dashboard" component={() => <Dash />} />
-        
+
         <Route
           exact
           path="/nueva-unidad-medida"
-          component={() => 
-          <MeasurementForm />}
+          component={() =>
+            <MeasurementForm />}
         />
 
         <Route
           exact
           path="/listar-actividades"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="activities:read">
               <ActivityPage />
             </ProtectedComponent>
@@ -85,7 +85,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/nueva-actividad"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="activities:create">
               <ActivityForm />
             </ProtectedComponent>
@@ -94,9 +94,19 @@ const AppRouter = () => {
 
         <Route
           exact
+          path="/editar-actividad"
+          component={() =>
+            <ProtectedComponent scope="activities:update">
+              <ActivityForm />
+            </ProtectedComponent>
+          }
+        />
+
+        <Route
+          exact
           path="/listar-programas"
-          component={() => 
-          
+          component={() =>
+
             <ProtectedComponent scope="programs:read">
               <ProgramPage />
             </ProtectedComponent>}
@@ -107,33 +117,33 @@ const AppRouter = () => {
         <Route
           exact
           path="/listar-proyectos"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="projects:read">
-            <ProjectPage />
-          </ProtectedComponent>
+              <ProjectPage />
+            </ProtectedComponent>
           }
         />
 
-        <Route exact path="/nuevo-proyecto" component={() => 
-        <ProtectedComponent scope="projects:create">
-        <ProjectForm />
-      </ProtectedComponent>
+        <Route exact path="/nuevo-proyecto" component={() =>
+          <ProtectedComponent scope="projects:create">
+            <ProjectForm />
+          </ProtectedComponent>
         } />
 
         <Route
           exact
           path="/detalles-de-proyecto"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="projects:read">
-            <ProjectDetails />
-          </ProtectedComponent>
+              <ProjectDetails />
+            </ProtectedComponent>
           }
         />
 
         <Route
           exact
           path="/listar-secretarias"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="institutions:read">
               <InstitutionPage />
             </ProtectedComponent>
@@ -143,7 +153,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/nueva-secretaria"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="institutions:create">
               <InstitutionForm />
             </ProtectedComponent>
@@ -153,7 +163,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/editar-secretaria/:institution_id"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="institutions:update">
               <InstitutionForm />
             </ProtectedComponent>
@@ -163,7 +173,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/nueva-secretaria-ejecutiva"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="institutions:create">
               <ExecutiveInstitutionForm />
             </ProtectedComponent>
@@ -173,7 +183,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/estadisticas"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="statistics:read">
               <StatisticsPage />
             </ProtectedComponent>
@@ -187,7 +197,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/nuevo-usuario"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="users:create">
               <UserForm />
             </ProtectedComponent>
@@ -197,7 +207,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/nuevo-rol"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="roles:create">
               <RolesForm />
             </ProtectedComponent>
@@ -207,7 +217,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/listar-roles"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="roles:read">
               <RolesPage />
             </ProtectedComponent>
@@ -217,7 +227,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/roles-scopes"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="roles:update">
               <EditScopes />
             </ProtectedComponent>
@@ -227,7 +237,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/nuevo-modulo"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="modules:create">
               <ModulesForm />
             </ProtectedComponent>
@@ -237,7 +247,7 @@ const AppRouter = () => {
         <Route
           exact
           path="/nuevo-scope"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="scopes:create">
               <ScopeForm />
             </ProtectedComponent>
@@ -247,23 +257,23 @@ const AppRouter = () => {
         <Route
           exact
           path="/mision-vision"
-          component={() => 
+          component={() =>
             <ProtectedComponent scope="institutions:update">
               <MisionAndVisionForm />
             </ProtectedComponent>
           }
-        />  
-        
+        />
+
         <Route
           exact
           path="/mapa"
-          component={() => 
-              <MapPage />
+          component={() =>
+            <MapPage />
           }
         />
 
         <Route exact path="/no-autorizado" component={() => <Unauthorized />} />
-        <Route exact path="* *" component={() => <PageNotFound />} /> 
+        <Route exact path="* *" component={() => <PageNotFound />} />
       </Switch>
     </Suspense>
   );

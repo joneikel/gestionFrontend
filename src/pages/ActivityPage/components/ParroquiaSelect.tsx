@@ -3,11 +3,13 @@ import React from "react";
 import { useParroaquias } from "../../../hooks/useParroquias";
 
 const ParroquiaSelect = ({
+  initial_value,
   municipio_id,
   value,
   onChange,
   disabled
 }: {
+  initial_value?: string;
   municipio_id?: string;
   value?: string;
   onChange?: Function;
@@ -20,7 +22,7 @@ const ParroquiaSelect = ({
   };
 
   return (
-    <Select style={{width: '100%'}} disabled={disabled} onChange={handleChange} loading={loadingParroquias} placeholder="Parroquia">
+    <Select defaultValue={initial_value} style={{width: '100%'}} disabled={disabled} onChange={handleChange} loading={loadingParroquias} placeholder="Parroquia">
       {parroquias.map((parroquias) => (
         <Select.Option value={parroquias.id} key={parroquias.id}>
           {parroquias.name}

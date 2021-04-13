@@ -6,12 +6,14 @@ const ProgramSelect = ({
   institutionId,
   value,
   onChange,
-  disabled
+  disabled,
+  initial_value
 }: {
   institutionId?: string;
   value?: string;
   onChange?: Function;
-  disabled?: boolean
+  disabled?: boolean;
+  initial_value?: string
 }) => {
   const [programs, loadingPrograms] = usePrograms(institutionId);
 
@@ -20,7 +22,14 @@ const ProgramSelect = ({
   };
 
   return (
-    <Select onChange={handleChange} loading={loadingPrograms} disabled={disabled} showSearch filterOption={true} optionFilterProp='label' >
+    <Select
+      defaultValue={ initial_value }
+      onChange={handleChange}
+      loading={loadingPrograms}
+      disabled={disabled}
+      showSearch
+      filterOption={true}
+      optionFilterProp='label' >
       {programs.map((program) => (
         <Select.Option value={program.id} key={program.id} label={program.name} >
           {program.name}

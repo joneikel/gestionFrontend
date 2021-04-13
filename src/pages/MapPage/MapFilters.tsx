@@ -1,4 +1,4 @@
-import { Button, Col, Row, Slider } from "antd";
+import { Button, Col, Row, Select, Slider } from "antd";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { useMap } from "react-leaflet";
 import { getBeginAndEndOfMonths, months, monthsMarks } from "../../helpers";
@@ -50,8 +50,13 @@ const MapFilters = ({
               }
             />
           </Col>
+          <Col span={12}>
+            <GovernorAssistanceFilter onChange={(governor_assitance:string) => setFilters({...filters, governor_assitance})} />
+          </Col>
           <Col span={24}>
-            <TimeRangeFilter onChange={(dateRange) => setFilters({...filters, dateRange })} />
+            <TimeRangeFilter
+              onChange={(dateRange) => setFilters({ ...filters, dateRange })}
+            />
           </Col>
         </Row>
       </div>
@@ -59,13 +64,29 @@ const MapFilters = ({
   );
 };
 
-const TimeRangeFilter = ({onChange}:{onChange: (dateRange: string[]) => void}) => {
+const GovernorAssistanceFilter = ({onChange} : {onChange: Function}) => {
+  return (
+    <>
+      Presencia del gobernador
+      <Select style={{width: '100%'}} onChange={e => onChange(e)}>
+        <Select.Option value={"SI"}>Si</Select.Option>
+        <Select.Option value={"NO"}>No</Select.Option>
+      </Select>
+    </>
+  );
+};
+
+const TimeRangeFilter = ({
+  onChange,
+}: {
+  onChange: (dateRange: string[]) => void;
+}) => {
   return (
     <>
       Rango de tiempo (mensual)
       <Slider
         onChange={(v: [number, number]) => {
-            onChange(getBeginAndEndOfMonths(v));
+          onChange(getBeginAndEndOfMonths(v));
         }}
         marks={monthsMarks}
         tipFormatter={(t) => months[t ? t - 1 : 0]}
@@ -83,7 +104,7 @@ const StatusFilter = ({ onChange }: { onChange: Function }) => {
   return (
     <>
       Estatus:
-      <ProjectStatusSelect onChange={onChange} />
+      <ProjectStatusSelect showAll onChange={onChange} />
     </>
   );
 };
@@ -117,6 +138,7 @@ type MapFilterToggleProps = {
 export type MapFiltersOpts = {
   project_status_id?: string;
   dateRange?: string[];
+  governor_assitance?: string;
 };
 
 export default MapFilters;

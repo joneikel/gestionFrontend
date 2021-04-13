@@ -5,13 +5,14 @@ import { useProjectStatus } from "../../../hooks/useProjectStatus";
 const ProjectStatusSelect = ({
   disabled,
   onChange,
-  value
+  value,
+  showAll,
 }: {
-  value?: string,
-  onChange?: Function,
-  disabled?: boolean
+  value?: string;
+  onChange?: Function;
+  disabled?: boolean;
+  showAll?: boolean;
 }) => {
-
   const [projectStatus, loadingProjectStatus] = useProjectStatus();
   const [_value, setValue] = useState<string | undefined>(value);
 
@@ -24,13 +25,20 @@ const ProjectStatusSelect = ({
     <Select
       value={_value}
       placeholder="Estatus del proyecto"
-      style={{ width: '100%' }}
-      disabled={disabled} onChange={handleChange} loading={loadingProjectStatus}>
+      style={{ width: "100%" }}
+      disabled={disabled}
+      onChange={handleChange}
+      loading={loadingProjectStatus}
+    >
+      {showAll && (
+        <Select.Option value={0} key={"ALL"}>
+          TODOS
+        </Select.Option>
+      )}
       {projectStatus.map((status) => (
         <Select.Option value={status.id} key={status.id}>
           {status.name}
         </Select.Option>
-
       ))}
     </Select>
   );

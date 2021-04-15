@@ -9,6 +9,7 @@ import ActivityCards from "../ActivityPage/components/ActivityCards";
 import { MapFiltersOpts } from "./MapFilters";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
+import MapActivityPopup from "./MapActivityPopup";
 
 const createClusterCustomIcon = function (cluster: any) {
   return L.divIcon({
@@ -63,8 +64,8 @@ const MapActivities = ({
                   })}
                   position={{ lat: act.lat, lng: act.lng }}
                 >
-                  <Popup>
-                    <ActivityCards activity={act} i={i} />
+                  <Popup key={act.id}>
+                    <MapActivityPopup activity={act} />
                   </Popup>
                 </Marker>
               )

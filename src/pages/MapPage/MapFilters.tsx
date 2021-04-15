@@ -69,6 +69,7 @@ const GovernorAssistanceFilter = ({onChange} : {onChange: Function}) => {
     <>
       Presencia del gobernador
       <Select style={{width: '100%'}} onChange={e => onChange(e)}>
+        <Select.Option value={"TODOS"}>TODOS</Select.Option>
         <Select.Option value={"SI"}>Si</Select.Option>
         <Select.Option value={"NO"}>No</Select.Option>
       </Select>

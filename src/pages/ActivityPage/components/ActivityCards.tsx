@@ -1,9 +1,8 @@
 import { Avatar, Button, Card, Tag, Tooltip } from "antd";
 import { EnvironmentTwoTone } from "@ant-design/icons";
-import React from "react";
 import { Activity } from "../../../models";
 import moment from "moment";
-import { downloadFileFromLink, moneyFormatter } from "../../../helpers";
+import { downloadFileFromLink } from "../../../helpers";
 import { PrinterFilled, EditFilled } from "@ant-design/icons";
 import { makeImage } from "../../../hooks/makeImage";
 import { getIconByAreaCode } from "../../../helpers/icons";
@@ -23,7 +22,9 @@ const ActivityCards = ({ activity, i }: { activity: Activity; i: number }) => {
     <Card
       style={{ margin: '15px', width: '300  px' }}
       className="base-card activity-card floating-element"
-      cover={<div className="activity-card-image-div"><img className="activity-card-image" alt="actividad" src={hasImages ? makeImage(activity.images[0]?.id) : logo} /></div>}
+      cover={<div className="activity-card-image-div">
+        <img className="activity-card-image" alt="actividad" src={ hasImages ? makeImage(activity.images[0]?.id) : logo } />
+        </div>}
     >
       <Card.Meta
         title={

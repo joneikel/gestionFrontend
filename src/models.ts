@@ -98,6 +98,7 @@ export type ProjectStatus = {
 };
 
 export type Budget = {
+  budget_source_id?:string;
   id?: string;
   project_id: string;
   value: number;
@@ -120,6 +121,7 @@ export type InvestmentArea = {
 };
 
 export type InvestmentSubArea = {
+  investment_area_id: string;
   id: string;
   name: string;
   investment_area: InvestmentArea;

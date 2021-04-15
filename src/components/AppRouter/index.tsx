@@ -129,6 +129,12 @@ const AppRouter = () => {
             <ProjectForm />
           </ProtectedComponent>
         } />
+        
+        <Route exact path="/editar-proyecto" component={() =>
+          <ProtectedComponent scope="projects:update">
+            <ProjectForm />
+          </ProtectedComponent>
+        } />
 
         <Route
           exact

@@ -12,19 +12,32 @@ import CustomPageHeader from "../../../components/PageHeader";
 import InvestmentSubAreaSelect from "../components/InvestmentSubAreaSelect";
 import ImputMeasurementUnit from "../components/ImputMeasurementUnit";
 import FormItem from "antd/lib/form/FormItem";
-import { Budget } from "../../../models";
+import { Budget, InvestmentSubArea, Project } from "../../../models";
 
 const ProjectForm = () => {
   const axios = useAxios();
   const history = useHistory();
+  const _project: any = history.location.state;//DEFINED WHEN EDITING
+  console.log(_project);
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [parentInstitution, setParentInstitution] = useState<
-    string | undefined
-  >();
-  const [initDate, setInitDate] = useState<moment.Moment | undefined>();
-  const [institution, setInstitution] = useState<string | undefined>();
-  const [investmentArea, setInvestmentArea] = useState<string[] | undefined>();
+
+  const [parentInstitution, setParentInstitution] = useState<string | undefined>(_project?.program.institution?.parent_id);
+
+  const [institution, setInstitution] = useState<string | undefined>(_project?.program.institution_id);
+  const [program, setProgram] = useState<string | undefined>(_project?.program_id);
+
+  const [initDate, setInitDate] = useState<moment.Moment | undefined>(
+    _project ? moment(_project.init_date) : undefined
+  );
+
+  const current_end_date = _project && _project.end_date ? moment(_project.end_date) : undefined;
+  const current_sub_investment_areas = _project?.investment_sub_areas.map((x: InvestmentSubArea) => x.id);
+
+  const [investmentArea, setInvestmentArea] = useState<string[] | undefined>(
+    _project ? Array.from(new Set(_project.investment_sub_areas.map((x: InvestmentSubArea) => x.investment_area_id))) : undefined
+  );
+
   const [isPlanified, setIsPlanified] = useState(1);
 
   const handleSubmit = async (values: any) => {
@@ -40,7 +53,7 @@ const ProjectForm = () => {
       budget.dollar_value = Number(budget.dollar_value.replace("$", "").replace(/\./g, "").replace(/\,/g, "."))
       return budget;
     })
-     
+
 
     console.log(values);
 
@@ -57,11 +70,27 @@ const ProjectForm = () => {
     }
   };
 
-  const [program, setProgram] = useState<string | undefined>();
 
   return (
     <Card title={<CustomPageHeader title="Nuevo proyecto" />} className="floating-element">
-      <Form layout="vertical" onFinish={handleSubmit}>
+      <Form
+        layout="vertical"
+        onFinish={(v) => console.log(v)}
+        initialValues={_project ? {
+          parentInstitution: parentInstitution,
+          institution_id: institution,
+          program_id: program,
+          name: _project.name,
+          description: _project.description,
+          project_status_id: _project.project_status_id,
+          is_planified: _project.is_planified,
+          init_date: initDate && initDate.format("YYYY-MM-DD"),
+          end_date: current_end_date && current_end_date.format("YYY-MM-DD"),
+          investment_areas: investmentArea,
+          investment_sub_areas: current_sub_investment_areas
+
+        } : {}}
+      >
         <Row gutter={10}>
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
@@ -75,7 +104,7 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <InstitutionsSelect onlyParent onChange={setParentInstitution} />
+              <InstitutionsSelect initial_value={parentInstitution} onlyParent onChange={setParentInstitution} />
             </Form.Item>
           </Col>
 
@@ -92,6 +121,7 @@ const ProjectForm = () => {
               ]}
             >
               <InstitutionsSelect
+                initial_value={institution}
                 disabled={!parentInstitution}
                 parentId={parentInstitution}
                 onChange={setInstitution}
@@ -112,6 +142,7 @@ const ProjectForm = () => {
               ]}
             >
               <ProgramSelect
+                initial_value={program}
                 disabled={!institution}
                 institutionId={institution}
                 onChange={setProgram}
@@ -166,7 +197,7 @@ const ProjectForm = () => {
               <ProjectStatusSelect />
             </Form.Item>
           </Col>
-          <Col lg={24} md={24} sm={24} xs={24}>
+          {/* <Col lg={24} md={24} sm={24} xs={24}>
             <FormItem
               hasFeedback
               name="status_observation"
@@ -180,7 +211,7 @@ const ProjectForm = () => {
               <Input.TextArea rows={3} />
 
             </FormItem>
-          </Col>
+          </Col> */}
 
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
@@ -194,13 +225,13 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <Select onChange={(value: number) => setIsPlanified(value)}>
+              <Select defaultValue={_project?.is_planified === true ? 1 : undefined} onChange={(value: number) => setIsPlanified(value)}>
                 <Select.Option value={1}> Si </Select.Option>
                 <Select.Option value={0}> No </Select.Option>
               </Select>
             </Form.Item>
           </Col>
-          {isPlanified === 0 && (
+          {/* {isPlanified === 0 && (
             <Col span={24}>
               <Form.Item
                 hasFeedback
@@ -216,7 +247,7 @@ const ProjectForm = () => {
                 <Input.TextArea rows={3} />
               </Form.Item>
             </Col>
-          )}
+          )} */}
 
           <Col span={24}>
             <Form.Item
@@ -231,7 +262,7 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <InputBudget />
+              <InputBudget initial_budgets={_project?.budgets} />
             </Form.Item>
           </Col>
 
@@ -249,6 +280,7 @@ const ProjectForm = () => {
               ]}
             >
               <InvestmentAreaSelect
+                initial_value={investmentArea}
                 mode="multiple"
                 onChange={setInvestmentArea}
               />
@@ -269,6 +301,7 @@ const ProjectForm = () => {
               ]}
             >
               <InvestmentSubAreaSelect
+                initial_value={current_sub_investment_areas}
                 disabled={!investmentArea}
                 investmentAreaIds={investmentArea}
                 mode="multiple"
@@ -288,7 +321,7 @@ const ProjectForm = () => {
                 },
               ]}
             >
-              <ImputMeasurementUnit />
+              <ImputMeasurementUnit initial_value={_project?.measurement_unit} />
             </Form.Item>
           </Col>
 
@@ -316,11 +349,11 @@ const ProjectForm = () => {
               rules={[
                 {
                   required: false,
-                },{
+                }, {
                   validator: async (_, value) => {
                     let end_date = moment(value);
-                     
-                    if (initDate && initDate?.diff(end_date) < 0 || value === undefined ) {
+
+                    if (initDate && initDate?.diff(end_date) < 0 || value === undefined /* || value === null */) {
                       return Promise.resolve();
                     } else {
                       return Promise.reject('Fecha de culminación no puede ser anterior a la de inicio');

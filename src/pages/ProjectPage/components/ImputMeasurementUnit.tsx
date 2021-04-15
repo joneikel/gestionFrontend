@@ -2,15 +2,22 @@ import React, { useState } from "react";
 import { Form, Button, Space, Input } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import MeasurementUnitSelect from "./MeasurementUnitSelect";
-import { Project } from "../../../models";
+import { MeasurementUnit, Project } from "../../../models";
+import { idText } from "typescript";
 
-const ImputMeasurementUnit = ({ units }: { units?: string[] }) => {
+const ImputMeasurementUnit = ({ initial_value, units }: { initial_value?: MeasurementUnit[], units?: string[] }) => {
 
-  const [proposedGoals, setProposedGoals] = useState<Number[]>([]);
-  console.log(proposedGoals);
+  const [proposedGoals, setProposedGoals] = useState<Number[]>(
+    initial_value ? initial_value.map((x) => x.pivot.proposed_goal) : []);
 
   return (
-    <Form.List name="measurement">
+    <Form.List name="measurement" initialValue={
+      initial_value?.map((x) => ({
+        measurement_unit_id: x.id,
+        proposed_goal: Number(x.pivot.proposed_goal),
+        reached_goal:  x.pivot.reached_goal ? Number(x.pivot.reached_goal) : undefined
+      }))
+    }>
       {(fields, { add, remove }) => (
         <>
           {fields.map((field, i) => (
@@ -26,7 +33,7 @@ const ImputMeasurementUnit = ({ units }: { units?: string[] }) => {
                 fieldKey={[field.fieldKey, "measurement_unit_id"]}
                 rules={[{ required: true, message: "Selecciona unidad" }]}
               >
-                <MeasurementUnitSelect mode={undefined} selectedUnits={units} />
+                <MeasurementUnitSelect initial_value={initial_value ? initial_value[i]?.id : undefined} mode={undefined} selectedUnits={units} />
               </Form.Item>
               <Form.Item
                 hasFeedback
@@ -36,7 +43,7 @@ const ImputMeasurementUnit = ({ units }: { units?: string[] }) => {
                 rules={[{ required: true, message: "Introduzca el valor" }]}
               >
                 <Input
-                  onChange={(e)=> {
+                  onChange={(e) => {
                     let modifiedGoals = proposedGoals;
                     modifiedGoals[i] = Number(e.target.value);
                     setProposedGoals(modifiedGoals);
@@ -49,12 +56,12 @@ const ImputMeasurementUnit = ({ units }: { units?: string[] }) => {
                 {...field}
                 name={[field.name, "reached_goal"]}
                 fieldKey={[field.fieldKey, "reached_goal"]}
-                rules={[{ 
-                  required: false, 
-                  message: "Introduzca el valor" 
-                },{
+                rules={[{
+                  required: false,
+                  message: "Introduzca el valor"
+                }, {
                   validator: async (_, value) => {
-                     value = value ? value : 0; 
+                    value = value ? value : 0;
                     console.log(value);
                     let reached_goal = Number(value);
                     let proposed_goal = Number(proposedGoals[i])

@@ -4,7 +4,7 @@ import { Select } from 'antd';
 import { useInvestmentArea } from '../../../hooks/useInvestmentArea';
 import { InvestmentArea } from '../../../models';
 
-const InvestmentAreaSelect = ({ mode, value, onChange }: { mode: "multiple" | "tags" | undefined, value?: string[], onChange?: Function }) => {
+const InvestmentAreaSelect = ({ mode, value, onChange, initial_value }: { initial_value?: string[], mode: "multiple" | "tags" | undefined, value?: string[], onChange?: Function }) => {
 
     const [investmentAreas, loading] = useInvestmentArea();
     const [area, setArea] = useState<Array<string> | string | undefined>(value)
@@ -16,6 +16,7 @@ const InvestmentAreaSelect = ({ mode, value, onChange }: { mode: "multiple" | "t
 
     return (
         <Select
+            defaultValue={initial_value}
             filterOption={true}
             optionFilterProp='label'
             placeholder="Areas de inversión"
@@ -23,7 +24,7 @@ const InvestmentAreaSelect = ({ mode, value, onChange }: { mode: "multiple" | "t
             value={area}
             mode={mode}
             loading={loading}
-            onChange={(value) => {console.log(value);handleChange(value);}}
+            onChange={(value) => { console.log(value); handleChange(value); }}
         >
             {investmentAreas.map(investmentArea => (
                 <Select.Option

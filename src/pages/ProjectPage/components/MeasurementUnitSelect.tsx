@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Select } from 'antd';
 import { useMeasurementUnit } from '../../../hooks/useMeasurementUnit';
 
-const MeasurementUnitSelect = ({ mode, value, onChange, selectedUnits }: { mode: "multiple" | "tags" | undefined, value?: string, onChange?: Function, selectedUnits?:string[] }) => {
+const MeasurementUnitSelect = ({initial_value, mode, value, onChange, selectedUnits }: { initial_value?:string, mode: "multiple" | "tags" | undefined, value?: string, onChange?: Function, selectedUnits?:string[] }) => {
 
     const [measurementUnit, loading] = useMeasurementUnit();
     const [unit, setUnit] = useState<Array<string> | string | undefined>(value)
@@ -14,6 +14,7 @@ const MeasurementUnitSelect = ({ mode, value, onChange, selectedUnits }: { mode:
 
     return (
         <Select
+            defaultValue={initial_value}
             placeholder="Unidad de medida"
             value={unit}
             mode={mode}

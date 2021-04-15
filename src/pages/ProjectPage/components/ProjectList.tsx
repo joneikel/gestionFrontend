@@ -105,6 +105,9 @@ const ProjectList = ({
           <Button onClick={() => history.push("/detalles-de-proyecto", record)}>
             Detalles
           </Button>
+          <Button onClick={() => history.push("/editar-proyecto", record)}>
+            Editar
+          </Button>
           <Button
             onClick={() =>
               downloadFileFromLink(

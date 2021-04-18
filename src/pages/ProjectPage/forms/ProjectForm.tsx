@@ -75,7 +75,7 @@ const ProjectForm = () => {
     <Card title={<CustomPageHeader title="Nuevo proyecto" />} className="floating-element">
       <Form
         layout="vertical"
-        onFinish={(v) => console.log(v)}
+        onFinish={handleSubmit}
         initialValues={_project ? {
           parentInstitution: parentInstitution,
           institution_id: institution,

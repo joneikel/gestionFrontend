@@ -383,7 +383,7 @@ const ActivityForm = () => {
                   validator: async (_, value) => {
                     let end_date = moment(value);
 
-                    if (initDate && initDate?.diff(end_date) < 0 || value === undefined) {
+                    if (initDate && initDate?.diff(end_date) <= 0 || value === undefined) {
                       return Promise.resolve();
                     } else {
                       return Promise.reject('Fecha de culminación no puede ser anterior a la de inicio');

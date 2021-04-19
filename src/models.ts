@@ -101,9 +101,9 @@ export type Budget = {
   budget_source_id?:string;
   id?: string;
   project_id: string;
-  value: number;
+  value: number|string;
   is_budget_increase: boolean;
-  dollar_value?: number;
+  dollar_value?: number|string;
   petro?: number;
   budget_source: BudgetSource;
 };

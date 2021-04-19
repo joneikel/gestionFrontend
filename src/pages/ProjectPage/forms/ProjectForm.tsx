@@ -42,6 +42,7 @@ const ProjectForm = () => {
 
   const handleSubmit = async (values: any) => {
 
+    console.log(values);
     values.measurement_units = values.measurement.map((x: any) => ({ [x.measurement_unit_id]: { proposed_goal: Number(x.proposed_goal), reached_goal: Number(x.reached_goal) } }));
 
     values.measurement_units = values.measurement_units.reduce((x: any, y: any) => {
@@ -59,12 +60,12 @@ const ProjectForm = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post("project", values);
-      message.success("Proyecto creado.");
+      const response = await axios.post(`project${ _project ? `-update/${_project.id}`: ``}`, values);
+      message.success(`Proyecto ${_project ? "editado" : "creadp" }.`);
       history.push("/listar-proyectos");
       return response;
     } catch (error) {
-      message.error("No se pudo crear el proyecto.");
+      message.error(`No se puedo ${_project ? "editar" : "crear" } el proyecto .`);
     } finally {
       setLoading(false);
     }
@@ -197,21 +198,6 @@ const ProjectForm = () => {
               <ProjectStatusSelect />
             </Form.Item>
           </Col>
-          {/* <Col lg={24} md={24} sm={24} xs={24}>
-            <FormItem
-              hasFeedback
-              name="status_observation"
-              label="Justifique el estatus"
-              rules={[
-                {
-                  required: true,
-                  message: "Justifique el estatus del proyecto"
-                }
-              ]}>
-              <Input.TextArea rows={3} />
-
-            </FormItem>
-          </Col> */}
 
           <Col lg={12} md={12} sm={24} xs={24}>
             <Form.Item
@@ -364,12 +350,28 @@ const ProjectForm = () => {
             >
               <Input type="date" />
             </Form.Item>
+            
           </Col>
+          { _project &&<Col lg={24} md={24} sm={24} xs={24}>
+            <FormItem
+              hasFeedback
+              name="observation"
+              label="Justificación de modificado"
+              rules={[
+                {
+                  required: true,
+                  message: "Justifique porqué este proyecto está siendo modificado"
+                }
+              ]}>
+              <Input.TextArea rows={3} />
+
+            </FormItem>
+          </Col> }
 
           <Col span={24}>
             <Form.Item>
               <Button type="primary" htmlType="submit" loading={loading}>
-                Guardar
+                {_project ? "Editar" :"Guardar"}
               </Button>
             </Form.Item>
           </Col>

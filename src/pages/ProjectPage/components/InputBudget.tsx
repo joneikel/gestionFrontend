@@ -14,8 +14,8 @@ const InputBudget = ({initial_budgets}:{initial_budgets?:Budget[]}) => {
     name="budgets"
     initialValue={
       initial_budgets?.map((x:Budget) => {
-        x.value = Number(x.value);
-        x.dollar_value = Number(x.dollar_value);
+        x.value = Number(x.value).toString();
+        x.dollar_value = Number(x.dollar_value).toString();
         return x;
       })
     }

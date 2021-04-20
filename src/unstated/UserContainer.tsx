@@ -20,6 +20,7 @@ const UserContainer = createContainer(useUser);
 export default UserContainer;
 
 export type User = {
+  id:string;
   name: string;
   access_token: string,
   scopes: useScopeProps[],

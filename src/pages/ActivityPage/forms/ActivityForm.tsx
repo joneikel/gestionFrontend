@@ -1,5 +1,5 @@
 import { Button, Col, Form, Input, Row, Select, message, Progress, Card, Space } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import moment from 'moment';
 import InstitutionsSelect from "../components/InstitutionSelect";
 import MunicipiosSelect from "../components/MunicipioSelect";

@@ -1,11 +1,12 @@
-import { Card, Col, Row, Form, Button, Progress, Input, message, Checkbox } from 'antd';
-import React, { useState } from 'react';
+import { Card, Col, Row, Form, Button, Progress, Input, message, Checkbox, Typography } from 'antd';
+import { useState } from 'react';
 import CustomPageHeader from '../../../components/PageHeader';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import InstitutionsSelect from '../../ActivityPage/components/InstitutionSelect';
 import { useAxios } from '../../../hooks/useAxios';
 import { useHistory } from 'react-router-dom';
 import RoleSelect from '../../ActivityPage/components/RoleSelect';
+import { User } from '../../../unstated/UserContainer';
 
 const UserForm = () => {
 
@@ -14,6 +15,7 @@ const UserForm = () => {
   const [loading, setLoading] = useState<boolean>();
   const [parentInstitution, setParentInstitution] = useState<string | undefined>();
   const [noAplica, setNoAplica] = useState<boolean>(false);
+  const user = history.location.state as User;
 
   const handleSubmit = async (values: any) => {
     setLoading(true);
@@ -21,23 +23,23 @@ const UserForm = () => {
       setLoading(false);
       return message.error("Las contraseñas no coinciden");
     }
-    console.log(values);
+
     try {
-      const response = await axios.post('user', values);
-      message.success("Usuario registrado exitosamente");
-      history.push('/');
+      const response = await user ? axios.patch(`user/${user.id}`, values) : axios.post('user', values);
+      message.success(`Usuario ${user ? "actualizado" : "registrado"} exitosamente`);
+      history.push('/listar-usuarios');
       return response;
     } catch (error) {
       console.log(error);
-      message.error("No se pudo registrar el usuario");
+      message.error(`No se pudo ${user ? "actualizar" : "registrar"} el usuario`);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <Card title={<CustomPageHeader title="Nuevo usuario" />} className="floating-element">
-      <Form layout="vertical" onFinish={handleSubmit}>
+    <Card title={<Typography.Title level={3}>{`${user ? "Editar" : "Nuevo"} usuario`}</Typography.Title>} className="floating-element">
+      <Form layout="vertical" onFinish={handleSubmit} initialValues={user && {...user, role_id: user.role.id, parent_institution: user.institution?.parent_id}}>
         <Row gutter={10}>
 
           <Col lg={12} md={12} sm={24} xs={24}>
@@ -100,8 +102,7 @@ const UserForm = () => {
                 },
               ]}
             >
-              <RoleSelect
-              />
+              <RoleSelect />
             </Form.Item>
           </Col>
 
@@ -112,7 +113,7 @@ const UserForm = () => {
               label="Secreataría ejecutiva"
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Debe seleccionar la secretaria ejecutiva a la que pertence.",
                 },
               ]}
@@ -162,7 +163,7 @@ const UserForm = () => {
               label="Contraseña"
               rules={[
                 {
-                  required: true,
+                  required: !user,
                   message: "Debe escribir la contraseña del usuario.",
                 },
               ]}
@@ -180,7 +181,7 @@ const UserForm = () => {
               label="Confirmación de contraseña"
               rules={[
                 {
-                  required: true,
+                  required: !user,
                   message: "Debe confirmar la contraseña del usuario.",
                 },
               ]}
@@ -196,7 +197,7 @@ const UserForm = () => {
           <Col span={24}>
             <Form.Item>
               <Button type="primary" htmlType="submit" loading={loading} >
-                Registrar
+                {user ? 'Actualizar' : 'Registrar'}
                 </Button>
             </Form.Item>
             {loading && <Progress percent={99.9} type='line' status='active' />}

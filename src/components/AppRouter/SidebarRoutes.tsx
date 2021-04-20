@@ -12,6 +12,7 @@ import {
   UserSwitchOutlined,
   BlockOutlined,
   EyeOutlined,
+  OrderedListOutlined
 } from "@ant-design/icons";
 import { useScopeProps } from '../../hooks/useScope';
 
@@ -129,6 +130,13 @@ export const routes: SidebarItem[] = [
     icon: <UserOutlined />,
     link: "#",
     children: [
+      {
+        scope: "users:read",
+        label: "Listar",
+        icon: <OrderedListOutlined />,
+        link: "/listar-usuarios",
+        children: [],
+      },
       {
         scope: "users:create",
         label: "Nuevo",

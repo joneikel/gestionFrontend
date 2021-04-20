@@ -16,7 +16,7 @@ const RoleSelect = ({
   };
 
   return (
-    <Select onChange={handleChange} loading={loadingRoles} placeholder="Role" >
+    <Select defaultValue={value} onChange={handleChange} loading={loadingRoles} placeholder="Role" >
       {roles.map((role) => (
         <Select.Option value={role.id} key={role.id}>
           {role.name}

@@ -17,6 +17,7 @@ const LoginForm = () => {
     try {
       const response = await axios.post("login", values);
       let loginInformation = {
+        id: response.data.data.id,
         name: response.data.data.name,
         access_token: response.data.token,
         scopes: response.data.data.scopes,

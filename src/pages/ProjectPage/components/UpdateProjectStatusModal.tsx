@@ -4,7 +4,7 @@ import { useAxios } from '../../../hooks/useAxios';
 import { ProjectStatus } from '../../../models';
 import ProjectStatusSelect from './ProjectStatusSelect';
 
-const UpdateProjectStatusModal = ({ project_status, project_id, onChange, authorization }: { project_status: ProjectStatus, project_id: string, onChange: Function, authorization:boolean }) => {
+const UpdateProjectStatusModal = ({ project_status, project_id, onChange, authorization }: { project_status: ProjectStatus, project_id: string, onChange: Function, authorization?:boolean }) => {
 
     const axios = useAxios();
     const [visible, setVisible] = useState<boolean>(false);

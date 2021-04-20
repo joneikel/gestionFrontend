@@ -9,20 +9,26 @@ const ProgramForm = () => {
 
     const axios = useAxios();
     const history = useHistory();
+    const _program : any = history.location.state;
 
-    const [parentInstitution, setParentInstitution] = useState<string | undefined>();
+    const [parentInstitution, setParentInstitution] = useState<string | undefined>(
+        _program?.institution.parent_id
+    );
+
+    const currentInstitution = _program?.institution_id;
+
     const [loading, setLoading] = useState<boolean>(false);
 
     const handleSubmit = async (values: any) => {
         console.log(values);
         setLoading(true);
         try {
-            const response = await axios.post('program', values);
-            message.success("Programa creado.");
+            const response = await axios.post(`program${ _program ? `-update/${_program.id}` : ''}`, values);
+            message.success(`Programa ${ _program ? `actualizado` : 'creado'}`);
             history.push('/listar-programas');
             return response;
         } catch (error) {
-            message.error("No Se puedo crear el programa,");
+            message.error(`No Se puedo ${ _program ? `actualizar` : 'crear'} el programa`);
         } finally {
             setLoading(false);
         }
@@ -30,7 +36,15 @@ const ProgramForm = () => {
 
     return (
         <Card title={<CustomPageHeader title="Nuevo programa" />} className="floating-element">
-            <Form layout="vertical" onFinish={handleSubmit}>
+            <Form 
+            initialValues={_program ? {
+                parent_institution: _program.institution.parent_id,
+                institution_id: _program.institution_id,
+                name: _program.name,
+                description: _program.description
+            } : {}}
+            layout="vertical" 
+            onFinish={handleSubmit}>
                 <Row gutter={10}>
                     <Col lg={12} md={12} sm={24} xs={24}>
                         <Form.Item
@@ -43,7 +57,7 @@ const ProgramForm = () => {
                                     message: "Debes seleccionar secretaría ejecutiva.",
                                 },
                             ]}>
-                            <InstitutionsSelect onlyParent onChange={setParentInstitution} />
+                            <InstitutionsSelect onlyParent initial_value={parentInstitution} onChange={setParentInstitution} />
                         </Form.Item>
                     </Col>
 
@@ -60,6 +74,7 @@ const ProgramForm = () => {
                             ]}
                         >
                             <InstitutionsSelect
+                                initial_value={currentInstitution}
                                 disabled={!parentInstitution}
                                 parentId={parentInstitution}
                                 onChange={(v:any) => console.log(v)}

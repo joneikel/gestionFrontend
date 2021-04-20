@@ -1,8 +1,10 @@
-import { Button, Card, Col, Row } from "antd";
+import { Button, Card, Col, Row, Space } from "antd";
 import { AxiosInstance } from "axios";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import MainTable from "../../components/tables/MainTable";
 import { useAxios } from "../../hooks/useAxios";
+import { useScope } from "../../hooks/useScope";
 import { Institution, Program } from "../../models";
 import UserContainer from "../../unstated/UserContainer";
 import InstitutionsSelect from "../ActivityPage/components/InstitutionSelect";
@@ -10,6 +12,8 @@ import InstitutionsSelect from "../ActivityPage/components/InstitutionSelect";
 const ProgramPage = () => {
 
   const axios = useAxios();
+  const history = useHistory();
+  const update_program_auth = useScope("programs:update");
 
   const { user } = UserContainer.useContainer();
   const isAdmin = user?.role.name === "super_admin" ;
@@ -40,7 +44,19 @@ const ProgramPage = () => {
       dataIndex: "institution",
       key: "institution",
       render: (x: Institution) => <a href="#">{x.name}</a>,
-    },
+    },{
+      title: "Acciones",
+      dataIndex: "id",
+      key: "acciones",
+      align: "center",
+      render: (id: string, record: Program) => (
+        <Space>
+          { update_program_auth && <Button onClick={() => history.push("/editar-programa", record)}>
+            Editar
+          </Button> }
+        </Space>
+      ),
+    }
   ];
 
   return (

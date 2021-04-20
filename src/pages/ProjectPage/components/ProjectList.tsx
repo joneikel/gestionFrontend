@@ -6,6 +6,7 @@ import { ProjectFilters } from "..";
 import MainTable from "../../../components/tables/MainTable";
 import { downloadFileFromLink, moneyFormatter } from "../../../helpers";
 import { baseURL, useAxios } from "../../../hooks/useAxios";
+import { useScope } from "../../../hooks/useScope";
 import { Budget, Project, ProjectStatus } from "../../../models";
 import UserContainer from "../../../unstated/UserContainer";
 import UpdateProjectStatusModal from "./UpdateProjectStatusModal";
@@ -19,8 +20,7 @@ const ProjectList = ({
   const history = useHistory();
   const [projects, setProjects] = useState<Project[]>([]);
   const axios = useAxios();
-  const { user } = UserContainer.useContainer();
-  const updateAuthorization = user?.scopes.includes("projects:update") ? true : false;
+  const updateAuthorization = useScope("projects:update");
 
   useEffect(() => {
     setLoading(true);
@@ -105,9 +105,9 @@ const ProjectList = ({
           <Button onClick={() => history.push("/detalles-de-proyecto", record)}>
             Detalles
           </Button>
-          <Button onClick={() => history.push("/editar-proyecto", record)}>
+          {updateAuthorization && <Button onClick={() => history.push("/editar-proyecto", record)}>
             Editar
-          </Button> 
+          </Button>} 
           <Button
             onClick={() =>
               downloadFileFromLink(

@@ -112,7 +112,17 @@ const AppRouter = () => {
             </ProtectedComponent>}
         />
 
-        <Route exact path="/nuevo-programa" component={() => <ProgramForm />} />
+        <Route exact path="/nuevo-programa" component={() =>
+          <ProtectedComponent scope="programs:create">
+            <ProgramForm />
+          </ProtectedComponent>
+        } />
+
+        <Route exact path="/editar-programa" component={() =>
+          <ProtectedComponent scope="programs:update">
+            <ProgramForm />
+          </ProtectedComponent>
+        } />
 
         <Route
           exact
@@ -129,7 +139,7 @@ const AppRouter = () => {
             <ProjectForm />
           </ProtectedComponent>
         } />
-        
+
         <Route exact path="/editar-proyecto" component={() =>
           <ProtectedComponent scope="projects:update">
             <ProjectForm />

@@ -8,7 +8,7 @@ const HeaderApp = () => {
   return (
     <Header className="header">
       <div style={{display: 'flex'}}>
-        <h1 className="app-title">titulo</h1>
+        <h1 className="app-title">SICSA</h1>
         <span style={{flex: '1 1'}}></span>
         <div style={{lineHeight: '56px'}}>
           <Dropdown placement="bottomCenter" overlay={<AvatarItems />}>

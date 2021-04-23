@@ -55,13 +55,10 @@ const ProjectForm = () => {
       return budget;
     })
 
-
-    console.log(values);
-
     setLoading(true);
     try {
       const response = await axios.post(`project${ _project ? `-update/${_project.id}`: ``}`, values);
-      message.success(`Proyecto ${_project ? "editado" : "creadp" }.`);
+      message.success(`Proyecto ${_project ? "editado" : "creado" }.`);
       history.push("/listar-proyectos");
       return response;
     } catch (error) {

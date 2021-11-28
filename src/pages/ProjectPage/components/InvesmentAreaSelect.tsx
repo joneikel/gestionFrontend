@@ -1,12 +1,17 @@
-import { AxiosInstance } from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Select } from 'antd';
 import { useInvestmentArea } from '../../../hooks/useInvestmentArea';
-import { InvestmentArea } from '../../../models';
 
-const InvestmentAreaSelect = ({ mode, value, onChange, initial_value }: { initial_value?: string[], mode: "multiple" | "tags" | undefined, value?: string[], onChange?: Function }) => {
+const InvestmentAreaSelect = ({ mode, value, onChange, initial_value, vertice }:
+    {
+        vertice?: string;
+        initial_value?: string[],
+        mode: "multiple" | "tags" | undefined,
+        value?: string[],
+        onChange?: Function
+    }) => {
 
-    const [investmentAreas, loading] = useInvestmentArea();
+    const [investmentAreas, loading] = useInvestmentArea(vertice);
     const [area, setArea] = useState<Array<string> | string | undefined>(value)
 
     const handleChange = (value: any) => {

@@ -1,27 +1,28 @@
+import { Map } from "leaflet";
 import { useEffect, useState } from "react";
 import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import { useAxios } from "../../../hooks/useAxios";
-import { Institution } from "../../../models";
 import { defaultMarker, makeMarker } from "../../MapPage";
 import { guaricoJSON } from "../../MapPage/guarico_municipios";
 import MapLabels from "../../MapPage/MapLabels";
+import { GeoEncodingSearch } from "../../ProjectPage/components/GeoEncodingSearch";
 
-const CoordinatesInput = ({ activity_institution, value, onChange }: { activity_institution?:string; value?: { lat: number, lng: number }, onChange?: Function }) => {
+const CoordinatesInput = ({ activity_institution, value, onChange }: { activity_institution?: string; value?: { lat: number, lng: number }, onChange?: Function }) => {
 
     const axios = useAxios();
-    const [ activityMarker, setActivityMarker] = useState<any>();
-
-    const getInstitutionIcon = async (children_institution:string) => {
+    const [activityMarker, setActivityMarker] = useState<any>();
+    const [map, setMap] = useState<Map | null>(null);
+    const getInstitutionIcon = async (children_institution: string) => {
         let parent_institution = await axios.get(`/institution/${children_institution}`);
-        const icon = makeMarker({institution: parent_institution.data});
+        const icon = makeMarker({ institution: parent_institution.data });
         return icon;
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         activity_institution && getInstitutionIcon(activity_institution)
-        .then((icon)=> setActivityMarker(icon))
-        .catch((e) => console.log(e))
-    },[activity_institution])
+            .then((icon) => setActivityMarker(icon))
+            .catch((e) => console.log(e))
+    }, [activity_institution])
 
 
 
@@ -29,7 +30,7 @@ const CoordinatesInput = ({ activity_institution, value, onChange }: { activity_
     const EventHandler = () => {
         const map = useMapEvents({
             click: (e) => {
-                const {lat, lng} = e.latlng;
+                const { lat, lng } = e.latlng;
                 onChange && onChange({ lat, lng });
                 setValue({ lat, lng });
             },
@@ -39,10 +40,18 @@ const CoordinatesInput = ({ activity_institution, value, onChange }: { activity_
         })
         return null
     }
+
     return (
         <>
             <h4>Lat: {_value.lat}, Lng: {_value.lng}</h4>
+            <GeoEncodingSearch onSelect={r => {
+                const latlng = { lat: Number.parseFloat(r.lat), lng: Number.parseFloat(r.lng) };
+                setValue(latlng);
+                onChange && onChange(latlng);
+                map?.setView(latlng, 15);
+            }} />
             <MapContainer
+                whenCreated={setMap}
                 doubleClickZoom={false}
                 minZoom={8}
                 style={{ width: "100%", height: "100%" }}
@@ -52,9 +61,9 @@ const CoordinatesInput = ({ activity_institution, value, onChange }: { activity_
             >
                 <TileLayer url="https://mt2.google.com/vt/lyrs=r&x={x}&y={y}&z={z}" />
                 <EventHandler />
-                <Marker icon={ activityMarker ? activityMarker : defaultMarker} position={_value} />
+                <Marker icon={activityMarker ? activityMarker : defaultMarker} position={_value} />
                 <MapLabels features={guaricoJSON.features} />
-{/*                 <GeoJSONGuarico lineColor="black" lineWeight={1} opacity={0.05} geoJson={guaricoJSON} /> */}
+                {/*                 <GeoJSONGuarico lineColor="black" lineWeight={1} opacity={0.05} geoJson={guaricoJSON} /> */}
             </MapContainer>
         </>
     );

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Menu } from 'antd';
 import { SidebarItem } from '../../components/AppRouter/SidebarRoutes';
 import { uuidv4 } from '../../helpers';

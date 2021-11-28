@@ -12,7 +12,8 @@ import {
   UserSwitchOutlined,
   BlockOutlined,
   EyeOutlined,
-  OrderedListOutlined
+  OrderedListOutlined,
+  BulbOutlined
 } from "@ant-design/icons";
 import { useScopeProps } from '../../hooks/useScope';
 
@@ -41,7 +42,7 @@ export const routes: SidebarItem[] = [
         icon: <PlusCircleOutlined />,
         link: "/nueva-secretaria",
         children: [],
-      },{
+      }, {
         scope: "institutions:update",
         label: "Misión y visión",
         icon: <PlusCircleOutlined />,
@@ -49,7 +50,36 @@ export const routes: SidebarItem[] = [
         children: [],
       }
     ],
-  }, {
+  },
+  {
+    scope: "programs:menu",
+    label: "Propuestas",
+    icon: <BulbOutlined />,
+    link: "#",
+    children: [
+      {
+        scope: "programs:read",
+        label: "Nuevo Presentante",
+        icon: <CalendarOutlined />,
+        link: "/nuevo-presentante",
+        children: [],
+      },
+      {
+        scope: "programs:read",
+        label: "Listar",
+        icon: <CalendarOutlined />,
+        link: "/listar-propuestas",
+        children: [],
+      }, {
+        scope: "programs:create",
+        label: "Nuevo",
+        icon: <PlusCircleOutlined />,
+        link: "/nueva-propuesta",
+        children: [],
+      }
+    ],
+  },
+  {
     scope: "programs:menu",
     label: "Programas",
     icon: <CalendarOutlined />,
@@ -69,7 +99,8 @@ export const routes: SidebarItem[] = [
         children: [],
       }
     ],
-  }, {
+  },
+  {
     scope: "projects:menu",
     label: "Proyectos",
     icon: <FolderOutlined />,

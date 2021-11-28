@@ -7,6 +7,8 @@ import PageNotFound from "../errors/not-found";
 import ProtectedComponent from "./ProtectedComponent";
 import EditScopes from "../../pages/RolesPage/forms/EditScopes";
 import MapPage from "../../pages/MapPage";
+import { CreateProposalForm } from "../../pages/ProposalPage/forms/create-proposal";
+import { CreatePresenterForm } from "../../pages/ProposalPage/forms/create-presenter";
 
 const ActivityForm = React.lazy(
   () => import("../../pages/ActivityPage/forms/ActivityForm")
@@ -277,6 +279,26 @@ const AppRouter = () => {
           component={() => (
             <ProtectedComponent scope="institutions:update">
               <MisionAndVisionForm />
+            </ProtectedComponent>
+          )}
+        />
+
+        <Route
+          exact
+          path="/nueva-propuesta"
+          component={() => (
+            <ProtectedComponent scope="institutions:update">
+              <CreateProposalForm />
+            </ProtectedComponent>
+          )}
+        />
+
+        <Route
+          exact
+          path="/nuevo-presentante"
+          component={() => (
+            <ProtectedComponent scope="institutions:update">
+              <CreatePresenterForm />
             </ProtectedComponent>
           )}
         />

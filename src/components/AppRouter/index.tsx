@@ -9,6 +9,7 @@ import EditScopes from "../../pages/RolesPage/forms/EditScopes";
 import MapPage from "../../pages/MapPage";
 import { CreateProposalForm } from "../../pages/ProposalPage/forms/create-proposal";
 import { CreatePresenterForm } from "../../pages/ProposalPage/forms/create-presenter";
+import ProposalPage from "../../pages/ProposalPage";
 
 const ActivityForm = React.lazy(
   () => import("../../pages/ActivityPage/forms/ActivityForm")
@@ -289,6 +290,16 @@ const AppRouter = () => {
           component={() => (
             <ProtectedComponent scope="institutions:update">
               <CreateProposalForm />
+            </ProtectedComponent>
+          )}
+        />
+
+        <Route
+          exact
+          path="/listar-propuestas"
+          component={() => (
+            <ProtectedComponent scope="institutions:update">
+              <ProposalPage />
             </ProtectedComponent>
           )}
         />

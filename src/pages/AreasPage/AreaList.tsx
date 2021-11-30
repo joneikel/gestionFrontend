@@ -13,6 +13,7 @@ export function AreaList() {
     const axios = useAxios();
     const [areas, setAreas] = useState<InvestmentArea[]>([]);
     const [loading, setLoading] = useState(false);
+    const [reload, setReload] = useState(0);
 
     useEffect(() => {
         axios
@@ -24,7 +25,7 @@ export function AreaList() {
             .then((resp) => setAreas(resp.data))
             .catch((e) => console.log(e))
             .finally(() => setLoading(false));
-    }, [])
+    }, [reload])
 
     const cols = [
         {
@@ -37,16 +38,16 @@ export function AreaList() {
             title: 'Sub-areas',
             key: 'sub-areas',
             render: (investment_sub_areas?: InvestmentSubArea[]) => {
-                return <Row>
+                return <Row gutter={[15, 15]}>
                     {investment_sub_areas?.map(x => (
-                        <Col span={6}>
+                        <Col span={8}>
                             <ButtonGroup size="small">
                                 <Button type="ghost">{x.name}</Button>
                                 <Popconfirm
                                     onConfirm={() => {
                                         deleteSubArea(x.id, axios)
-                                            .then((area) => {
-                                                console.log(area);
+                                            .then(() => {
+                                                setReload(reload + 1);
                                             })
                                             .catch((err) => message.error(err.message));
                                     }}
@@ -74,12 +75,14 @@ export function AreaList() {
                     <Col span={8}>
                         <SubAreaFormModal
                             onSaved={(area) => {
-                                console.log(area);
+                                setReload(reload + 1);
                             }}
                             areaId={id} area={record} />
                     </Col>
                     <Col span={8}>
-                        <AreaFormModal area={record} />
+                        <AreaFormModal area={record} onSaved={(a) => {
+                            setAreas(areas.map(x => x.id === a.id ? a : x));
+                        }} />
                     </Col>
                 </Row>
             }
@@ -87,6 +90,7 @@ export function AreaList() {
     ];
 
     return <>
+        <AreaFormModal onSaved={area => setAreas(areas => areas.map(x => x.id === area.id ? area : x))} />
         <Table columns={cols} dataSource={areas} />
     </>
 }

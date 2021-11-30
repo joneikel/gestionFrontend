@@ -3,38 +3,41 @@ import { AxiosInstance } from 'axios';
 import { useState } from 'react';
 import { useAxios } from '../../hooks/useAxios';
 import { InvestmentArea } from '../../models';
-import InvestmentSubAreaSelect from '../ProjectPage/components/InvestmentSubAreaSelect';
 import { VerticeSelect } from '../ProjectPage/components/VerticeSelect';
 
-export function AreaFormModal({ area }: { area?: InvestmentArea }) {
+export function AreaFormModal({ area, onSaved }: { onSaved: (area: InvestmentArea) => void, area?: InvestmentArea }) {
 
     const [open, setOpen] = useState(false);
 
     return <>
         <Button onClick={() => setOpen(true)} type="primary">{area ? "Editar" : "Agregar"} Area</Button>
         <Modal
+            footer={null}
             destroyOnClose
             title={`${area ? "Editar" : "Agregar"} Area`}
             visible={open}
             closable onCancel={() => setOpen(false)}>
-            <AreaForm area={area} />
+            <AreaForm onSaved={x => {
+                onSaved(x);
+                setOpen(false);
+            }} area={area} />
         </Modal>
     </>
 }
 
-function AreaForm({ area }: { area?: InvestmentArea }) {
+function AreaForm({ area, onSaved }: { area?: InvestmentArea, onSaved: (area: InvestmentArea) => void }) {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const axios = useAxios()
     const handleSubmit = (values: any) => {
         if (area) {
             updateArea(values, area.id, axios)
-                .then((data) => console.log(data))
+                .then((data) => onSaved(data))
                 .catch(e => message.error(e.message))
                 .finally(() => setLoading(false));
         } else {
             createArea(values, axios)
-                .then((data) => console.log(data))
+                .then((data) => onSaved(data))
                 .catch(e => e.message)
                 .finally(() => setLoading(false));
         }
@@ -52,12 +55,12 @@ function AreaForm({ area }: { area?: InvestmentArea }) {
             <Input />
         </Form.Item>
         <Form.Item>
-            <Button type="primary" htmlType="submit">Guardar</Button>
+            <Button loading={loading} type="primary" htmlType="submit">Guardar</Button>
         </Form.Item>
     </Form>
 }
 
-async function updateArea(area: InvestmentArea, id: string, _axios: AxiosInstance) {
+async function updateArea(area: InvestmentArea, id: string, _axios: AxiosInstance): Promise<InvestmentArea> {
     try {
         const resp = await _axios.patch(`/investment-area/${id}`, area);
         return resp.data;
@@ -66,7 +69,7 @@ async function updateArea(area: InvestmentArea, id: string, _axios: AxiosInstanc
     }
 }
 
-async function createArea(area: InvestmentArea, _axios: AxiosInstance) {
+async function createArea(area: InvestmentArea, _axios: AxiosInstance): Promise<InvestmentArea> {
     try {
         const resp = await _axios.post(`/investment_area`, area);
         return resp.data;

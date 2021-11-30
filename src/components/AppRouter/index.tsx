@@ -10,6 +10,7 @@ import MapPage from "../../pages/MapPage";
 import { CreateProposalForm } from "../../pages/ProposalPage/forms/create-proposal";
 import { CreatePresenterForm } from "../../pages/ProposalPage/forms/create-presenter";
 import ProposalPage from "../../pages/ProposalPage";
+import AreasPage from "../../pages/AreasPage";
 
 const ActivityForm = React.lazy(
   () => import("../../pages/ActivityPage/forms/ActivityForm")
@@ -313,6 +314,17 @@ const AppRouter = () => {
             </ProtectedComponent>
           )}
         />
+
+        <Route
+          exact
+          path="/areas"
+          component={() => (
+            <ProtectedComponent scope="institutions:update">
+              <AreasPage />
+            </ProtectedComponent>
+          )}
+        />
+
 
         <Route exact path="/mapa" component={() => <MapPage />} />
 

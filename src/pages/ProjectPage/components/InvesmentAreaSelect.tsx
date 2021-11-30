@@ -11,7 +11,7 @@ const InvestmentAreaSelect = ({ mode, value, onChange, initial_value, vertice }:
         onChange?: Function
     }) => {
 
-    const [investmentAreas, loading] = useInvestmentArea(vertice);
+    const [investmentAreas, loading] = useInvestmentArea({ vertice_id: vertice });
     const [area, setArea] = useState<Array<string> | string | undefined>(value)
 
     const handleChange = (value: any) => {

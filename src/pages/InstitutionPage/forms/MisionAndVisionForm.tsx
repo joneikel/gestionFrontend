@@ -1,8 +1,6 @@
-import { Button, Card, Col, Form, Input, message, Modal, Row } from "antd";
-import React, { useEffect, useState } from "react";
-import InstitutionsSelect from "../../ActivityPage/components/InstitutionSelect";
+import { Button, Card, Col, Form, Input, message, Row } from "antd";
+import { useState } from "react";
 import { useAxios } from "../../../hooks/useAxios";
-import { useParams } from "react-router-dom";
 import { AxiosInstance } from "axios";
 import { useForm } from "antd/lib/form/Form";
 import UserContainer from "../../../unstated/UserContainer";
@@ -14,8 +12,6 @@ const MisionAndVisionForm = () => {
     const userState = UserContainer.useContainer();
     const [visible, setVisible] = useState(false);
 
-
-
     const [loading, setLoading] = useState<boolean>(false);
 
     const handleSubmit = async (values: any) => {
@@ -26,8 +22,8 @@ const MisionAndVisionForm = () => {
             const response = await updateInstitution(values, userState.user?.institution.id ? userState.user.institution.id : '', axios);
             message.success('Misión y visión Actualizadas');
             return response;
-        } catch (error) {
-            message.error(error);
+        } catch (error:any) {
+            message.error("Error");
         } finally {
             setLoading(false);
         }

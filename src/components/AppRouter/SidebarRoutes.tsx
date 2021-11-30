@@ -59,6 +59,13 @@ export const routes: SidebarItem[] = [
     children: [
       {
         scope: "programs:read",
+        label: "Areas y subareas",
+        icon: <CalendarOutlined />,
+        link: "/areas",
+        children: [],
+      },
+      {
+        scope: "programs:read",
         label: "Nuevo Presentante",
         icon: <CalendarOutlined />,
         link: "/nuevo-presentante",
